@@ -1,7 +1,10 @@
+---
+title: A comparison of models for polygon data, point data or both for malaria mapping
+---
 
-# A comparison of models for polygon data, point data or both for malaria mapping
 
-Which journal? r stat soc applied?
+
+Which journal? r stat soc applied? Comp bio was original plan? But probably not good enough.
 
 1. Use Madagascar + Indonesia as case studies.
 2. do cross validation on both pr and polygon. no good way to combine so just have to report both in every case
