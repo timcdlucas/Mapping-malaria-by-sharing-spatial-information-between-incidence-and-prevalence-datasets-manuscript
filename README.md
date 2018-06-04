@@ -1,3 +1,4 @@
+
 ---
 title: A comparison of models for polygon data, point data or both for malaria mapping
 ---
@@ -14,3 +15,5 @@ title: A comparison of models for polygon data, point data or both for malaria m
 8. compare Pearson and spearman. maybe Mae as well.
 9. how to handle spatial priors? try 3 values and pick best CV in each case.
 10. gives country X model X CV X metric X prevalence vs incidence.
+
+
