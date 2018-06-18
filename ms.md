@@ -1,5 +1,6 @@
 ---
 title: A comparison of models for polygon data, point data or both for malaria mapping
+
 ---
 
 
@@ -91,29 +92,29 @@ The full, joint likelihood model is described as follows.
 Values at the aggregate, polygon level are given the subscript $a$ while pixel or point level below are indexed with $b$.
 The polygon case count data, $y_j$ is given a Poisson likelihood
 
-$$ y_a \sim \operatorname{Pois}(i_a\text{pop_a})$$
+$$y_a \sim \operatorname{Pois}(i_a\mathrm{pop_a})$$
 
-where $i_a$ is the estimated polygon incidence rate and $\text{pop_a}$ is the observed polygon population-at-risk.
+where $i_a$ is the estimated polygon incidence rate and $\mathrm{pop_a}$ is the observed polygon population-at-risk.
 
 The point-level prevalence data, $z_b$, is given a binomial likelihood
 
-$$ z_b \sim \operatorname{Binom}(p_b, n_b) $$
+$$z_b \sim \operatorname{Binom}(p_b, n_b) $$
 
 where $p_b$ is the estimated prevalence and $n_b$ is the observed survey sample size. 
 
 The two quantities are linked to each other and to the predictor variables by the following system of equations.
 
-$$i_a = \frac{ \sum(i_b \text{pop}_b)}{\sum  \text{pop}_b} $$
+$$i_a = \frac{ \sum(i_b \mathrm{pop}_b)}{\sum  \mathrm{pop}_b} $$
 
-$$i_b = \text{p2i}(p_b)$$
+$$i_b = \mathrm{p2i}(p_b)$$
 
-where $\text{p2i}$ is a from a model that was published previously. [@cameron2015defining]
+where $\mathrm{p2i}$ is a from a model that was published previously. [@cameron2015defining]
 After fitting, this model defines a function
-$$\text{p2i}: f\left(P\right) = 2.616P - 3.596P^2 + 1.594P^3$$.
+$$\mathrm{p2i}: f\left(P\right) = 2.616P - 3.596P^2 + 1.594P^3$$.
 
 The linear predictor of the model, $\eta_b$, is related to prevalence by a typical logit link function.
 
-$$ p_b = \operatorname{logit}^{-1}(\eta_b)$$
+$$p_b = \operatorname{logit}^{-1}(\eta_b)$$
 
 The linear predictor is composed of an intercept, covariates and a spatial, Gaussian random field.
 
