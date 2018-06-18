@@ -1,0 +1,1 @@
+# Create spatial cross validation folds
