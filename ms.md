@@ -1,6 +1,6 @@
 ---
 title: A comparison of models for polygon data, point data or both for malaria mapping
-
+bibliography: Malaria.bib
 ---
 
 
