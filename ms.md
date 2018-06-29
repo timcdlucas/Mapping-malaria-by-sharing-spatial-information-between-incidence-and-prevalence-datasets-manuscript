@@ -26,6 +26,7 @@ figure 2. predicted prevalence and incidence maps. but how with CV? all data X m
 figure 3. accuracy summary.
 Dodge by model. facet by prevelance incidence and county. symbol metric. colour by cv type. points for individual CV, line for mean? but how to distinguish CV type line?
 
+figure 4 predicted Vs observed. facet by country and prev inc. colour by cv?
 
 intro
 -----
@@ -40,7 +41,7 @@ we need new sources of data.
 
 
 however surveillance data is sometimes high quality in these areas
-pixel level maps from aggregates data is difficult.
+pixel level maps from aggregates data is difficult (sturrock, inla, Leon, others)
 not much information for covariates 
 sturrock used two.
 undeveloped area of statistics but see Leon.
@@ -77,6 +78,17 @@ full model
 
 
 ### Malaria data
+
+We used two data sources that reflect malaria burden; point prevalence surveys and polygon-level, aggregated incidence data.
+We selected Madagascar and Indonesia as case examples as they have both good surveillance data and good country wide surveys from approximately the same time.
+Given the available data we chose to focus our analysis on 2012-2015 for Indonesia and 2013-2014 for Madagascar.
+
+### Prevalence survey data
+
+The prevalence survey data were extracted from the MAP prevalence survey database [@].
+As the prevalence surveys cover different are ranges they were standardisePars using the model from [@].
+
+### Polygon incidence data
 
 
 ### Population data
@@ -146,20 +158,17 @@ Given this setup, we get predictions of prevalence and incidence simultaneously 
 ### experiments
 
 To compare the three models we used two cross validation schemes. 
-In the first, the combined data set of prevalence and incidence data is split into five cross validation folds stratified by data type.
+In the first, the combined data set of prevalence and incidence data was split into five cross-validation folds stratified by data type.
 This reflects real world data where we sometimes have incidence data but no prevalence data and visa versa.
-Secondly, the incidence data is split into five spatial cross validation folds.
-Then, any prevalence data within the hold our incidence polygons is also withheld.
-This scheme is testing the models' ability to predict into new areas with now information from the spatial random field.
+In the second validation scheme the incidence data was split into five spatial cross-validation folds (see Figure~\ref{fig:data}b).
+Then, any prevalence data within the hold out incidence polygons was also withheld.
+This scheme is testing the models' ability to predict into new areas with no information from the spatial random field.
 
 In both cases we examined performance metrics for both the withheld prevalence data and the withheld incidence data.
-Our main performance metric is Pearson's correlation.
-However, we also consider Spearman's correlation.
-If a model performs poorly only because the prevalence-incidence relationship is poorly estimated, it's Spearman's correlation should still be good.
-
-  cross validation 1
-  Cross validation 2
-  metrics
+As there is no good way of combining predictive error from both types of data into one performance metric, we considered performance separately throughout.
+Our main performance metric was Pearson's correlation.
+However, we also considered Spearman's correlation.
+If the prevalence-incidence relationship is poorly estimated, this will strongly affect the Pearson's correlation while the Spearman's correlation will be relatively robust to this source of poor model performance.
 
 
 results

@@ -1,4 +1,7 @@
 
 *.pdf
-
-
+*.log
+*.out
+*.aux
+figures/*
+plos-latex-template/*
