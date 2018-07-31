@@ -178,13 +178,12 @@
 % Title must be 250 characters or less.
 \begin{flushleft}
 {\Large
-\textbf\newline{A comparison of models for polygon data, point data or both for malaria mapping} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+\textbf\newline{Joint modelling of aggregated incidence data and point prevalence surveys for malaria mapping} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
 }
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
 \\
-Tim C.D. Lucas*\textsuperscript{1},
-et al\textsuperscript{1},
+Tim C.D. Lucas*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguyen\textsuperscript{1}, Susan Rumisha \textsuperscript{1}, Ewan Cameron\textsuperscript{1}, Pete Gething\textsuperscript{1} and Dan Weiss\textsuperscript{1},
 \\
 \bigskip
 \textbf{1} BDI, Oxford
@@ -214,7 +213,9 @@ sometimes little data
 traditional prevalence mapping won't work
 we need new sources of data.
 
-
+Despite major reductions in incidence over the last fifteen years, malaria still causes millions of deaths and loads of DALYs annually \cite{gbd2016}.
+Elimination of malaria, country-by-county has become a central goal in the global malaria strategy \cite{wmr2016}.
+Elimination of malaria requires high resolution maps of malaria risk, in low prevalence areas in order to optimise interventions and minimise costs \cite{pete_elim_paper}.
 
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step. 
@@ -236,28 +237,46 @@ we need new sources of data.
 \section*{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-malaria is bad but decreasing
-moving to strategy of elimination country by country
-elimination requires maps of low prevalence areas
-but maps in low prevalence areas are difficult
-sometimes little data
-traditional prevalence mapping won't work
-we need new sources of data.
+Global malaria incidence has decreased dramatically over the last 20 years \cite{gbd2017}.
+This has been accompanied by a strategic shift towards aiming for elimination in low burden countries \cite{wmr?}.
+Accurate, high-resolution maps of malaria risk are vital in these countries in the elimination and pre-elimination phases \cite{Gething map op-ed?}.
+However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite {Gething op-ed, sturrock}.
+In low burden areas, very large sample sizes are needed before a prevalence survey is informative.
+Furthermore, large, countrywide surveys of prevalence, such as DHS or MIS, are rare in low burden countries due to costs and percieved low utility \cite{dunno}.
+We therefore need new data sources and associated statistical methods.
 
+Routine surveillance data, of disease case counts, is becoming more widely available and of better quality.
+This data is commonly aggregated, reporting disease case counts that occurred within a certain geographic region defined by a polygon.
+This type of data is more sensitive than prevalence surveys in low transmission areas as three entire health system is being used to passively monitor disease risk.
+Routine surveillance is also often timely, with reports being released annually or monthly, while large prevalence surveys are performed on a more decadely time scale.
+However, the unstructured nature of the data collection means that dealing with biases and data gaps is an ongoing research priority \cite{battlets, cibulski}.
 
-however surveillance data is sometimes high quality in these areas
-pixel level maps from aggregates data is difficult (sturrock, inla, Leon, others)
-not much information for covariates 
+%however surveillance data is sometimes high quality in these areas
+%pixel level maps from aggregates data is difficult (sturrock, inla, Leon, others)
+%not much information for covariates 
 sturrock used two.
-undeveloped area of statistics but see Leon.
+%undeveloped area of statistics but see Leon.
 
-Ideal situation is to combine data
+Furthermore, using aggregated data to estimate malaria risk for high resolution maps presents further modelling difficulties \cite{sturrock, inla, Leon, others}.
+The aggregated nature of the data means that each data point does not necessarily contain much information, especially if the case counts are aggregated over a large or heterogenous area.
+For example, \cite{sturrock} use only two covariates do to the lack of information in their data.
+
+A model that could combine point surveys and aggregated surveillance has great potential if it could leverage the strengths of both aggregated surveillance data and point survey data.
+One major barrier to this modelling approved us that these two data sources are on different scales: point surveys are a measurement of prevalence $\[0, 1\]$ while routine surveillance measures incidence $\[0, \infty\]$.
+One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \cite{cameron2015}.
+
+%Ideal situation is to combine data
 benefits of both
-but data are on different scales
-Ewan says there's a relationship.
+%but data are on different scales
+%Ewan says there's a relationship.
 
-here we compared 3 models, point only, polygon only and joint models
-we use Madagascar and Indonesia as case studies as they have good surveillance data and good pr data.
+Here we formulate a joint model that combines aggregated surveillance data and point prevalence surveys of \emph{Plasmodium falciparum}.
+We compare the joint model to models fitted with only one type of data.
+As case studies we use three countries with good routine surveillance data as well as good coverage of prevalence point surveys.
+
+
+%here we compared 3 models, point only, polygon only and joint models
+%we use Madagascar and Indonesia as case studies as they have good %surveillance data and good pr data.
 we find that...
 
 
@@ -274,8 +293,8 @@ Given the available data we chose to focus our analysis on 2012-2015 for Indones
 
 \subsection*{Prevalence survey data}
 
-The prevalence survey data were extracted from the MAP prevalence survey database [@].
-As the prevalence surveys cover different are ranges they were standardised using the model from [@].
+The prevalence survey data were extracted from the MAP prevalence survey database \cite{}.
+As the prevalence surveys cover different are ranges they were standardised using the model from \cite{}.
 
 \subsection*{Polygon incidence data}
 
@@ -284,6 +303,10 @@ As the prevalence surveys cover different are ranges they were standardised usin
 
 \subsection*{Covariate data}
 
+We considered an initial suite of environmental and anthropological covariates, at a resolution of approximately $5 \times 5$ kilometres that included land surface temperature annual mean and standard deviation, enhanced vegetation index, mosquito temperature suitability index, elevation, tassel cap brightness, tassel cap wetness, accessibility to cities, night lights and proportion of urban land cover.
+Elevation, land surface temperature standard deviation, accessibility to cities and night lights were all log transformed to reduce skewness.
+After preliminary analyses, tassel cap brightness and urban land cover were removed as they were highly correlated with other variables.
+The covariates are standardised to have a mean of zero and a standard deviation of one.
 
 \subsection*{The model}
 
@@ -317,31 +340,31 @@ The linear predictor of the model, $\eta_b$, is related to prevalence by a typic
 
 $$p_b = \operatorname{logit}^{-1}(\eta_b)$$
 
-The linear predictor is composed of an intercept, covariates and a spatial, Gaussian random field.
 
-$$\eta_b = \beta_0 + \beta X  + u(s, \tau, \kappa)$$
+The form of the link function means we get predictions of prevalence and incidence simultaneously whether we used both data types or just one.
+The linear predictor is composed of an intercept, covariates a spatial, Gaussian random field two iid random effects.
 
-The spatial effect $u(s, \tau, \kappa)$ has a Mat\'ern covariance function and two hyper parameters. blah.
+$$\eta_b = \beta_0 + \beta X  + u(s, \rho, \sigma_u) + v_j(\sigma_v) + w_i(\sigma_w)$$
 
-Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \tau$ and $\kappa$.
+The Gaussian spatial effect $u(s, \tau, \kappa)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range (behind which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
+The first iid random effect, $v_j \sim \operatorname{Norm}(0, \sigma_v)$,  is grouped by polygon, with all pixels and point surveys within polygon $j$ being grouped together.
+This random effect models both missing covariates and extra-Poisson sampling error. 
+The second iid random effect, $w_i \sim \operatorname{Norm}(0, \sigma_w)$, is applied to each point survey.
+This effect models extra-binomial sampling noise.
+As such, this random effect is not included in the predicted uncertainty in the incidence or prevalence layers.
+However, it is included in predictions of out-of-sample point surveys.
 
-We set
+Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
+We assign $\rho$ and $\sigma_u$ a joint penalised complexity prior \ref{notSimpson} such that $P(\rho < 3) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
+We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected, so we set this prior such that the girls could explain most of the range of the data.
 
-$$\log(\tau)\sim \operatorname{ Norm}(2, 6)$$
+We assign \rho$ and $\sigma_u$ penalised complexity priors as well such that $P(\sigma_v > 0.05) = 0.00001$ and $P(\sigma_w > 0.05) = 0.00001$. 
+The former is based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for three case counts \ref{cibulskis}.
+We found that an iid effect with a standard deviation of 0.05 would be able to account for the discrepancy.
 
-which corresponds to a mean nominal range $r = \frac{\tau}{\sqrt{2}}$ of one fifth of the range of the study area.
-
-We set
-$$\log(\kappa)\sim \operatorname{ Norm}(2, 6)$$
-
-for some reason.
-Finally, we set regularising priors on the regression coefficients
-
-$$\beta_i \sim \operatorname{ Norm}(0, \sigma)$$
-
-where we try the values for $\sigma$, 0.2, 1 and 2.
-
-Given this setup, we get predictions of prevalence and incidence simultaneously whether we used both data types or just one.
+Finally, we set regularising priors on the regression coefficients $\beta_i \sim \operatorname{ Norm}(0, 0.04)$. 
+Given the standardised covariates, a regression coefficient from the 95\% IQR of this distribution, and an intercept of 3, I've covariate would be able to predict prevalences between 0.004 and 0.27. 
+This prior encodes our belief that the full range of malaria transmission can not be explained by a single covariate and our desire to regularised our model.
 
 
 \subsection*{Experiments}
@@ -349,9 +372,33 @@ Given this setup, we get predictions of prevalence and incidence simultaneously 
 To compare the three models we used two cross validation schemes. 
 In the first, the combined data set of prevalence and incidence data was split into five cross-validation folds stratified by data type.
 This reflects real world data where we sometimes have incidence data but no prevalence data and visa versa.
-In the second validation scheme the incidence data was split into five spatial cross-validation folds (see Figure~\ref{fig:data}b).
-Then, any prevalence data within the hold out incidence polygons was also withheld.
-This scheme is testing the models' ability to predict into new areas with no information from the spatial random field.
+Thus this cross-validation scheme can be seen as asking whether aggregated incidence data provides a viable or preferable alternative to using just prevalence data as in previous modelling efforts \cite{bhatt2016nature}.
+
+%figure 1.cross validation. %%columns country. rows: CV  Indonesia and Senegal only.
+
+\begin{figure}[!h]
+% to be removed before submission
+\centering
+\begin{minipage}{0.45\textwidth} \centering 
+\includegraphics[width = 0.9\textwidth]{figures/idn_cv_random.png} \caption{Indonesia random crossvalidation} 
+\end{minipage}
+
+
+\begin{minipage}{0.45\textwidth} \centering 
+\includegraphics[width = 0.9\textwidth]{figures/idn_cv_spatial.png} \caption{Indonesia random crossvalidation} 
+\end{minipage}
+
+\caption{{\bf Input incidence and prevalence data and predicted incidence maps. } The incidence and prevalence data (left) and (spatially) out-of-sample predictions (right) for Indonesia (top) and Senagal (bottom).}
+\label{fig1}
+\end{figure}
+
+
+
+
+
+In the second validation scheme the data was split into five spatial cross-validation folds (see Figure~\ref{fig:data}b).
+The data was divided by combining the point locations and the centroids of the polygons and performing k means clustering.
+This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
 
 In both cases we examined performance metrics for both the withheld prevalence data and the withheld incidence data.
 As there is no good way of combining predictive error from both types of data into one performance metric, we considered performance separately throughout.
@@ -365,34 +412,71 @@ If the prevalence-incidence relationship is poorly estimated, this will strongly
 
 % Results and Discussion can be combined.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Results}
+\section*{Results and Discussion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{figure}[!h]
-% to be removed before submission
-\includegraphics[width = 0.9\textwidth]{figures/mdg_points_and_polygons.png}
-\caption{{\bf Madagascar polygon data and predictions from the combined model.}
-Figure caption text here, please use this space for the figure panel descriptions instead of using subfigure commands. A: Lorem ipsum dolor sit amet. B: Consectetur adipiscing elit.}
-\label{fig1}
-\end{figure}
 
 
+%figure 2. data and predicted incidence maps. Indonesia and Senegal only. spatial CV only.
 
+%figure 3 predicted Vs observed. colour by %country facet by prev inc and cv scheme? best model only.
 
 \begin{figure}[!h]
 % to be removed before submission
 \includegraphics[width = 0.9\textwidth]{figures/pred_obs_map.png}
-\caption{{\bf Indonesia polygon data and predictions from the combined model.}
-Figure caption text here, please use this space for the figure panel descriptions instead of using subfigure commands. A: Lorem ipsum dolor sit amet. B: Consectetur adipiscing elit.}
-\label{fig1}
+\caption{{\bf Input incidence and prevalence data and predicted incidence maps. } The incidence and prevalence data (left) and (spatially) out-of-sample predictions (right) for Indonesia (top) and Senagal (bottom).}
+\label{predobsmap}
 \end{figure}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Discussion}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+
+\begin{table}[!ht]
+\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+\centering
+\caption{
+{\bf Summary of out-of-sample accuracy.}}
+\begin{tabular}{l|l|l|l|l}
+\hline
+{\bf Holdout data} & {\bf Metric} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+\thickhline \\
+\multirow{6}{Incidence} & \multirow{3}{Pearson} & Indonesia & 0.1 &. 0.2 & {\bf 0.3}\\
+                   & Madagascar & 0.1 &. 0.2 & {\bf 0.3}\\
+                   & Senagal & 0.1 &. 0.2 & {\bf 0.3}\\
+                                          & \multirow{3}{Spearman} & Indonesia & 0.1 &. 0.2 & {\bf 0.3}\\
+                   & Madagascar & 0.1 &. 0.2 & {\bf 0.3}\\
+                   & Senagal & 0.1 &. 0.2 & {\bf 0.3}\\
+\multirow{6}{Prevalence} & \multirow{3}{Pearson} & Indonesia & 0.1 &. 0.2 & {\bf 0.3}\\
+                   & Madagascar & 0.1 &. 0.2 & {\bf 0.3}\\
+                   & Senagal & 0.1 &. 0.2 & {\bf 0.3}\\
+                                         & \multirow{3}{Spearman} & Indonesia & 0.1 &. 0.2 & {\bf 0.3}\\
+                   & Madagascar & 0.1 &. 0.2 & {\bf 0.3}\\
+                   & Senagal & 0.1 &. 0.2 & {\bf 0.3}\\
+\end{tabular}
+\begin{flushleft}
+Correlation (Spearman's and Pearson's) of predicted incidence rate and prevalence against out-of-sample observed data for three countries.
+\end{flushleft}
+\label{table1}
+\end{adjustwidth}
+\end{table}
+
+
+
+
+
+\begin{figure}[!h]
+% to be removed before submission
+\includegraphics[width = 0.9\textwidth]{figures/joint_idn_cv_log_results}
+\caption{{\bf Observed-predicted plots for cross-validated data.}
+Error bars include uncertainty of the fitted parameters and from sampling error.
+100 realisations of the predictions were calculated taking a draw of all parameters from the posterior and the iid random effect $v_j$ and then sampling from the assumed sampling models (binomial and Poisson) each time.
+The 90\% quantiles were them taken and plotted as error bars.
+}
+\label{predobsscatter}
+\end{figure}
 
 
 
