@@ -106,6 +106,9 @@
 % array package and thick rules for tables
 \usepackage{array}
 
+% multirow for multiple row tables. 
+\usepackage{multirow}
+
 % create "+" rule type for thick vertical lines
 \newcolumntype{+}{!{\vrule width 2pt}}
 
@@ -262,7 +265,7 @@ The aggregated nature of the data means that each data point does not necessaril
 For example, \cite{sturrock} use only two covariates do to the lack of information in their data.
 
 A model that could combine point surveys and aggregated surveillance has great potential if it could leverage the strengths of both aggregated surveillance data and point survey data.
-One major barrier to this modelling approved us that these two data sources are on different scales: point surveys are a measurement of prevalence $\[0, 1\]$ while routine surveillance measures incidence $\[0, \infty\]$.
+One major barrier to this modelling approved us that these two data sources are on different scales: point surveys are a measurement of prevalence $\lbrack 0, 1\rbrack$ while routine surveillance measures incidence $\lbrack 0, \infty\rbrack$.
 One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \cite{cameron2015}.
 
 %Ideal situation is to combine data
@@ -358,7 +361,7 @@ Finally, we complete the model by setting priors on the parameters $\beta_0, \be
 We assign $\rho$ and $\sigma_u$ a joint penalised complexity prior \ref{notSimpson} such that $P(\rho < 3) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
 We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected, so we set this prior such that the girls could explain most of the range of the data.
 
-We assign \rho$ and $\sigma_u$ penalised complexity priors as well such that $P(\sigma_v > 0.05) = 0.00001$ and $P(\sigma_w > 0.05) = 0.00001$. 
+We assign $\rho$ and $\sigma_u$ penalised complexity priors as well such that $P(\sigma_v > 0.05) = 0.00001$ and $P(\sigma_w > 0.05) = 0.00001$. 
 The former is based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for three case counts \ref{cibulskis}.
 We found that an iid effect with a standard deviation of 0.05 would be able to account for the discrepancy.
 
@@ -439,22 +442,22 @@ If the prevalence-incidence relationship is poorly estimated, this will strongly
 \centering
 \caption{
 {\bf Summary of out-of-sample accuracy.}}
-\begin{tabular}{l|l|l|l|l}
+\begin{tabular}{llllll}
 \hline
 {\bf Holdout data} & {\bf Metric} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
-\thickhline \\
-\multirow{6}{Incidence} & \multirow{3}{Pearson} & Indonesia & 0.1 &. 0.2 & {\bf 0.3}\\
-                   & Madagascar & 0.1 &. 0.2 & {\bf 0.3}\\
-                   & Senagal & 0.1 &. 0.2 & {\bf 0.3}\\
-                                          & \multirow{3}{Spearman} & Indonesia & 0.1 &. 0.2 & {\bf 0.3}\\
-                   & Madagascar & 0.1 &. 0.2 & {\bf 0.3}\\
-                   & Senagal & 0.1 &. 0.2 & {\bf 0.3}\\
-\multirow{6}{Prevalence} & \multirow{3}{Pearson} & Indonesia & 0.1 &. 0.2 & {\bf 0.3}\\
-                   & Madagascar & 0.1 &. 0.2 & {\bf 0.3}\\
-                   & Senagal & 0.1 &. 0.2 & {\bf 0.3}\\
-                                         & \multirow{3}{Spearman} & Indonesia & 0.1 &. 0.2 & {\bf 0.3}\\
-                   & Madagascar & 0.1 &. 0.2 & {\bf 0.3}\\
-                   & Senagal & 0.1 &. 0.2 & {\bf 0.3}\\
+\thickhline 
+Incidence & Pearson & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{1mm}\\ 
+          & Spearman & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{3mm} \\ 
+Prevalence & Pearson & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{1mm}\\ 
+            & Spearman & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\\
 \end{tabular}
 \begin{flushleft}
 Correlation (Spearman's and Pearson's) of predicted incidence rate and prevalence against out-of-sample observed data for three countries.
