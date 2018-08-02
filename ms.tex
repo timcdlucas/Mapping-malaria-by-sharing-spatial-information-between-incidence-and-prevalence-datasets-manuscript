@@ -335,7 +335,7 @@ $$i_a = \frac{ \sum(i_b \mathrm{pop}_b)}{\sum  \mathrm{pop}_b} $$
 
 $$i_b = \mathrm{p2i}(p_b)$$
 
-where $\mathrm{p2i}$ is a from a model that was published previously. \cite{cameron2015defining}
+where $\mathrm{p2i}$ is from a model that was published previously. \cite{cameron2015defining}
 After fitting, this model defines a function
 $$\mathrm{p2i}: f\left(P\right) = 2.616P - 3.596P^2 + 1.594P^3$$.
 
@@ -349,21 +349,25 @@ The linear predictor is composed of an intercept, covariates a spatial, Gaussian
 
 $$\eta_b = \beta_0 + \beta X  + u(s, \rho, \sigma_u) + v_j(\sigma_v) + w_i(\sigma_w)$$
 
-The Gaussian spatial effect $u(s, \tau, \kappa)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range (behind which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
-The first iid random effect, $v_j \sim \operatorname{Norm}(0, \sigma_v)$,  is grouped by polygon, with all pixels and point surveys within polygon $j$ being grouped together.
-This random effect models both missing covariates and extra-Poisson sampling error. 
-The second iid random effect, $w_i \sim \operatorname{Norm}(0, \sigma_w)$, is applied to each point survey.
-This effect models extra-binomial sampling noise.
+The Gaussian spatial effect $u(s, \rho, \sigma_u)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range (beyond which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
+The first iid random effect, $v_j \sim \operatorname{Norm}(0, \sigma_v)$,  was grouped by polygon, with all pixels and point surveys within polygon $j$ being grouped together.
+This random effect modelled both missing covariates and extra-Poisson sampling error. 
+The second iid random effect, $w_i \sim \operatorname{Norm}(0, \sigma_w)$, was applied to each point survey.
+This effect modelled extra-binomial sampling noise.
 As such, this random effect is not included in the predicted uncertainty in the incidence or prevalence layers.
 However, it is included in predictions of out-of-sample point surveys.
 
 Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
-We assign $\rho$ and $\sigma_u$ a joint penalised complexity prior \ref{notSimpson} such that $P(\rho < 3) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
-We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected, so we set this prior such that the girls could explain most of the range of the data.
+We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \ref{notSimpson} such that $P(\rho < 3) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
+We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected, so we set this prior such that the randome field could explain most of the range of the data.
 
-We assign $\rho$ and $\sigma_u$ penalised complexity priors as well such that $P(\sigma_v > 0.05) = 0.00001$ and $P(\sigma_w > 0.05) = 0.00001$. 
-The former is based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for three case counts \ref{cibulskis}.
-We found that an iid effect with a standard deviation of 0.05 would be able to account for the discrepancy.
+We assigned $\sigma_v$ a penalised complexity prior such that $P(\sigma_v > 0.05) = 0.0000001$
+This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for three case counts \ref{cibulskis}.
+We found that an iid effect with a standard deviation of 0.05 would be able to account for the discrepancy between the assumed Poisson error and the independently derived error.
+We assigned $\sigma_w$ a penalised complexity prior such that $P(\sigma_w > 0.3) = 0.0000001$. 
+This was chosen by finding the maximum difference in prevalence between survey points (with a sample size greater than 500) within the same raster pixel.
+The differences between points within the same pixel can only be accounted for by the binomial error and this iid effect.
+Given that the error on a prevalence estimate with sample size greater than 500 is quite small, the iid effect needs to be able to explain this difference.
 
 Finally, we set regularising priors on the regression coefficients $\beta_i \sim \operatorname{ Norm}(0, 0.04)$. 
 Given the standardised covariates, a regression coefficient from the 95\% IQR of this distribution, and an intercept of 3, I've covariate would be able to predict prevalences between 0.004 and 0.27. 
@@ -383,12 +387,10 @@ Thus this cross-validation scheme can be seen as asking whether aggregated incid
 % to be removed before submission
 \centering
 \begin{minipage}{0.45\textwidth} \centering 
-\includegraphics[width = 0.9\textwidth]{figures/idn_cv_random.png} \caption{Indonesia random crossvalidation} 
+\includegraphics[width = 0.9\textwidth]{figures/idn_cv_random.png} %\caption{Indonesia random crossvalidation} 
 \end{minipage}
-
-
 \begin{minipage}{0.45\textwidth} \centering 
-\includegraphics[width = 0.9\textwidth]{figures/idn_cv_spatial.png} \caption{Indonesia random crossvalidation} 
+\includegraphics[width = 0.9\textwidth]{figures/idn_cv_spatial.png} %\caption{Indonesia spatial crossvalidation} 
 \end{minipage}
 
 \caption{{\bf Input incidence and prevalence data and predicted incidence maps. } The incidence and prevalence data (left) and (spatially) out-of-sample predictions (right) for Indonesia (top) and Senagal (bottom).}
@@ -441,7 +443,7 @@ If the prevalence-incidence relationship is poorly estimated, this will strongly
 \begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
 \centering
 \caption{
-{\bf Summary of out-of-sample accuracy.}}
+{\bf Summary of out-of-sample accuracy for random crossvalidation experiment.}}
 \begin{tabular}{llllll}
 \hline
 {\bf Holdout data} & {\bf Metric} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
@@ -461,6 +463,38 @@ Prevalence & Pearson & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
 \end{tabular}
 \begin{flushleft}
 Correlation (Spearman's and Pearson's) of predicted incidence rate and prevalence against out-of-sample observed data for three countries.
+The data were split randomly into 10 groups stratified by data type (incidence polygon and prevalence points).
+\end{flushleft}
+\label{table1}
+\end{adjustwidth}
+\end{table}
+
+
+\begin{table}[!ht]
+\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+\centering
+\caption{
+{\bf Summary of out-of-sample accuracy for spatial crossvalidation experiment.}}
+\begin{tabular}{llllll}
+\hline
+{\bf Holdout data} & {\bf Metric} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+\thickhline 
+Incidence & Pearson & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{1mm}\\ 
+          & Spearman & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{3mm} \\ 
+Prevalence & Pearson & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{1mm}\\ 
+            & Spearman & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
+                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\\
+\end{tabular}
+\begin{flushleft}
+Correlation (Spearman's and Pearson's) of predicted incidence rate and prevalence against out-of-sample observed data for three countries.
+The data were split spatiall into 5 groups.
 \end{flushleft}
 \label{table1}
 \end{adjustwidth}
