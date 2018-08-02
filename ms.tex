@@ -216,9 +216,9 @@ sometimes little data
 traditional prevalence mapping won't work
 we need new sources of data.
 
-Despite major reductions in incidence over the last fifteen years, malaria still causes millions of deaths and loads of DALYs annually \cite{gbd2016}.
-Elimination of malaria, country-by-county has become a central goal in the global malaria strategy \cite{wmr2016}.
-Elimination of malaria requires high resolution maps of malaria risk, in low prevalence areas in order to optimise interventions and minimise costs \cite{pete_elim_paper}.
+Despite major reductions in incidence over the last fifteen years, malaria still causes millions of deaths and loads of DALYs annually \cite{abajobir2017global}.
+Elimination of malaria, country-by-county has become a central goal in the global malaria strategy \cite{world2016world}.
+Elimination of malaria requires high resolution maps of malaria risk, in low prevalence areas in order to optimise interventions and minimise costs \cite{sturrock2016mapping}.
 
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step. 
@@ -240,10 +240,10 @@ we need new sources of data.
 \section*{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Global malaria incidence has decreased dramatically over the last 20 years \cite{gbd2017}.
-This has been accompanied by a strategic shift towards aiming for elimination in low burden countries \cite{wmr?}.
-Accurate, high-resolution maps of malaria risk are vital in these countries in the elimination and pre-elimination phases \cite{Gething map op-ed?}.
-However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite {Gething op-ed, sturrock}.
+Global malaria incidence has decreased dramatically over the last 20 years \cite{abajobir2017global}.
+This has been accompanied by a strategic shift towards aiming for elimination in low burden countries \cite{world2016world}.
+Accurate, high-resolution maps of malaria risk are vital in these countries in the elimination and pre-elimination phases \cite{sturrock2016mapping}.
+However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite {sturrock2016mapping, sturrock2014fine}.
 In low burden areas, very large sample sizes are needed before a prevalence survey is informative.
 Furthermore, large, countrywide surveys of prevalence, such as DHS or MIS, are rare in low burden countries due to costs and percieved low utility \cite{dunno}.
 We therefore need new data sources and associated statistical methods.
@@ -252,21 +252,21 @@ Routine surveillance data, of disease case counts, is becoming more widely avail
 This data is commonly aggregated, reporting disease case counts that occurred within a certain geographic region defined by a polygon.
 This type of data is more sensitive than prevalence surveys in low transmission areas as three entire health system is being used to passively monitor disease risk.
 Routine surveillance is also often timely, with reports being released annually or monthly, while large prevalence surveys are performed on a more decadely time scale.
-However, the unstructured nature of the data collection means that dealing with biases and data gaps is an ongoing research priority \cite{battlets, cibulski}.
+However, the unstructured nature of the data collection means that dealing with biases and data gaps is an ongoing research priority \cite{battle2016treatment, cibulskis2011worldwide}.
 
 %however surveillance data is sometimes high quality in these areas
-%pixel level maps from aggregates data is difficult (sturrock, inla, Leon, others)
+%pixel level maps from aggregates data is difficult (sturrock2014fine, wilson2017pointless, law2018variational, others)
 %not much information for covariates 
 sturrock used two.
 %undeveloped area of statistics but see Leon.
 
-Furthermore, using aggregated data to estimate malaria risk for high resolution maps presents further modelling difficulties \cite{sturrock, inla, Leon, others}.
+Furthermore, using aggregated data to estimate malaria risk for high resolution maps presents further modelling difficulties \cite{sturrock2014fine, wilson2017pointless, law2018variational, others}.
 The aggregated nature of the data means that each data point does not necessarily contain much information, especially if the case counts are aggregated over a large or heterogenous area.
-For example, \cite{sturrock} use only two covariates do to the lack of information in their data.
+For example, \cite{sturrock2014fine} use only two covariates do to the lack of information in their data.
 
 A model that could combine point surveys and aggregated surveillance has great potential if it could leverage the strengths of both aggregated surveillance data and point survey data.
 One major barrier to this modelling approved us that these two data sources are on different scales: point surveys are a measurement of prevalence $\lbrack 0, 1\rbrack$ while routine surveillance measures incidence $\lbrack 0, \infty\rbrack$.
-One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \cite{cameron2015}.
+One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \cite{cameron2015defining}.
 
 %Ideal situation is to combine data
 benefits of both
@@ -296,8 +296,8 @@ Given the available data we chose to focus our analysis on 2012-2015 for Indones
 
 \subsection*{Prevalence survey data}
 
-The prevalence survey data were extracted from the MAP prevalence survey database \cite{}.
-As the prevalence surveys cover different are ranges they were standardised using the model from \cite{}.
+The prevalence survey data were extracted from the MAP prevalence survey database \cite{bhatt2015effect}.
+As the prevalence surveys cover different age ranges they were standardised using the model from \cite{smith2007standardizing}.
 
 \subsection*{Polygon incidence data}
 
@@ -337,7 +337,7 @@ $$i_b = \mathrm{p2i}(p_b)$$
 
 where $\mathrm{p2i}$ is from a model that was published previously. \cite{cameron2015defining}
 After fitting, this model defines a function
-$$\mathrm{p2i}: f\left(P\right) = 2.616P - 3.596P^2 + 1.594P^3$$.
+$$\mathrm{p2i}: f\left(P\right) = 2.616P - 3.596P^2 + 1.594P^3.$$
 
 The linear predictor of the model, $\eta_b$, is related to prevalence by a typical logit link function.
 
@@ -379,7 +379,7 @@ This prior encodes our belief that the full range of malaria transmission can no
 To compare the three models we used two cross validation schemes. 
 In the first, the combined data set of prevalence and incidence data was split into five cross-validation folds stratified by data type.
 This reflects real world data where we sometimes have incidence data but no prevalence data and visa versa.
-Thus this cross-validation scheme can be seen as asking whether aggregated incidence data provides a viable or preferable alternative to using just prevalence data as in previous modelling efforts \cite{bhatt2016nature}.
+Thus this cross-validation scheme can be seen as asking whether aggregated incidence data provides a viable or preferable alternative to using just prevalence data as in previous modelling efforts \cite{bhatt2015effect}.
 
 %figure 1.cross validation. %%columns country. rows: CV  Indonesia and Senegal only.
 
