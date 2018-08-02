@@ -299,10 +299,14 @@ Given the available data we chose to focus our analysis on 2012-2015 for Indones
 The prevalence survey data were extracted from the MAP prevalence survey database \cite{bhatt2015effect}.
 As the prevalence surveys cover different age ranges they were standardised using the model from \cite{smith2007standardizing}.
 
+
 \subsection*{Polygon incidence data}
 
 
 \subsection*{Population data}
+
+Raster surfaces of population for the years 2005, 2010 and 2015, were created using a hybrid of data from GPWv4 \cite{gpw4} and WorldPop \cite{tatem2017worldpop}, with the latter taking priority for those pixels where both had population data. 
+Final population rasters were created by linear interpolation of the surrounding five-yearly rasters
 
 \subsection*{Covariate data}
 
