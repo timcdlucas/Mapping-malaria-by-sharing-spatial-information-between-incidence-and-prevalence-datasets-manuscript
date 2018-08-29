@@ -263,11 +263,15 @@ However, the unstructured nature of the data collection means that dealing with 
 %undeveloped area of statistics but see Leon.
 
 Furthermore, using aggregated data to estimate malaria risk for high resolution maps presents further modelling difficulties \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
-The aggregated nature of the data means that each data point does not necessarily contain much information, especially if the case counts are aggregated over a large or heterogenous area.
-For example, Sturrock \emph{et al.} use only two covariates due to the lack of information in their data \cite{sturrock2014fine}.
+The aggregated of cases over space means that the data may be relatively uninformative, especially if the case counts are aggregated over a large or heterogenous area.
+For example, Sturrock \emph{et al.} used only two covariates in their model \cite{sturrock2014fine}.
+These models are also simply an underrepresented class of models in the statistical literature and statistical software.
+Wilson \emph{et al.} \cite{wilson2017pointless} use an approximation to represent a downscaling model as a convolution matrix within R-INLA \cite{INLA} but more generally, downscaling models are not available in popular software packages and must be programmed explicitely.
 
 A model that could combine point surveys and aggregated surveillance has great potential if it could leverage the strengths of both aggregated surveillance data and point survey data.
-One major barrier to this modelling approach us that these two data sources are on different scales: point surveys are a measurement of prevalence $\lbrack 0, 1\rbrack$ while routine surveillance measures incidence $\lbrack 0, \infty\rbrack$.
+Joint modelling of the two data types has the potential to increase statistical power for learning relationships between malaria risk and covariates.
+Furthermore, using two complimentary datasets potentially allows better spatial coverage. 
+One major barrier to this modelling approach is that these two data sources are on different scales: point surveys are a measurement of prevalence in the range $\lbrack 0, 1\rbrack$ while routine surveillance measures incidence in the range $\lbrack 0, \infty\rbrack$.
 One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \cite{cameron2015defining}.
 
 %Ideal situation is to combine data
@@ -275,9 +279,11 @@ One approach to combining these datasets is to use a seperately estimated model 
 %but data are on different scales
 %Ewan says there's a relationship.
 
-Here we formulate a joint model that combines aggregated surveillance data and point prevalence surveys of \emph{Plasmodium falciparum}.
-We compare the joint model to models fitted with only one type of data.
-As case studies we use three countries with good routine surveillance data as well as good coverage of prevalence point surveys.
+Here we formulate a joint model that combines aggregated surveillance data and point prevalence-surveys of \emph{Plasmodium falciparum}.
+The model has seperate likelihood functions for the two data types.
+We relate the two malariometric measures by using a previously estimated relationship within the model \cite{cameron2015defining}.
+We compare the joint model to two benchmark models, a prevalence-survey only model and an aggregated-incidence disaggregation model similar to previous models \cite{sturrock2014fine, wilson2017pointless}.
+As case studies we use data from Indonesia, Senegal and Madagascar as these countries have both good routine surveillance data and good coverage of prevalence point surveys.
 
 
 %here we compared 3 models, point only, polygon only and joint models
