@@ -240,32 +240,34 @@ we need new sources of data.
 \section*{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Global malaria incidence has decreased dramatically over the last 20 years \cite{abajobir2017global}.
-This has been accompanied by a strategic shift towards aiming for elimination in low burden countries \cite{world2016world}.
-Accurate, high-resolution maps of malaria risk are vital in these countries in the elimination and pre-elimination phases \cite{sturrock2016mapping}.
-However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite {sturrock2016mapping, sturrock2014fine}.
+Global malaria incidence has decreased dramatically over the last 20 years \cite{abajobir2017global, bhatt2015effect}.
+This has been accompanied by a strategic shift towards aiming for elimination in low burden countries \cite{world2016world, newby2016path}.
+Accurate, high-resolution maps of malaria risk are vital in these countries in the elimination and pre-elimination phases \cite{sturrock2016mapping, cohen2017mapping}.
+However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence \cite{gething2011new, bhatt2017improved, gething2012long} using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite {sturrock2016mapping, sturrock2014fine}.
 In low burden areas, very large sample sizes are needed before a prevalence survey is informative.
-Furthermore, large, countrywide surveys of prevalence, such as DHS or MIS, are rare in low burden countries due to costs and percieved low utility \cite{dunno}.
+Furthermore, large, countrywide surveys of prevalence, such as DHS or MIS, are rare in low burden countries due to costs and percieved low utility \cite{dhs}.
 We therefore need new data sources and associated statistical methods.
 
-Routine surveillance data, of disease case counts, is becoming more widely available and of better quality.
+%cohen2017mapping Different metrics are useful for different things. Most maps use prevalence. Govts do use maps.
+
+Routine surveillance data, of disease case counts, is becoming more widely available and of better quality \cite{sturrock2016mapping, ohrt2015information}.
 This data is commonly aggregated, reporting disease case counts that occurred within a certain geographic region defined by a polygon.
-This type of data is more sensitive than prevalence surveys in low transmission areas as three entire health system is being used to passively monitor disease risk.
+This type of data is more sensitive than prevalence surveys in low transmission areas as the entire health system is being used to passively monitor disease risk.
 Routine surveillance is also often timely, with reports being released annually or monthly, while large prevalence surveys are performed on a more decadely time scale.
 However, the unstructured nature of the data collection means that dealing with biases and data gaps is an ongoing research priority \cite{battle2016treatment, cibulskis2011worldwide}.
 
 %however surveillance data is sometimes high quality in these areas
 %pixel level maps from aggregates data is difficult (sturrock2014fine, wilson2017pointless, law2018variational, others)
 %not much information for covariates 
-sturrock used two.
+%sturrock used two.
 %undeveloped area of statistics but see Leon.
 
-Furthermore, using aggregated data to estimate malaria risk for high resolution maps presents further modelling difficulties \cite{sturrock2014fine, wilson2017pointless, law2018variational, others}.
+Furthermore, using aggregated data to estimate malaria risk for high resolution maps presents further modelling difficulties \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
 The aggregated nature of the data means that each data point does not necessarily contain much information, especially if the case counts are aggregated over a large or heterogenous area.
-For example, \cite{sturrock2014fine} use only two covariates do to the lack of information in their data.
+For example, Sturrock \emph{et al.} use only two covariates due to the lack of information in their data \cite{sturrock2014fine}.
 
 A model that could combine point surveys and aggregated surveillance has great potential if it could leverage the strengths of both aggregated surveillance data and point survey data.
-One major barrier to this modelling approved us that these two data sources are on different scales: point surveys are a measurement of prevalence $\lbrack 0, 1\rbrack$ while routine surveillance measures incidence $\lbrack 0, \infty\rbrack$.
+One major barrier to this modelling approach us that these two data sources are on different scales: point surveys are a measurement of prevalence $\lbrack 0, 1\rbrack$ while routine surveillance measures incidence $\lbrack 0, \infty\rbrack$.
 One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \cite{cameron2015defining}.
 
 %Ideal situation is to combine data
@@ -362,11 +364,11 @@ As such, this random effect is not included in the predicted uncertainty in the 
 However, it is included in predictions of out-of-sample point surveys.
 
 Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
-We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \ref{notSimpson} such that $P(\rho < 3) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
+We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \cite{fuglstad2018constructing} such that $P(\rho < 3) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
 We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected, so we set this prior such that the randome field could explain most of the range of the data.
 
-We assigned $\sigma_v$ a penalised complexity prior such that $P(\sigma_v > 0.05) = 0.0000001$
-This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for three case counts \ref{cibulskis}.
+We assigned $\sigma_v$ a penalised complexity prior \cite{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$
+This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for the case counts using the approach defined in \cite{cibulskis2011worldwide}.
 We found that an iid effect with a standard deviation of 0.05 would be able to account for the discrepancy between the assumed Poisson error and the independently derived error.
 We assigned $\sigma_w$ a penalised complexity prior such that $P(\sigma_w > 0.3) = 0.0000001$. 
 This was chosen by finding the maximum difference in prevalence between survey points (with a sample size greater than 500) within the same raster pixel.
