@@ -242,7 +242,7 @@ we need new sources of data.
 
 Global malaria incidence has decreased dramatically over the last 20 years \cite{abajobir2017global, bhatt2015effect}.
 This has been accompanied by a strategic shift towards aiming for elimination in low burden countries \cite{world2016world, newby2016path}.
-Accurate, high-resolution maps of malaria risk are vital in these countries in the elimination and pre-elimination phases \cite{sturrock2016mapping, cohen2017mapping}.
+Accurate, high-resolution maps of malaria risk are vital in countries in the elimination and pre-elimination phases \cite{sturrock2016mapping, cohen2017mapping}.
 However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence \cite{gething2011new, bhatt2017improved, gething2012long} using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite {sturrock2016mapping, sturrock2014fine}.
 In low burden areas, very large sample sizes are needed before a prevalence survey is informative.
 Furthermore, large, countrywide surveys of prevalence, such as DHS or MIS, are rare in low burden countries due to costs and percieved low utility \cite{dhs}.
@@ -251,10 +251,10 @@ We therefore need new data sources and associated statistical methods.
 %cohen2017mapping Different metrics are useful for different things. Most maps use prevalence. Govts do use maps.
 
 Routine surveillance data, of disease case counts, is becoming more widely available and of better quality \cite{sturrock2016mapping, ohrt2015information, cibulskis2011worldwide}.
-This data is commonly aggregated, reporting disease case counts that occurred within a certain geographic region defined by a polygon.
-This type of data is more sensitive than prevalence surveys in low transmission areas as typically the entire public health system is being used to passively monitor disease risk \cite{cibulskis2011worldwide}.
-Routine surveillance is also often timely, with reports being released annually or monthly, while large prevalence surveys are performed on a more decadely time scale.
-However, the unstructured nature of the data collection means that dealing with biases and data gaps is an ongoing research priority \cite{battle2016treatment, cibulskis2011worldwide}.
+Surveillance data is commonly aggregated, reporting disease case counts that occurred within a certain geographic region defined by a polygon.
+Ths surveillance data can be more sensitive than prevalence surveys in low transmission areas as the entire public health system is being used to passively monitor disease risk \cite{cibulskis2011worldwide}.
+Furthermore, surveillance data is also often timely, with reports being released annually or monthly, while large prevalence surveys are performed on a more decadely time scale.
+However, the unstructured nature data collection and reporting from national disease surveillance systems means that dealing with biases and data gaps is an ongoing research priority \cite{battle2016treatment, cibulskis2011worldwide}.
 
 %however surveillance data is sometimes high quality in these areas
 %pixel level maps from aggregates data is difficult (sturrock2014fine, wilson2017pointless, law2018variational, others)
@@ -262,14 +262,15 @@ However, the unstructured nature of the data collection means that dealing with 
 %sturrock used two.
 %undeveloped area of statistics but see Leon.
 
-Furthermore, using aggregated data to estimate malaria risk for high resolution maps presents further modelling difficulties \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
-The aggregated of cases over space means that the data may be relatively uninformative, especially if the case counts are aggregated over a large or heterogenous area.
-For example, Sturrock \emph{et al.} used only two covariates in their model \cite{sturrock2014fine}.
-These models are also simply an underrepresented class of models in the statistical literature and statistical software.
+Further to issues with the data itself, using aggregated data to estimate malaria risk for high resolution maps presents particular modelling difficulties \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
+The class of models that aim to estimate high-resolution maps from aggregated data are called disaggregation models and are characterised by having a variable number of pixels, and therefore multiple rows of covariate data, per row of response data.
+The aggregating of cases over space means that the data may be relatively uninformative, especially if the case counts are aggregated over a large or heterogenous area.
+For example, Sturrock \emph{et al.} used only two environmental covariates in their model \cite{sturrock2014fine}.
+Disaggregation models are also simply an underrepresented class of models in the statistical literature and statistical software.
 Wilson \emph{et al.} \cite{wilson2017pointless} use an approximation to represent a downscaling model as a convolution matrix within R-INLA \cite{INLA} but more generally, downscaling models are not available in popular software packages and must be programmed explicitely.
 
-A model that could combine point surveys and aggregated surveillance has great potential if it could leverage the strengths of both aggregated surveillance data and point survey data.
-Joint modelling of the two data types has the potential to increase statistical power for learning relationships between malaria risk and covariates.
+A model that combines point surveys and aggregated surveillance data, and therefore leverages the strength of both, has great potential.
+Joint modelling of the two data types has the potential to increase statistical power for learning relationships between malaria risk and covariates both by simply making more data available and because the point survey has a one-to-one relationship with the environment at the location of the survey.
 Furthermore, using two complimentary datasets potentially allows better spatial coverage. 
 One major barrier to this modelling approach is that these two data sources are on different scales: point surveys are a measurement of prevalence in the range $\lbrack 0, 1\rbrack$ while routine surveillance measures incidence in the range $\lbrack 0, \infty\rbrack$.
 One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \cite{cameron2015defining}.
