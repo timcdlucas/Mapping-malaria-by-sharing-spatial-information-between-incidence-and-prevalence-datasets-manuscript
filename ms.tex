@@ -405,31 +405,36 @@ This prior encodes our belief that the full range of malaria transmission can no
 \subsection*{Experiments}
 
 To compare the three models we used two cross validation schemes. 
-In the first, the combined data set of prevalence and incidence data was split into ten cross-validation folds stratified by data type.
+In the first, the combined data set of prevalence and incidence data was split into ten cross-validation folds stratified by data type (Figure~\ref{fig:cv_random}).
 This reflects real world data where we in some locations we have incidence data but no prevalence data and visa versa.
 Thus this cross-validation scheme can be seen as asking whether aggregated incidence data provides a viable or preferable alternative to using just prevalence data as in previous modelling efforts \cite{bhatt2015effect}.
 
-%figure 1.cross validation. %%columns country. rows: CV  Indonesia and Senegal only.
+%figure 1.cross validation. %% Do fig 1 and 2, random and spatial cv. IDN on top, MDG and SEN below in each.
 
 \begin{figure}[!h]
 % to be removed before submission
 \centering
-\begin{minipage}{0.45\textwidth} \centering 
-\includegraphics[width = 0.9\textwidth]{figures/idn_cv_random.png} %\caption{Indonesia random crossvalidation} 
-\end{minipage}
-\begin{minipage}{0.45\textwidth} \centering 
-\includegraphics[width = 0.9\textwidth]{figures/idn_cv_spatial.png} %\caption{Indonesia spatial crossvalidation} 
-\end{minipage}
 
-\caption{{\bf Input incidence and prevalence data and predicted incidence maps. } The incidence and prevalence data (left) and (spatially) out-of-sample predictions (right) for Indonesia (top) and Senagal (bottom).}
-\label{fig:data}
+\includegraphics[width = 0.9\textwidth]{figures/random_crossvalidation_full.png} %\caption{Indonesia random crossvalidation} 
+
+\caption{{\bf Random cross-validation scheme for Indonesia, Senegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
+\label{fig:cv_random}
+\end{figure}
+
+
+\begin{figure}[!h]
+% to be removed before submission
+\centering
+
+\includegraphics[width = 0.9\textwidth]{figures/spatial_crossvalidation_full.png} %\caption{Indonesia random crossvalidation} 
+
+\caption{{\bf Spatial cross-validation scheme for Indonesia, Senegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
+\label{fig:cv_spatial}
 \end{figure}
 
 
 
-
-
-In the second validation scheme the data was split into spatial cross-validation folds (see Figure~\ref{fig:data}b).
+In the second validation scheme the data was split into spatial cross-validation folds (see Figure~\ref{fig:cv_spatial}).
 The number of folds was seven for Indonesia, todo for Senegal and three for Madagascar due to their differing size and geography.
 The data was divided by combining the point locations and the centroids of the polygons and performing k means clustering.
 This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
@@ -451,19 +456,28 @@ Finally, we considered coverage of the 80\% credible intervals.
 
 
 
-%figure 2. data and predicted incidence maps. Indonesia and Senegal only. spatial CV only.
-
-%figure 3 predicted Vs observed. colour by %country facet by prev inc and cv scheme? best model only.
+%figure 3 and 4. data and predicted incidence maps. Indonesia and Senegal only. Fig 3 ind, fig 4 rand. Data, Rand, Spatial for best model? Joint model?
 
 \begin{figure}[!h]
 % to be removed before submission
-\includegraphics[width = 0.9\textwidth]{figures/pred_obs_map.png}
-\caption{{\bf Input incidence and prevalence data and predicted incidence maps. } The incidence and prevalence data (left) and (spatially) out-of-sample predictions (right) for Indonesia (top) and Senagal (bottom).}
-\label{predobsmap}
+\includegraphics[width = 0.9\textwidth]{figures/idn_both_cv12_preds.png}
+\caption{{\bf Input incidence and prevalence data and predicted incidence maps. } 
+The incidence (log10) and prevalence data (top), predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Indonesia.
+}
+\label{predobsmapidn}
 \end{figure}
 
 
 
+
+\begin{figure}[!h]
+% to be removed before submission
+\includegraphics[width = 0.9\textwidth]{figures/sen_both_cv12_preds.png}
+\caption{{\bf Input incidence and prevalence data and predicted incidence maps. } 
+The incidence (log10) and prevalence data (left), predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (right) for Senegal.
+}
+\label{predobsmapsen}
+\end{figure}
 
 
 
@@ -476,18 +490,18 @@ Finally, we considered coverage of the 80\% credible intervals.
 \hline
 {\bf Holdout data} & {\bf Metric} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
-Incidence & Pearson & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{1mm}\\ 
-          & Spearman & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{3mm} \\ 
-Prevalence & Pearson & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{1mm}\\ 
-            & Spearman & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\\
+Incidence & Pearson & Indonesia & 0.28 & 0.46 &  0.42\\
+&& Senegal & 0.28 & 0.79 &  0.83\\
+&& Madagascar & 0.69 & 0.72 &  0.75\vspace{1mm}\\
+& Spearman & Indonesia & 0.39 & 0.75 &  0.75\\
+&& Senegal & 0.46 & 0.69 &  0.66\\
+&& Madagascar & 0.81 & 0.83 &  0.85\vspace{3mm} \\
+Prevalence & Pearson & Indonesia & 0.32 & 0.31 &  0.19\\
+&& Senegal & 0.06 & 0.04 &  0.04\\
+&& Madagascar & 0.57 & 0.55 &  0.59\vspace{1mm}\\
+& Spearman & Indonesia & 0.54 & 0.38 &  0.39\\
+&& Senegal & 0.03 & 0.12 &  0.12\\
+&& Madagascar & 0.57 & 0.55 &  0.58\\
 \end{tabular}
 \begin{flushleft}
 Correlation (Spearman's and Pearson's) of predicted incidence rate and prevalence against out-of-sample observed data for three countries.
@@ -507,43 +521,75 @@ The data were split randomly into 10 groups stratified by data type (incidence p
 \hline
 {\bf Holdout data} & {\bf Metric} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
-Incidence & Pearson & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{1mm}\\ 
-          & Spearman & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{3mm} \\ 
-Prevalence & Pearson & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\vspace{1mm}\\ 
-            & Spearman & Indonesia & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Madagascar & 0.1 & 0.2 & {\bf 0.3}\\
-                   && Senagal & 0.1 & 0.2 & {\bf 0.3}\\
+Incidence & Pearson & Indonesia &  0.07 &  0.09 &   0.16\\
+&& Senegal &  0.20 &  0.23 &   0.53\\
+&& Madagascar &  0.20 &  0.16 &   0.24\vspace{1mm}\\
+& Spearman & Indonesia &  0.40 &  0.47 &   0.39\\
+&& Senegal &  0.36 &  0.30 &   0.56\\
+&& Madagascar &  0.49 &  0.50 &   0.52\vspace{3mm} \\
+Prevalence & Pearson & Indonesia & -0.23 & -0.07 &   0.06\\
+&& Senegal &  0.16 &  0.19 &   0.16\\
+&& Madagascar &  0.23 &  0.17 &   0.21\vspace{1mm}\\
+& Spearman & Indonesia & -0.35 & -0.05 &  -0.01\\
+&& Senegal &  0.02 &  0.16 &   0.13\\
+&& Madagascar &  0.44 &  0.38 &   0.43\\
 \end{tabular}
 \begin{flushleft}
 Correlation (Spearman's and Pearson's) of predicted incidence rate and prevalence against out-of-sample observed data for three countries.
 The data were split spatiall into 5 groups.
 \end{flushleft}
-\label{table1}
+\label{table2}
 \end{adjustwidth}
 \end{table}
 
 
 
 
-
+%figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
 \begin{figure}[!h]
 % to be removed before submission
-\includegraphics[width = 0.9\textwidth]{figures/joint_idn_cv_log_results}
-\caption{{\bf Observed-predicted plots for cross-validated data.}
-Error bars include uncertainty of the fitted parameters and from sampling error.
-100 realisations of the predictions were calculated taking a draw of all parameters from the posterior and the iid random effect $v_j$ and then sampling from the assumed sampling models (binomial and Poisson) each time.
-The 90\% quantiles were them taken and plotted as error bars.
+\includegraphics[width = 0.9\textwidth]{figures/random_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
+\caption{{\bf Observed-predicted plots for random cross-validation experiments.}
+A-B) Indonesia, C-D) Senegal, E-F) Madagascar. A, C, E) log10 aggregated incidence, B, D, F) prevalence.
+Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
 }
 \label{predobsscatter}
 \end{figure}
 
 
+
+
+
+
+
+\begin{table}[!ht]
+\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+\centering
+\caption{
+{\bf Summary of coverage of 80\% credible intervals for.}}
+\begin{tabular}{llllll}
+\hline
+{\bf Holdout data} & {\bf crossvalidation} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+\thickhline 
+Incidence & Random & Indonesia &  0.11 &  0.77 &   0.79\\
+&& Senegal &  0.11 &  0.80 &   0.85\\
+&& Madagascar &  0.59 &  0.82 &   0.77\vspace{1mm}\\
+& Spatial & Indonesia &  0.11 &  0.77 &   0.79\\
+&& Senegal &  0.11 &  0.80 &   0.85\\
+&& Madagascar &  0.59 &  0.82 &   0.77\vspace{3mm} \\
+Prevalence & Random & Indonesia &  0.83 &  0.66 &   0.85\\
+&& Senegal &  0.90 &  0.88 &   0.79\\
+&& Madagascar &  0.93 &  0.68 &   0.83\vspace{1mm}\\
+& Spatial & Indonesia & -0.35 & -0.05 &  -0.01\\
+&& Senegal &  0.90 &  0.88 &   0.79\\
+&& Madagascar &  0.93 &  0.68 &   0.83\\
+\end{tabular}
+\begin{flushleft}
+
+\end{flushleft}
+\label{table3}
+\end{adjustwidth}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusion}
