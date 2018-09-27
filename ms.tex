@@ -307,7 +307,7 @@ We used two data sources that reflect malaria burden; point prevalence surveys a
 We selected Indonesia, Senegal and Madagascar as case examples as they all have good surveillance data and good country wide surveys from approximately the same time.
 To minimise temporal effects we select, for each country, one year of prevalence survey data and one year of surveillance data.
 For Indonesia we selected 2010 for prevalence data (n = ) and 2012 for surveillance data (n =).
-For Senegal we selected todo for prevalence data (n = ) and todo for surveillance data (n =).
+For Senegal we selected 2015 for both prevalence data (n = ) and surveillance data (n =).
 Finally, for Madagascar we selected 2013 for both prevalence (n = ) and surveillance (n = ) data.
 
 
@@ -365,8 +365,7 @@ $$i_a = \frac{ \sum(i_b \mathrm{pop}_b)}{\sum  \mathrm{pop}_b} $$
 
 $$i_b = \mathrm{p2i}(p_b)$$
 
-where $\mathrm{p2i}$ is from a model that was published previously. \cite{cameron2015defining}
-After fitting, this model defines a function
+where $\mathrm{p2i}$ is a function from a previously fitted model \cite{cameron2015defining} 
 $$\mathrm{p2i}: f\left(P\right) = 2.616P - 3.596P^2 + 1.594P^3.$$
 
 The linear predictor of the model, $\eta_b$, is related to prevalence by a typical logit link function.
@@ -375,7 +374,7 @@ $$p_b = \operatorname{logit}^{-1}(\eta_b)$$
 
 
 The form of the link function means we get predictions of prevalence and incidence simultaneously whether we used both data types or just one.
-The linear predictor is composed of an intercept, covariates a spatial, Gaussian random field two iid random effects.
+The linear predictor is composed of an intercept, covariates, a spatial, Gaussian random field and two iid random effects.
 
 $$\eta_b = \beta_0 + \beta X  + u(s, \rho, \sigma_u) + v_j(\sigma_v) + w_i(\sigma_w)$$
 
@@ -389,7 +388,7 @@ However, it is included in predictions of out-of-sample point surveys.
 
 Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
 We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \cite{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
-We used different $\zeta$ values for each country: Indonesia $\zeta = 3$, Senegal $\zeta = todo$ and Madagascar $\zeta = 1$.
+We used different $\zeta$ values for each country: Indonesia $\zeta = 3$, Senegal $\zeta = 1$ and Madagascar $\zeta = 1$.
 We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected \cite{bhatt2017improved}, so we set this prior such that the random field could explain most of the range of the data.
 
 We assigned $\sigma_v$ a penalised complexity prior \cite{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$
@@ -439,7 +438,7 @@ Thus this cross-validation scheme can be seen as asking whether aggregated incid
 
 
 In the second validation scheme the data was split into spatial cross-validation folds (see Figure~\ref{fig:cv_spatial}).
-The number of folds was seven for Indonesia, todo for Senegal and three for Madagascar due to their differing size and geography.
+The number of folds was seven for Indonesia, seven for Senegal and three for Madagascar due to their differing size and geographies.
 The data was divided by combining the point locations and the centroids of the polygons and performing k means clustering.
 This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
 
