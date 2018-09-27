@@ -320,8 +320,8 @@ As the prevalence surveys cover different age ranges they were standardised usin
 
 \subsection*{Polygon incidence data}
 
-The polygon level surveillance data were collated from various government reports.
-To account for underreporting of clinical cases due to lack of treatment seeking, missed case reports and cases that sought medical attention outside the public health systems, the methods in \cite{cibulskis2011worldwide} were used.
+The polygon level surveillance data were collated from various government reports (Figures~\ref{predobsmapidn}A and \ref{predobsmapsen}A).
+To account for underreporting of clinical cases due to lack of treatment seeking, missed case reports and cases that sought medical attention outside the public health systems, the methods in \cite{cibulskis2011worldwide} were used using estimates of treatment seeking from \cite{battle2016treatment}.
 Where species specific reports were given, these were used. 
 For reports where no species specific, national estimates of the ratio between \emph{P. falciparum} and \emph{P. vivax} cases were used to calculate \emph{P. falciparum} only cases.
 
@@ -451,8 +451,56 @@ To assess how well the models are calibrated we considered coverage of the 80\% 
 
 % Results and Discussion can be combined.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Results and Discussion}
+\section*{Results}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Random results
+% Maps, reasonable for both
+% MAE performance.
+
+For the random cross-validation experiments, the polygon-only model had the lowest mean absolute error, with respect to predicting incidence, for Indonesia (14.02) and Senegal (26.74) (Table~\ref{table1}).
+Incidence in Madagascar was best predicted by the join model (34.49).
+However, the difference between the two models in Indonesia was small (polygons-only 14.02, joint model 14.09).
+Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter}A, C and E.
+
+The benchmark points-only model had the lowest weighted MAE between observed and predicted prevalence for both Senegal (0.015) and  Madagascar (0.054) while the wighted MAE was the same for all three models in Indonesia (0.010) (Table~\ref{table1}).
+The more pertinent comparison is whether the addition of the prevalence data improves the ability of the disaggregation models to predict pixel level prevalence.
+However, weighted MAE was unchanged between the polygon model and the joint model for Indonesia (0.010), Senegal (0.024) or Madagascar (0.059).
+Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter} B, D and F and show poor predictive performance for all models in both Indonesia and Senegal.
+
+Maps of the Indonesian input data_and predictions (Figures~\ref{predobsmapidn}A and B) indicate that the broad spatial patterns of malaria incidence were recovered with areas in Papua, Borneo and Suluwasi being estimated as relatively high risk.
+Similarly, input data and predictions (Figures~\ref{predobsmapsen}A and B) for Senegal show broad agreement with malaria incidence being higher in the South.
+
+
+% Spatial results
+% Maps, reasonable for india, get's broad pattern even far away from data. Poor for SEN, wrong overall pattern. Different covariates.
+% MAE performance.
+
+For the spatial cross-validation experiments, the polygon-only model again had the lowest mean absolute error between observed and predicted incidence for Indonesia (14.77) (Table~\ref{table2}).
+However, for both Senegal (36.76) and Madagascar (65.50) the joint model had the best predictive performance.
+Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{spatialpredobsscatter}A, C and E.
+
+Again, the benchmark points-only model had the lowest weighted MAE between spatially cross-validated observed and predicted prevalence for Senegal (0.015).
+However, for Indonesia, both the disaggration models marginally outperformed the points-only model (polygons-only 0.010, joint model 0.010). 
+For Senegal, the joint model (0.065) had the lowest weighted MAE for predicted prevalence though this was again marginal (points-only 0.069, polygons-only 0.066).
+Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter} B, D and F and show poor predictive performance for all models in both Indonesia and Senegal.
+
+Maps of the Indonesian input data_and spatially out-of-sample predictions (Figures~\ref{predobsmapidn}A and C) suggest the that the broad spatial patterns were once again recovered.
+This acceptable performance is notable given the very large areas held out-of-sample (Fig~\ref{fig:cv_spatial}).
+For example, the whole of Papua and West Papua the the East are held out in a single fold.
+In contrast the predictions for Senegal do not match those observed in the input data (Figures~\ref{predobsmapsen}A and C). 
+
+
+% Coverage results
+
+The polygon-only model and the joint model seem to be fairly well calibrated.
+The proportion of out-of-sample incidence datapoints being within their 80\% credible intervals ranged between 0.65 and 0.85.
+The proportion of out-of-sample prevalence datapoints being within their 80\% credible intervals ranged from 0.50 to 0.96.
+The points only model was reasonably well calibrated for predictions of prevalence (coverage ranging from 0.8 to 0.93) but was poorly calibrated for predicting incidence with coverage values as low as 0.11 and the best coverage value being 0.68 for spatial crossvalidation in Madagascar.
+
+% Overall
+
 
 
 
@@ -463,7 +511,7 @@ To assess how well the models are calibrated we considered coverage of the 80\% 
 % to be removed before submission
 \includegraphics[width = 0.9\textwidth]{figures/idn_both_cv12_preds.png}
 \caption{{\bf Input incidence data and predicted incidence maps. } 
-The incidence (log10) data (top), predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Indonesia.
+The incidence (log10) data (top), predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Indonesia. The values plotted for areas with no polygon data are the means across all cross-validation folds.
 }
 \label{predobsmapidn}
 \end{figure}
@@ -519,7 +567,7 @@ The data were split randomly into 10 groups stratified by data type (incidence p
 Incidence & Indonesia &  18.13 &  {\bf 14.77} &   15.02\\
 & Senegal &  51.17 &  41.43 &   {\bf 36.76}\\
 & Madagascar & 107.32 &  71.44 &   {\bf 65.50}\vspace{3mm}\\
-Prevalence & Indonesia & 0.011 & 0.010 &  0.010\\
+Prevalence & Indonesia & 0.011 & {\bf 0.010} &  {\bf 0.010}\\
 & Senegal & {\bf 0.015} & 0.019 &  0.019\\
 & Madagascar & 0.069 & 0.066 &  {\bf 0.065}\\
 \end{tabular}
@@ -542,7 +590,7 @@ The data were split spatiall into 5 groups.
 A-B) Indonesia, C-D) Senegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
 }
-\label{predobsscatter}
+\label{randompredobsscatter}
 \end{figure}
 
 
@@ -557,7 +605,7 @@ Results from all three models are included with the points only model being show
 A-B) Indonesia, C-D) Senegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
 }
-\label{predobsscatter}
+\label{spatialpredobsscatter}
 \end{figure}
 
 
@@ -593,6 +641,14 @@ Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
 \label{table3}
 \end{adjustwidth}
 \end{table}
+
+
+
+
+% Results and Discussion can be combined.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusion}
