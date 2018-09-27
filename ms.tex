@@ -335,7 +335,7 @@ Finally, for each year, national population estimates from the UN were raked ove
 
 \subsection*{Covariate data}
 
-We considered an initial suite of environmental and anthropological covariates, at a resolution of approximately $5 \times 5$ kilometres that included land surface temperature annual mean and standard deviation, enhanced vegetation index, mosquito temperature suitability index, elevation, tassel cap brightness, tassel cap wetness, accessibility to cities, night lights and proportion of urban land cover.
+We considered an initial suite of environmental and anthropological covariates, at a resolution of approximately $5 \times 5$ kilometres at the equator that included land surface temperature annual mean and standard deviation \cite{LST}, enhanced vegetation index \cite{TCB}, mosquito temperature suitability index \cite{weiss2014air}, elevation \cite{SRTMElev}, tassel cap brightness \cite{TCB}, tassel cap wetness \cite{TCB}, accessibility to cities \cite{weiss2018global}, night lights \cite{} and proportion of urban land cover \cite{}.
 Elevation, land surface temperature standard deviation, accessibility to cities and night lights were all log transformed to reduce skewness.
 After preliminary analyses, tassel cap brightness and urban land cover were removed as they were highly correlated with other variables.
 The covariates were standardised to have a mean of zero and a standard deviation of one.
@@ -465,8 +465,8 @@ Finally, we considered coverage of the 80\% credible intervals.
 \begin{figure}[!h]
 % to be removed before submission
 \includegraphics[width = 0.9\textwidth]{figures/idn_both_cv12_preds.png}
-\caption{{\bf Input incidence and prevalence data and predicted incidence maps. } 
-The incidence (log10) and prevalence data (top), predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Indonesia.
+\caption{{\bf Input incidence data and predicted incidence maps. } 
+The incidence (log10) data (top), predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Indonesia.
 }
 \label{predobsmapidn}
 \end{figure}
@@ -477,8 +477,8 @@ The incidence (log10) and prevalence data (top), predicted log10 incidence from 
 \begin{figure}[!h]
 % to be removed before submission
 \includegraphics[width = 0.9\textwidth]{figures/sen_both_cv12_preds.png}
-\caption{{\bf Input incidence and prevalence data and predicted incidence maps. } 
-The incidence (log10) and prevalence data (left), predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (right) for Senegal.
+\caption{{\bf Input incidence data and predicted incidence maps. } 
+The incidence (log10) data, predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Senegal.
 }
 \label{predobsmapsen}
 \end{figure}
