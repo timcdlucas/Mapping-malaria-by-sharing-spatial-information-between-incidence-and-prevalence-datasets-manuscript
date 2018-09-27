@@ -444,10 +444,8 @@ This scheme is testing the models' ability to predict into new areas with little
 
 In both cases we examined performance metrics for both the withheld prevalence data and the withheld incidence data.
 As there is no good way of combining predictive error from both types of data into one performance metric, we considered performance separately throughout.
-Our main performance metric was Pearson's correlation.
-However, we also considered Spearman's correlation.
-If the prevalence-incidence relationship is poorly estimated, this will strongly affect the Pearson's correlation while the Spearman's correlation will be relatively robust to this source of poor model performance.
-Finally, we considered coverage of the 80\% credible intervals.
+Our main performance metric was mean absolute error.
+To assess how well the models are calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
 
 
 
