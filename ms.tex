@@ -216,9 +216,7 @@ sometimes little data
 traditional prevalence mapping won't work
 we need new sources of data.
 
-Despite major reductions in incidence over the last fifteen years, malaria still causes millions of deaths and loads of DALYs annually \cite{abajobir2017global}.
-Elimination of malaria, country-by-county has become a central goal in the global malaria strategy \cite{world2016world}.
-Elimination of malaria requires high resolution maps of malaria risk, in low prevalence areas in order to optimise interventions and minimise costs \cite{sturrock2016mapping}.
+
 
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step. 
@@ -241,20 +239,24 @@ we need new sources of data.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Global malaria incidence has decreased dramatically over the last 20 years \cite{abajobir2017global, bhatt2015effect}.
-This has been accompanied by a strategic shift towards aiming for elimination in low burden countries \cite{world2016world, newby2016path}.
+This decrease has been accompanied by a strategic shift towards aiming for elimination in low incidence countries \cite{world2016world, newby2016path}.
 Accurate, high-resolution maps of malaria risk are vital in countries in the elimination and pre-elimination phases \cite{sturrock2016mapping, cohen2017mapping}.
 However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence \cite{gething2011new, bhatt2017improved, gething2012long} using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite {sturrock2016mapping, sturrock2014fine}.
 In low burden areas, very large sample sizes are needed before a prevalence survey is informative.
 Furthermore, large, countrywide surveys of prevalence, such as DHS or MIS, are rare in low burden countries due to costs and percieved low utility \cite{dhs}.
 We therefore need new data sources and associated statistical methods.
 
+%Despite major reductions in incidence over the last fifteen years, malaria still causes millions of deaths and loads of DALYs annually \cite{abajobir2017global}.
+%Elimination of malaria, country-by-county has become a central goal in the global malaria strategy \cite{world2016world}.
+%Elimination of malaria requires high resolution maps of malaria risk, in low prevalence areas in order to optimise interventions and minimise costs \cite{sturrock2016mapping}.
+
 %cohen2017mapping Different metrics are useful for different things. Most maps use prevalence. Govts do use maps.
 
-Routine surveillance data, of disease case counts, is becoming more widely available and of better quality \cite{sturrock2016mapping, ohrt2015information, cibulskis2011worldwide}.
-Surveillance data is commonly aggregated, reporting disease case counts that occurred within a certain geographic region defined by a polygon.
+Routine surveillance data, of malaria case counts, is becoming more widely available and of better quality \cite{sturrock2016mapping, ohrt2015information, cibulskis2011worldwide}.
+Surveillance data is commonly aggregated, reporting the number of cases that occurred within a certain geographic or administrative region defined by a polygon.
 Ths surveillance data can be more sensitive than prevalence surveys in low transmission areas as the entire public health system is being used to passively monitor disease risk \cite{cibulskis2011worldwide}.
 Furthermore, surveillance data is also often timely, with reports being released annually or monthly, while large prevalence surveys are performed on a more decadely time scale.
-However, the unstructured nature data collection and reporting from national disease surveillance systems means that dealing with biases and data gaps is an ongoing research priority \cite{battle2016treatment, cibulskis2011worldwide}.
+However, the unstructured nature of data collection and reporting from national disease surveillance systems means that dealing with biases and data gaps is an ongoing research priority \cite{battle2016treatment, cibulskis2011worldwide}.
 
 %however surveillance data is sometimes high quality in these areas
 %pixel level maps from aggregates data is difficult (sturrock2014fine, wilson2017pointless, law2018variational, others)
@@ -263,11 +265,13 @@ However, the unstructured nature data collection and reporting from national dis
 %undeveloped area of statistics but see Leon.
 
 Further to issues with the data itself, using aggregated data to estimate malaria risk for high resolution maps presents particular modelling difficulties \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
-The class of models that aim to estimate high-resolution maps from aggregated data are called disaggregation models and are characterised by having a variable number of pixels, and therefore multiple rows of covariate data, per row of response data.
+%Disaggregation models aim to estimate high-resolution maps from aggregated data and are characterised by having a variable number of pixels, and therefore multiple rows of covariate data, per row of response data.
 The aggregating of cases over space means that the data may be relatively uninformative, especially if the case counts are aggregated over a large or heterogenous area.
 For example, Sturrock \emph{et al.} used only two environmental covariates in their model \cite{sturrock2014fine}.
 Disaggregation models are also simply an underrepresented class of models in the statistical literature and statistical software.
-Wilson \emph{et al.} \cite{wilson2017pointless} use an approximation to represent a downscaling model as a convolution matrix within R-INLA \cite{INLA} but more generally, downscaling models are not available in popular software packages and must be programmed explicitely.
+Wilson \emph{et al.} \cite{wilson2017pointless} used an approximation to represent a downscaling model as a convolution matrix within R-INLA \cite{INLA} but more generally, downscaling models are not available in popular software packages and must be programmed explicitely.
+Furthermore, disaggregation models are relatively difficult to implement as they have more rows of covariate data than response data.
+
 
 A model that combines point surveys and aggregated surveillance data, and therefore leverages the strength of both, has great potential.
 Joint modelling of the two data types has the potential to increase statistical power for learning relationships between malaria risk and covariates both by simply making more data available and because the point survey has a one-to-one relationship with the environment at the location of the survey.
@@ -281,7 +285,7 @@ One approach to combining these datasets is to use a seperately estimated model 
 %Ewan says there's a relationship.
 
 Here we formulate a joint model that combines aggregated surveillance data and point prevalence-surveys of \emph{Plasmodium falciparum}.
-The model has seperate likelihood functions for the two data types.
+The model has seperate likelihoods for the two data types.
 We relate the two malariometric measures by using a previously estimated relationship within the model \cite{cameron2015defining}.
 We compare the joint model to two benchmark models, a prevalence-survey only model and an aggregated-incidence disaggregation model similar to previous models \cite{sturrock2014fine, wilson2017pointless}.
 As case studies we use data from Indonesia, Senegal and Madagascar as these countries have both good routine surveillance data and good coverage of prevalence point surveys.
@@ -488,23 +492,17 @@ The incidence (log10) and prevalence data (left), predicted log10 incidence from
 {\bf Summary of out-of-sample accuracy for random crossvalidation experiment.}}
 \begin{tabular}{llllll}
 \hline
-{\bf Holdout data} & {\bf Metric} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+{\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
-Incidence & Pearson & Indonesia & 0.28 & 0.46 &  0.42\\
-&& Senegal & 0.28 & 0.79 &  0.83\\
-&& Madagascar & 0.69 & 0.72 &  0.75\vspace{1mm}\\
-& Spearman & Indonesia & 0.39 & 0.75 &  0.75\\
-&& Senegal & 0.46 & 0.69 &  0.66\\
-&& Madagascar & 0.81 & 0.83 &  0.85\vspace{3mm} \\
-Prevalence & Pearson & Indonesia & 0.32 & 0.31 &  0.19\\
-&& Senegal & 0.06 & 0.04 &  0.04\\
-&& Madagascar & 0.57 & 0.55 &  0.59\vspace{1mm}\\
-& Spearman & Indonesia & 0.54 & 0.38 &  0.39\\
-&& Senegal & 0.03 & 0.12 &  0.12\\
-&& Madagascar & 0.57 & 0.55 &  0.58\\
+Incidence & Indonesia & 18.33 & 14.02 &  14.09\\
+& Senegal & 51.24 & 26.74 &  28.45\\
+& Madagascar & 85.54 & 37.45 &  34.49\vspace{3mm}\\
+Prevalence & Indonesia & 0.010 & 0.010 &  0.010\\
+& Senegal & 0.015 & 0.024 &  0.024\\
+& Madagascar & 0.054 & 0.059 &  0.059\\
 \end{tabular}
 \begin{flushleft}
-Correlation (Spearman's and Pearson's) of predicted incidence rate and prevalence against out-of-sample observed data for three countries.
+Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
 The data were split randomly into 10 groups stratified by data type (incidence polygon and prevalence points).
 \end{flushleft}
 \label{table1}
@@ -519,23 +517,17 @@ The data were split randomly into 10 groups stratified by data type (incidence p
 {\bf Summary of out-of-sample accuracy for spatial crossvalidation experiment.}}
 \begin{tabular}{llllll}
 \hline
-{\bf Holdout data} & {\bf Metric} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+{\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
-Incidence & Pearson & Indonesia &  0.07 &  0.09 &   0.16\\
-&& Senegal &  0.20 &  0.23 &   0.53\\
-&& Madagascar &  0.20 &  0.16 &   0.24\vspace{1mm}\\
-& Spearman & Indonesia &  0.40 &  0.47 &   0.39\\
-&& Senegal &  0.36 &  0.30 &   0.56\\
-&& Madagascar &  0.49 &  0.50 &   0.52\vspace{3mm} \\
-Prevalence & Pearson & Indonesia & -0.23 & -0.07 &   0.06\\
-&& Senegal &  0.16 &  0.19 &   0.16\\
-&& Madagascar &  0.23 &  0.17 &   0.21\vspace{1mm}\\
-& Spearman & Indonesia & -0.35 & -0.05 &  -0.01\\
-&& Senegal &  0.02 &  0.16 &   0.13\\
-&& Madagascar &  0.44 &  0.38 &   0.43\\
+Incidence & Indonesia &  18.13 &  14.77 &   15.02\\
+& Senegal &  51.17 &  41.43 &   36.76\\
+& Madagascar & 107.32 &  71.44 &   65.50\vspace{3mm}\\
+Prevalence & Indonesia & 0.011 & 0.010 &  0.010\\
+& Senegal & 0.015 & 0.019 &  0.019\\
+& Madagascar & 0.069 & 0.066 &  0.065\\
 \end{tabular}
 \begin{flushleft}
-Correlation (Spearman's and Pearson's) of predicted incidence rate and prevalence against out-of-sample observed data for three countries.
+Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
 The data were split spatiall into 5 groups.
 \end{flushleft}
 \label{table2}
@@ -550,12 +542,26 @@ The data were split spatiall into 5 groups.
 % to be removed before submission
 \includegraphics[width = 0.9\textwidth]{figures/random_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
 \caption{{\bf Observed-predicted plots for random cross-validation experiments.}
-A-B) Indonesia, C-D) Senegal, E-F) Madagascar. A, C, E) log10 aggregated incidence, B, D, F) prevalence.
+A-B) Indonesia, C-D) Senegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
 }
 \label{predobsscatter}
 \end{figure}
 
+
+
+
+
+%figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
+\begin{figure}[!h]
+% to be removed before submission
+\includegraphics[width = 0.9\textwidth]{figures/spatial_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
+\caption{{\bf Observed-predicted plots for spatial cross-validation experiments.}
+A-B) Indonesia, C-D) Senegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
+Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
+}
+\label{predobsscatter}
+\end{figure}
 
 
 
@@ -571,18 +577,18 @@ Results from all three models are included with the points only model being show
 \hline
 {\bf Holdout data} & {\bf crossvalidation} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
-Incidence & Random & Indonesia & 0.10 & 0.76 &  0.77\\
-&& Senegal & 0.69 & 0.82 &  0.78\\
-&& Madagascar & 0.73 & 0.82 &  0.78\vspace{1mm}\\
-& Spatial & Indonesia & 0.10 & 0.76 &  0.77\\
-&& Senegal & 0.69 & 0.82 &  0.78\\
-&& Madagascar & 0.73 & 0.82 &  0.78\vspace{3mm} \\
-Prevalence & Random & Indonesia & 0.83 & 0.59 &  0.77\\
-&& Senegal & 0.87 & 0.69 &  0.80\\
-&& Madagascar & 0.83 & 0.69 &  0.80\vspace{1mm}\\
-& Spatial & Indonesia & 0.54 & 0.36 &  0.38\\
-&& Senegal & 0.87 & 0.69 &  0.80\\
-&& Madagascar & 0.83 & 0.69 &  0.80\\
+Incidence & Random & Indonesia & 0.13 & 0.72 &  0.73\\
+&& Senegal & 0.11 & 0.80 &  0.85\\
+&& Madagascar & 0.59 & 0.82 &  0.77\vspace{1mm}\\
+& Spatial & Indonesia & 0.14 & 0.76 &  0.68\\
+&& Senegal & 0.30 & 0.67 &  0.70\\
+&& Madagascar & 0.68 & 0.65 &  0.68\vspace{3mm} \\
+Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
+&& Senegal & 0.80 & 0.71 &  0.91\\
+&& Madagascar & 0.83 & 0.53 &  0.74\vspace{1mm}\\
+& Spatial & Indonesia & 0.87 & 0.62 &  0.96\\
+&& Senegal & 0.90 & 0.88 &  0.79\\
+&& Madagascar & 0.93 & 0.68 &  0.83\\
 \end{tabular}
 \begin{flushleft}
 
