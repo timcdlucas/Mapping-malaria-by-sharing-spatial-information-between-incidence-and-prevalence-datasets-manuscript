@@ -306,9 +306,9 @@ we find that...
 We used two data sources that reflect malaria burden; point prevalence surveys and polygon-level, aggregated incidence data.
 We selected Indonesia, Senegal and Madagascar as case examples as they all have good surveillance data and good country wide surveys from approximately the same time.
 To minimise temporal effects we select, for each country, one year of prevalence survey data and one year of surveillance data.
-For Indonesia we selected 2012 for surveillance data ($n = 380$) and 2010 for  prevalence data ($n = 969$).
-For Senegal we selected 2015 for both surveillance data ($n = 46$) and prevalence data ($n = 216$). % update todo
-Finally, for Madagascar we selected 2013 for both surveillance ($n = 110$) and prevalence ($n = 290$) data.
+For Indonesia we selected 2012 for surveillance data (380 regions) and 2010 for  prevalence data (969 surveys, 128537 individuals).
+For Senegal we selected 2015 for both surveillance data (46 regions) and prevalence data (216 surveys, 8114). % update todo
+Finally, for Madagascar we selected 2013 for both surveillance (110 regions) and prevalence (290 surveys, 7244 individuals) data.
 
 
 
@@ -438,15 +438,17 @@ Thus this cross-validation scheme can be seen as asking whether aggregated incid
 
 
 In the second validation scheme the data was split into spatial cross-validation folds (see Figure~\ref{fig:cv_spatial}).
-The number of folds was seven for Indonesia, seven for Senegal and three for Madagascar due to their differing size and geographies.
-The data was divided by combining the point locations and the centroids of the polygons and performing k means clustering.
+The number of folds was seven for Indonesia, four for Senegal and three for Madagascar due to their differing sizes and geographies.
+The data was divided by combining the point locations and the centroids of the incidence polygons and performing k means clustering.
 This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
 
 In both cases we examined performance metrics for both the withheld prevalence data and the withheld incidence data.
 As there is no good way of combining predictive error from both types of data into one performance metric, we considered performance separately throughout.
-Our main performance metric was mean absolute error.
+Our main performance metric was mean absolute error (MAE) for incidence and MAE weighted by survey sample size for prevalence.
+While other metrics could have been used, we specifically did not use correlation as correlation measures linear dependance without regard to slope or intercept.
+As the models are being fitted on data on difference scales we found that predictions were sometimes correlated but strongly displaced from the one-one line and therefore correlation metrics were misleading.
 % Why not correlation
-To assess how well the models are calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
+To assess how well the models were calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
 
 
 
@@ -487,7 +489,7 @@ However, for Indonesia, both the disaggration models marginally outperformed the
 For Senegal, the joint model (0.065) had the lowest weighted MAE for predicted prevalence though this was again marginal (points-only 0.069, polygons-only 0.066).
 Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter} B, D and F and show poor predictive performance for all models in both Indonesia and Senegal.
 
-Maps of the Indonesian input data_and spatially out-of-sample predictions (Figures~\ref{predobsmapidn}A and C) suggest the that the broad spatial patterns were once again recovered.
+Maps of the Indonesian input data and spatially out-of-sample predictions (Figures~\ref{predobsmapidn}A and C) suggest the that the broad spatial patterns were once again recovered.
 This acceptable performance is notable given the very large areas held out-of-sample (Fig~\ref{fig:cv_spatial}).
 For example, the whole of Papua and West Papua the the East are held out in a single fold.
 In contrast the predictions for Senegal do not match those observed in the input data (Figures~\ref{predobsmapsen}A and C). 
@@ -574,7 +576,7 @@ Prevalence & Indonesia & 0.011 & {\bf 0.010} &  {\bf 0.010}\\
 \end{tabular}
 \begin{flushleft}
 Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
-The data were split spatiall into 5 groups.
+The data were split spatially into 7 groups (Indonesia.
 \end{flushleft}
 \label{table2}
 \end{adjustwidth}
@@ -621,7 +623,7 @@ Results from all three models are included with the points only model being show
 {\bf Summary of coverage of 80\% credible intervals for.}}
 \begin{tabular}{llllll}
 \hline
-{\bf Holdout data} & {\bf crossvalidation} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+{\bf Holdout data} & {\bf Crossvalidation} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
 Incidence & Random & Indonesia & 0.13 & 0.72 &  0.73\\
 && Senegal & 0.11 & 0.80 &  0.85\\
@@ -665,6 +667,16 @@ Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
 
 % nonlinearities
 
+% Relative amaounts of data
+
+% Geographies.
+
+% Data size. In spat inc, countries with few polys improve. In random madagascar improves.
+% Senegal points mostly zero. MAtters? 
+
+
+
+% Clear benefits, when some areas have polygon and some have PR.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusion}
