@@ -467,6 +467,61 @@ Incidence in Madagascar was best predicted by the join model (34.49).
 However, the difference between the two models in Indonesia was small (polygons-only 14.02, joint model 14.09).
 Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter}A, C and E.
 
+
+
+
+\begin{table}[!ht]
+\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+\centering
+\caption{
+{\bf Summary of out-of-sample accuracy for random crossvalidation experiment.}}
+\begin{tabular}{llllll}
+\hline
+{\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+\thickhline 
+Incidence & Indonesia & 18.33 & {\bf 14.02} &  14.09\\
+& Senegal & 51.24 & {\bf 26.74} &  28.45\\
+& Madagascar & 85.54 & 37.45 &  {\bf 34.49}\vspace{3mm}\\
+Prevalence & Indonesia & 0.010 & 0.010 &  0.010\\
+& Senegal & {\bf 0.015} & 0.024 &  0.024\\
+& Madagascar & {\bf 0.054} & 0.059 &  0.059\\
+\end{tabular}
+\begin{flushleft}
+Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
+The data were split randomly into 10 groups stratified by data type (incidence polygon and prevalence points).
+\end{flushleft}
+\label{table1}
+\end{adjustwidth}
+\end{table}
+
+
+\begin{table}[!ht]
+\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+\centering
+\caption{
+{\bf Summary of out-of-sample accuracy for spatial crossvalidation experiment.}}
+\begin{tabular}{llllll}
+\hline
+{\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+\thickhline 
+Incidence & Indonesia &  18.13 &  {\bf 14.77} &   15.02\\
+& Senegal &  51.17 &  41.43 &   {\bf 36.76}\\
+& Madagascar & 107.32 &  71.44 &   {\bf 65.50}\vspace{3mm}\\
+Prevalence & Indonesia & 0.011 & {\bf 0.010} &  {\bf 0.010}\\
+& Senegal & {\bf 0.015} & 0.019 &  0.019\\
+& Madagascar & 0.069 & 0.066 &  {\bf 0.065}\\
+\end{tabular}
+\begin{flushleft}
+Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
+The data were split spatially into 7 groups (Indonesia.
+\end{flushleft}
+\label{table2}
+\end{adjustwidth}
+\end{table}
+
+
+
+
 The benchmark points-only model had the lowest weighted MAE between observed and predicted prevalence for both Senegal (0.015) and  Madagascar (0.054) while the wighted MAE was the same for all three models in Indonesia (0.010) (Table~\ref{table1}).
 The more pertinent comparison is whether the addition of the prevalence data improves the ability of the disaggregation models to predict pixel level prevalence.
 However, weighted MAE was unchanged between the polygon model and the joint model for Indonesia (0.010), Senegal (0.024) or Madagascar (0.059).
@@ -530,59 +585,6 @@ The incidence (log10) data, predicted log10 incidence from the joint model for r
 }
 \label{predobsmapsen}
 \end{figure}
-
-
-
-\begin{table}[!ht]
-\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
-\centering
-\caption{
-{\bf Summary of out-of-sample accuracy for random crossvalidation experiment.}}
-\begin{tabular}{llllll}
-\hline
-{\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
-\thickhline 
-Incidence & Indonesia & 18.33 & {\bf 14.02} &  14.09\\
-& Senegal & 51.24 & {\bf 26.74} &  28.45\\
-& Madagascar & 85.54 & 37.45 &  {\bf 34.49}\vspace{3mm}\\
-Prevalence & Indonesia & 0.010 & 0.010 &  0.010\\
-& Senegal & {\bf 0.015} & 0.024 &  0.024\\
-& Madagascar & {\bf 0.054} & 0.059 &  0.059\\
-\end{tabular}
-\begin{flushleft}
-Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
-The data were split randomly into 10 groups stratified by data type (incidence polygon and prevalence points).
-\end{flushleft}
-\label{table1}
-\end{adjustwidth}
-\end{table}
-
-
-\begin{table}[!ht]
-\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
-\centering
-\caption{
-{\bf Summary of out-of-sample accuracy for spatial crossvalidation experiment.}}
-\begin{tabular}{llllll}
-\hline
-{\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
-\thickhline 
-Incidence & Indonesia &  18.13 &  {\bf 14.77} &   15.02\\
-& Senegal &  51.17 &  41.43 &   {\bf 36.76}\\
-& Madagascar & 107.32 &  71.44 &   {\bf 65.50}\vspace{3mm}\\
-Prevalence & Indonesia & 0.011 & {\bf 0.010} &  {\bf 0.010}\\
-& Senegal & {\bf 0.015} & 0.019 &  0.019\\
-& Madagascar & 0.069 & 0.066 &  {\bf 0.065}\\
-\end{tabular}
-\begin{flushleft}
-Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
-The data were split spatially into 7 groups (Indonesia.
-\end{flushleft}
-\label{table2}
-\end{adjustwidth}
-\end{table}
-
-
 
 
 %figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
