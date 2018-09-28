@@ -399,7 +399,7 @@ This was chosen by finding the maximum difference in prevalence between survey p
 The differences between points within the same pixel can only be accounted for by the binomial error and this iid effect.
 Given that the error on a prevalence estimate with sample size greater than 500 is quite small, the iid effect needs to be able to explain this difference.
 
-Finally, we set regularising priors on the regression coefficients $\beta_i \sim \operatorname{ Norm}(0, 0.04)$. 
+Finally, we set regularising priors on the regression coefficients $\beta_i \sim \operatorname{Norm}(0, 0.04)$. 
 Given the standardised covariates, a regression coefficient from the 95\% IQR of this distribution, and an intercept of 3, each covariate would be able to predict prevalences between 0.004 and 0.27. 
 This prior encodes our belief that the full range of malaria transmission can not be explained by a single covariate and our desire to regularised our model.
 
@@ -445,6 +445,7 @@ This scheme is testing the models' ability to predict into new areas with little
 In both cases we examined performance metrics for both the withheld prevalence data and the withheld incidence data.
 As there is no good way of combining predictive error from both types of data into one performance metric, we considered performance separately throughout.
 Our main performance metric was mean absolute error.
+% Why not correlation
 To assess how well the models are calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
 
 
@@ -469,7 +470,7 @@ The more pertinent comparison is whether the addition of the prevalence data imp
 However, weighted MAE was unchanged between the polygon model and the joint model for Indonesia (0.010), Senegal (0.024) or Madagascar (0.059).
 Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter} B, D and F and show poor predictive performance for all models in both Indonesia and Senegal.
 
-Maps of the Indonesian input data_and predictions (Figures~\ref{predobsmapidn}A and B) indicate that the broad spatial patterns of malaria incidence were recovered with areas in Papua, Borneo and Suluwasi being estimated as relatively high risk.
+Maps of the Indonesian input data and predictions (Figures~\ref{predobsmapidn}A and B) indicate that the broad spatial patterns of malaria incidence were recovered with areas in Papua, Borneo and Suluwasi being estimated as relatively high risk.
 Similarly, input data and predictions (Figures~\ref{predobsmapsen}A and B) for Senegal show broad agreement with malaria incidence being higher in the South.
 
 
@@ -650,6 +651,21 @@ Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
 \section*{Discussion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%Summarise results
+
+% Discuss and interpret. Generalise
+
+% Short comings
+
+% Future work
+
+
+% Temporal model
+
+% nonlinearities
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Conclusion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -661,13 +677,15 @@ Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
 \section*{Supporting information}
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
-\paragraph*{S1 Fig.}
-\label{S1_Fig}
-{\bf Bold the title sentence.} Add descriptive text after the title of the item (optional).
+%\paragraph*{S1 Fig.}
+%\label{S1_Fig}
+%{\bf Bold the title sentence.} Add descriptive text after the title of the item (optional).
 
 
 \section*{Acknowledgments}
 Thanks everyone.
+
+
 \nolinenumbers
 
 % Either type in your references using
