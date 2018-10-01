@@ -219,13 +219,7 @@ Here we present a joint model that uses both polygon incidence and prevalence po
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
 \section*{Author summary}
-malaria is bad but decreasing
-moving to strategy of elimination country by country
-elimination requires maps of low prevalence areas
-but maps in low prevalence areas are difficult
-sometimes little data
-traditional prevalence mapping won't work
-we need new sources of data.
+Todo
 
 
 \linenumbers
@@ -296,16 +290,15 @@ One approach to combining these datasets is to use a seperately estimated model 
 %but data are on different scales
 %Ewan says there's a relationship.
 
-Here we formulate a joint model that combines polygon incidence data and prevalence point-surveys of \emph{Plasmodium falciparum}.
-The model has seperate likelihoods for the two data types.
+Here we formulate a joint model that combines polygon incidence data and prevalence point-surveys of \emph{Plasmodium falciparum} using seperate likelihoods for the two data types.
 We relate the two malariometric measures by using a previously estimated relationship within the model \cite{cameron2015defining}.
-We compare the joint model to an polygon-only disaggregation model similar to previous models \cite{sturrock2014fine, wilson2017pointless} and a further benchmark model that contains only prevalence point-survey data.
-As case studies we use data from Indonesia, PseudoSenegal and Madagascar as these countries have both good routine surveillance data and good coverage of prevalence point-surveys.
-
+We compare the joint model to a polygon-only, disaggregation model similar to previous models \cite{sturrock2014fine, wilson2017pointless} and a further benchmark model that contains only prevalence point-survey data using data from Indonesia, PseudoSenegal and Madagascar as case studies.
+We find that the joint model performs better than the polygon-only model in cases where predictions are needed far from the location of the data or when little data is available for learning relationships between covariates and malaria risk.
 
 %here we compared 3 models, point only, polygon only and joint models
 %we use Madagascar and Indonesia as case studies as they have good %surveillance data and good pr data.
-we find that...
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
