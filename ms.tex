@@ -268,9 +268,9 @@ We therefore need new data sources and associated statistical methods.
 
 Routine surveillance data, of malaria case counts, is becoming more widely available and of better quality \cite{sturrock2016mapping, ohrt2015information, cibulskis2011worldwide}.
 Surveillance data is commonly aggregated, reporting the number of cases that occurred within a certain geographic or administrative region defined by a polygon.
-Ths surveillance data can be more sensitive than prevalence surveys in low transmission areas as the entire public health system is being used to passively monitor disease risk \cite{cibulskis2011worldwide}.
-Furthermore, surveillance data is also often timely, with reports being released annually or monthly, while large prevalence surveys are performed on a more decadely time scale.
-However, the unstructured nature of data collection and reporting from national disease surveillance systems means that dealing with biases and data gaps is an ongoing research priority \cite{battle2016treatment, cibulskis2011worldwide}.
+This polygon incidence data can be more sensitive than prevalence point-surveys in low transmission areas as the entire public health system is being used to passively monitor disease risk \cite{cibulskis2011worldwide}.
+Furthermore, polygon incidence data is also often timely, with reports being released annually or monthly, while countrywide collection of prevalence point-surveys is performed on a more decadely time scale.
+However, the unstructured nature of data collection and reporting of polygon incidence data from national disease surveillance systems means that dealing with biases and data gaps is an ongoing research priority \cite{battle2016treatment, cibulskis2011worldwide}.
 
 %however surveillance data is sometimes high quality in these areas
 %pixel level maps from aggregates data is difficult (sturrock2014fine, wilson2017pointless, law2018variational, others)
@@ -278,17 +278,18 @@ However, the unstructured nature of data collection and reporting from national 
 %sturrock used two.
 %undeveloped area of statistics but see Leon.
 
-Further to issues with the data itself, using aggregated data to estimate malaria risk for high resolution maps presents particular modelling difficulties \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
+Disaggregation regression methods have been proposed to handle polygon incidence data \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
+However using polygon incidence data to estimate malaria risk for high resolution maps presents particular modelling difficulties. 
 %Disaggregation models aim to estimate high-resolution maps from aggregated data and are characterised by having a variable number of pixels, and therefore multiple rows of covariate data, per row of response data.
-The aggregating of cases over space means that the data may be relatively uninformative, especially if the case counts are aggregated over a large or heterogenous area.
+The aggregation of cases over space means that the data may be relatively uninformative, especially if the case counts are aggregated over a large or heterogenous area.
 For example, Sturrock \emph{et al.} used only two environmental covariates in their model \cite{sturrock2014fine}.
 Disaggregation models are also simply an underrepresented class of models in the statistical literature and statistical software.
 Wilson \emph{et al.} \cite{wilson2017pointless} used an approximation to represent a downscaling model as a convolution matrix within R-INLA \cite{INLA} but more generally, downscaling models are not available in popular software packages and must be programmed explicitely.
 Furthermore, disaggregation models are relatively difficult to implement as they have more rows of covariate data than response data.
 
 
-A model that combines point surveys and aggregated surveillance data, and therefore leverages the strength of both, has great potential.
-Joint modelling of the two data types has the potential to increase statistical power for learning relationships between malaria risk and covariates both by simply making more data available and because the point survey has a one-to-one relationship with the environment at the location of the survey.
+A model that combines prevalence point-surveys and polygon incidence data, and therefore leverages the strength of both, has great potential.
+Joint modelling of the two data types has the potential to increase statistical power for learning relationships between malaria risk and covariates both by simply making more data available and because point-surveys have a one-to-one relationship with the environment at the location of the survey.
 Furthermore, using two complimentary datasets potentially allows better spatial coverage. 
 One major barrier to this modelling approach is that these two data sources are on different scales: point surveys are a measurement of prevalence in the range $\lbrack 0, 1\rbrack$ while routine surveillance measures incidence in the range $\lbrack 0, \infty\rbrack$.
 One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \cite{cameron2015defining}.
@@ -298,11 +299,11 @@ One approach to combining these datasets is to use a seperately estimated model 
 %but data are on different scales
 %Ewan says there's a relationship.
 
-Here we formulate a joint model that combines aggregated surveillance data and point prevalence-surveys of \emph{Plasmodium falciparum}.
+Here we formulate a joint model that combines polygon incidence data and prevalence point-surveys of \emph{Plasmodium falciparum}.
 The model has seperate likelihoods for the two data types.
 We relate the two malariometric measures by using a previously estimated relationship within the model \cite{cameron2015defining}.
-We compare the joint model to an aggregated-incidence disaggregation model similar to previous models \cite{sturrock2014fine, wilson2017pointless} and a further benchmark model that contains on;y prevalence-survey data.
-As case studies we use data from Indonesia, PseudoSenegal and Madagascar as these countries have both good routine surveillance data and good coverage of prevalence point surveys.
+We compare the joint model to an polygon-only disaggregation model similar to previous models \cite{sturrock2014fine, wilson2017pointless} and a further benchmark model that contains only prevalence point-survey data.
+As case studies we use data from Indonesia, PseudoSenegal and Madagascar as these countries have both good routine surveillance data and good coverage of prevalence point-surveys.
 
 
 %here we compared 3 models, point only, polygon only and joint models
@@ -317,26 +318,26 @@ we find that...
 
 \subsection*{Malaria data}
 
-We used two data sources that reflect malaria burden; point prevalence surveys and polygon-level, aggregated incidence data.
+We used two data sources that reflect malaria burden; prevalence point-surveys and polygon incidence data.
 We selected Indonesia, PseudoSenegal and Madagascar as case examples as they all have good surveillance data and good country wide surveys from approximately the same time.
-To minimise temporal effects we select, for each country, one year of prevalence survey data and one year of surveillance data.
-For Indonesia we selected 2012 for surveillance data (380 regions) and 2010 for  prevalence data (969 surveys, 128,537 individuals).
-For PseudoSenegal we selected 2015 for both surveillance data (46 regions) and prevalence data (216 surveys, 8,114). % update todo
-Finally, for Madagascar we selected 2013 for both surveillance (110 regions) and prevalence (290 surveys, 7,244 individuals) data.
+To minimise temporal effects we select, for each country, one year of prevalence point-survey data and one year of polygon incidence data.
+For Indonesia we selected 2012 for polygon incidence data (380 regions) and 2010 for prevalence data (969 surveys, 128,537 individuals).
+For PseudoSenegal we selected 2015 for both polygon incidence data (46 regions) and prevalence data (216 surveys, 8,114). % update todo
+Finally, for Madagascar we selected 2013 for both polygon incidence (110 regions) and prevalence (290 surveys, 7,244 individuals) data.
 
 
 
 \subsection*{Prevalence survey data}
 
-The prevalence survey data were extracted from the Malaria Atlas Project prevalence survey database \cite{bhatt2015effect}.
-As the prevalence surveys cover different age ranges they were standardised to an age-range of 2--10 using the model from \cite{smith2007standardizing}.
+The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \cite{bhatt2015effect}.
+As the prevalence point-surveys cover different age ranges they were standardised to an age-range of 2--10 using the model from \cite{smith2007standardizing}.
 
 
 \subsection*{Polygon incidence data}
 
 % (Figures~\ref{predobsmapidn}A and \ref{predobsmapsen}A)
 
-The polygon level surveillance data were collated from various government reports.
+The polygon incidence data were collated from various government reports.
 To account for underreporting of clinical cases due to lack of treatment seeking, missed case reports and cases that sought medical attention outside the public health systems, the methods in \cite{cibulskis2011worldwide} were used using estimates of treatment seeking from \cite{battle2016treatment}.
 Where species specific reports were given, these were used. 
 For reports where no species specific, national estimates of the ratio between \emph{P. falciparum} and \emph{P. vivax} cases were used to calculate \emph{P. falciparum} only cases.
@@ -358,18 +359,18 @@ The covariates were standardised to have a mean of zero and a standard deviation
 
 \subsection*{The model}
 
-We compared three models 1) a full model with prevalence surveys and aggregated incidence data 2) the submodel with only aggregated incidence data and 3) the benchmark submodel with only prevalence point-survey data. 
+We compared three models 1) a full model with prevalence point-surveys and polygon incidence data 2) the submodel with only polygon incidence data and 3) the benchmark submodel with only prevalence point-survey data. 
 The models were implemented and fitted in R \cite{R} using Template Model Builder \cite{TMB} which allows a Laplace approximation of the posterior to be calculated.
 
 The full, joint likelihood model is described as follows. 
-Values at the aggregate, polygon level are given the subscript $a$ while pixel or point level below are indexed with $b$.
-The polygon case count data, $y_j$ is given a Poisson likelihood
+Values at the aggregate, polygon level are given the subscript $a$ while pixel or point level variables are indexed with $b$.
+The polygon incidence case count data, $y_j$ is given a Poisson likelihood
 
 $$y_a \sim \operatorname{Pois}(i_a\mathrm{pop_a})$$
 
 where $i_a$ is the estimated polygon incidence rate and $\mathrm{pop_a}$ is the observed polygon population-at-risk.
 
-The point-level prevalence data, $z_b$, is given a binomial likelihood
+The prevalence point-survey data, $z_b$, is given a binomial likelihood
 
 $$z_b \sim \operatorname{Binom}(p_b, n_b) $$
 
@@ -418,7 +419,7 @@ We assigned $\sigma_v$ a penalised complexity prior \cite{simpson2017penalising}
 This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for the case counts using the approach defined in \cite{cibulskis2011worldwide}.
 We found that an iid effect with a standard deviation of 0.05 would be able to account for the discrepancy between the assumed Poisson error and the independently derived error.
 We assigned $\sigma_w$ a penalised complexity prior such that $P(\sigma_w > 0.3) = 0.0000001$. 
-This was chosen by finding the maximum difference in prevalence between survey points (with a sample size greater than 500) within the same raster pixel.
+This was chosen by finding the maximum difference in prevalence between point-surveys (with a sample size greater than 500) within the same raster pixel.
 The differences between points within the same pixel can only be accounted for by the binomial error and this iid effect.
 Given that the error on a prevalence estimate with sample size greater than 500 is quite small, the iid effect needs to be able to explain this difference.
 
@@ -434,7 +435,7 @@ This regularisation is particularly important given the small number of observat
 To compare the three models we used two cross validation schemes. 
 In the first, the combined data set of prevalence and incidence data was split into ten cross-validation folds stratified by data type (Figure~\ref{fig:cv_random}).
 This reflects real world data where we in some locations we have incidence data but no prevalence data and visa versa.
-Thus this cross-validation scheme can be seen as asking whether aggregated incidence data provides a viable or preferable alternative to using just prevalence data as in previous modelling efforts \cite{bhatt2015effect}.
+Thus this cross-validation scheme can be seen as asking whether the joint model is preferable to using just polygon incidence data.
 
 %figure 1.cross validation. %% Do fig 1 and 2, random and spatial cv. IDN on top, MDG and SEN below in each.
 
@@ -463,18 +464,18 @@ Thus this cross-validation scheme can be seen as asking whether aggregated incid
 
 In the second validation scheme the data was split into spatial cross-validation folds (see Figure~\ref{fig:cv_spatial}).
 The number of folds was seven for Indonesia, four for PseudoSenegal and three for Madagascar due to their differing sizes and geographies.
-The data was divided by combining the point locations and the centroids of the incidence polygons and performing k means clustering.
+The data was divided by combining the prevalence point-survey locations and the centroids of the incidence polygons and performing k means clustering.
 This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
 
-In both cases we examined performance metrics for both the withheld prevalence data and the withheld incidence data.
+In both cases we examined performance metrics for both the withheld prevalence point-survey data and the withheld incidence polygon data.
 As there is no good way of combining predictive error from both types of data into one performance metric, we considered performance separately throughout.
-We considered the ability to predict aggregated incidence correctly our main objective and our performance metric was mean absolute error (MAE)..
+We considered the ability to predict polygon incidence correctly our main objective and our performance metric was mean absolute error (MAE).
 However, a problem with using polygon data in a cross-validation scheme is that a model can perform well at the polygon level but not correctly predict the pixel-level malaria risk.
-Predictive performance on prevalence points is one way to measure how well a model can predict pixel-level malaria risk.
-However, in areas of low prevalence, small or moderately sized prevalence surveys can be noisy or unsensitive and so care must be taken when interpreting predictive performance on these data.
-Therefore our secondary metric was, MAE weighted by survey sample size, of prevalence point surveys.
+Predictive performance on prevalence survey-points is one way to measure how well a model can predict pixel-level malaria risk.
+However, in areas of low prevalence, small or moderately sized prevalence point-surveys can be noisy or unsensitive and so care must be taken when interpreting predictive performance on these data.
+Therefore our secondary metric was MAE, weighted by survey sample size, of prevalence point-surveys.
 While other metrics could have been used, we specifically did not use correlation as correlation measures linear dependance without regard to slope or intercept.
-As the models are being fitted on data on difference scales we found that predictions were sometimes correlated but strongly displaced from the one-one line and therefore correlation metrics were misleading.
+As the models are being fitted on data on difference scales we found that observations and predictions were sometimes correlated but strongly displaced from the one-one line and therefore correlation metrics were misleading.
 % Why not correlation
 To assess how well the models were calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
 
@@ -551,8 +552,8 @@ The data were split into seven, four and three groups in Indonesia, PseudoSenega
 
 
 The benchmark points-only model had the lowest weighted MAE between observed and predicted prevalence for both PseudoSenegal (0.015) and  Madagascar (0.054) while the wighted MAE was the same for all three models in Indonesia (0.010) (Table~\ref{table1}).
-The more pertinent comparison is whether the addition of the prevalence data improves the ability of the disaggregation models to predict pixel level prevalence.
-However, weighted MAE was unchanged between the polygon model and the joint model for Indonesia (0.010), PseudoSenegal (0.024) or Madagascar (0.059).
+The more pertinent comparison is whether the addition of the prevalence data improves the ability of the polygon-only models to predict pixel level prevalence.
+However, weighted MAE was unchanged between the polygon-only model and the joint model for Indonesia (0.010), PseudoSenegal (0.024) or Madagascar (0.059).
 Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter} B, D and F and show poor predictive performance for all models in both Indonesia and PseudoSenegal.
 
 Maps of the Indonesian input data and predictions (Figures~\ref{predobsmapidn}A and B) indicate that the broad spatial patterns of malaria incidence were recovered with areas in Papua, Borneo and Suluwasi being estimated as relatively high risk.
@@ -585,11 +586,11 @@ In contrast the predictions for PseudoSenegal do not match those observed in the
 The polygon-only model and the joint model seem to be fairly well calibrated (Table~\ref{table3}).
 The proportion of out-of-sample incidence datapoints being within their 80\% credible intervals ranged between 0.65 and 0.85.
 The proportion of out-of-sample prevalence datapoints being within their 80\% credible intervals ranged from 0.50 to 0.96.
-The points only model was reasonably well calibrated for predictions of prevalence (coverage ranging from 0.8 to 0.93) but was poorly calibrated for predicting incidence with coverage values as low as 0.11 and the best coverage value being 0.68 for spatial cross-validation in Madagascar.
-With respect to uncertainty in incidence predictions, the polygon-only model and joint model were similar; adding the points sometimes improved coverage and sometimes made it worse.
-However, with respect to uncertainty in prevalence predictions, the coverage was substantially improved in three of six cases and marginally improved in one case.
+The points-only model was reasonably well calibrated for predictions of prevalence (coverage ranging from 0.8 to 0.93) but was poorly calibrated for predicting incidence with coverage values as low as 0.11 and the best coverage value being 0.68 for spatial cross-validation in Madagascar.
+With respect to uncertainty in polygon incidence predictions, the polygon-only model and joint model were similar; adding the prevalence point-survey data sometimes improved coverage and sometimes made it worse.
+However, with respect to uncertainty in prevalence point-survey predictions, the coverage was substantially improved in three of six cases and marginally improved in one case.
 Coverage improved in the random cross-validation in Indonesia (polygon-only 0.50, joint 0.80) and Madagascar (polygon-only 0.53, joint 0.74) and spatial cross-validation in Madagascar (polygon-only 0.68, joint 0.83) and marginally improved in the spatial cross-validation in PseudoSenegal (polygon-only 0.88, joint 0.79).
-In the remaining two cases, adding points did not substantially improve coverage, but did make the model more conservative, with coverage of 0.91 rather than 0.71 in the random cross-validation PseudoSenegal experiment and 0.96 instead of 0.62 in the spatial cross-validation Indonesia experiment.
+In the remaining two cases, adding prevalence point-surveys did not substantially improve coverage, but did make the model more conservative, with coverage of 0.91 rather than 0.71 in the random cross-validation PseudoSenegal experiment and 0.96 instead of 0.62 in the spatial cross-validation Indonesia experiment.
 
 % Overall
 
@@ -656,7 +657,7 @@ Results from all three models are included with the points only model being show
 \begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
 \centering
 \caption{
-{\bf Summary of coverage of 80\% credible intervals for.}}
+{\bf Summary of coverage of 80\% credible intervals.}}
 \begin{tabular}{llllll}
 \hline
 {\bf Holdout data} & {\bf Cross-validation} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
@@ -692,30 +693,30 @@ Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
 
 %Summarise results
 
-We have compared the predictive performance of a disaggration model and a model that jointly learns from aggregated incidence data and point prevalence surveys.
+We have compared the predictive performance of a polygon-only model and a model that jointly learns from polygon incidence data and prevalence point-surveys.
 We found that neither model was clearly superior to the other but that both models recovered the broad spatial pattern of malaria risk (Figures \ref{predobsmapidn} and \ref{predobsmapidn}).
-With regards to a random cross-validation scheme, adding points to the disaggregation model only improved performance in  Madagascar (Table~\ref{table1}).
-With regards to a spatial cross-validation scheme, which tests a models ability to predict malaria risk far away from available data, we found that adding the point surveys improved the disaggregation models in both PseudoSenegal and Madagascar but not Indonesia  (Table~\ref{table2}).
+With regards to a random cross-validation scheme, adding prevalence point-surveys to the disaggregation model only improved performance in  Madagascar (Table~\ref{table1}).
+With regards to a spatial cross-validation scheme, which tests a models ability to predict malaria risk far away from available data, we found that adding the prevalence point-surveys improved on the polygon-only models in both PseudoSenegal and Madagascar but not Indonesia (Table~\ref{table2}).
 
 
 We used held-out prevalence point-surveys to measure how well model were predicting the within-polygon, pixel-level malaria risk.
 
-Of the four cases where polygon predictions were improved or remained similar after adding point data (Indonesia and Madagascar random cross-validation and PseudoSenegal and Madagascar spatial cross validation) the predictive performance on prevalence point-surveys was always unchanged or marginally improved.
-However, the benchmark points-only model was the top or equal top model at predicting point-level prevalence in four out of six cases and only marginally worse in one further case.
-Only in the Madagascar, spatial cross-validation experiment was the points-only model notably worse at predicting prevalence.
+Of the four cases where predictions of polygon incidence were improved or remained similar after adding prevalence point-survey data (Indonesia and Madagascar random cross-validation and PseudoSenegal and Madagascar spatial cross validation) the predictive performance on prevalence point-surveys was always unchanged or marginally improved.
+However, the benchmark points-only model was the top or equal top model at predicting prevalence point-surveys in four out of six cases and only marginally worse in one further case.
+Only in the Madagascar, spatial cross-validation, experiment was the points-only model notably worse at predicting prevalence point surveys.
 
 % Discuss and interpret. Generalise
 
-The joint model improved the prediction of incidence in two of three countries under the spatial cross-validation scheme but only one country in the random cross-validation scheme.
+The joint model improved the prediction of polygon incidence in two of three countries under the spatial cross-validation scheme but only one country in the random cross-validation scheme.
 The two countries where the joint model performed best in the spatial cross-validation scheme are the two countries with the least data.
 The joint model seemed to perform comparatively well in the cases where predictions had little information from the random field and when there is little data to estimate regression parameters.
 Far-from-data predictions are particularly susceptible to overfitting.
-Given the simple linear model, adding prevalence data may protect against overfitting simply by increasing the amount of data available.
-Alternatively, a model that learns from two datasets, on different scales, with different biases, is also less likely to overfit.
+Given the simple linear model, adding prevalence point-surveys may protect against overfitting by increasing the amount of data available.
+Alternatively, the improved perforamance could be because a model that learns from two datasets, on different scales, with different biases, is also less likely to overfit.
 
 
 In contrast, the joint model does not in general improve on the polygon-only model in the random cross-validation scheme.
-A noticable element of this scheme was that locations where polygon data was removed for validation could still potentially have prevalence data.
+A noticable element of this scheme was that locations where polygon incidence data was removed for validation could still potentially have prevalence point-survey data.
 Figure~\ref{fig:cv_random} implies that this situation is the norm.
 Yet this spatial information did not improve performance in Indonesia or PseudoSenegal.
 
@@ -723,13 +724,13 @@ Yet this spatial information did not improve performance in Indonesia or PseudoS
 % Clear benefits, when some areas have polygon and some have PR.
 %   Where?
 
-There are two main reasons why a model fitted jointly on prevalence and polygon incidence data may perform worse than a polygon-only mode.
+There are two main reasons why a model fitted jointly on prevalence point-surveys and polygon incidence data may perform worse than a polygon-only mode.
 Firstly, the data are on difference scales.
 Here we have used a previously fitted model \cite{cameron2015defining} in order to be able to fit the joint model.
 However, this model is imperfect in that it is calibrated with a relatively small amount of matched prevalence and incidence data.
 Furthermore the true relationship between prevalence and incidence is likely to vary spatially as aspects such as immunity, seasonality and age-structure are not constant \cite{cameron2015defining, battle2015defining,reiner2015seasonality}.
 In using a joint model we are accepting these failings in the hope that the benefits of including additional data are stronger than the costs of using mismatched data.
-The second aspect of prevalence point data that could reduce the predictive ability of a polygon-only model by adding point data is if the point data is of low quality.
+The second aspect of prevalence point-survey data that could reduce the predictive ability of a polygon-only model by adding point data is if the point data is of low quality.
 In particular, non-random sampling of individuals can produce biased estimates of prevalence and this will decrease model performance.
 
 
@@ -738,14 +739,14 @@ This could be by estimating the parameters of the polynomial jointly with the re
 Informative priors based on the original model should be used to regularise this joint fit both to prevent unbelievable inferences but also because if the relationship is too flexible, the information from the prevalence data might not be used by the incidence level model.
 This is particularly true for even more flexible model forms that could be used such as a spline or a Gaussian process on the relationship between prevalence and incidence.
 
-For the model to handle noisy or biased prevalence data points, the modeller can control the iid random effect on the point surveys, $w_i$. 
+For the model to handle noisy or biased prevalence point-surveys, the modeller can control the iid random effect on the point-surveys, $w_i$. 
 Here we have tried to maximise the influence of the prevalence data by setting the prior based on the belief that the random effect should only explain extra-binomial variation that is impossible to explain with the covariates (i.e. based on the differences in prevalence surveys within the same pixel).
-Weakening this prior will allow the iid effect to explain more of the point survey variation which both reduces the potential statistical power gained by adding the point data but also reduces the effects of biased or noisy estimates.
+Weakening this prior will allow the iid effect to explain more of the prevalence point-survey variation which both reduces the potential statistical power gained by adding the point-surveys but also reduces the effects of biased or noisy estimates.
 
 There are large potential benefits to models that combine data in the context of large scale studies over multiple countries.
 In these cases there is often different data types in different countries and being able to make malaria estimates of the countries together increases spatial coverage and statistical power.
 Further cases where this joint model may be particularly beneficial is in countries where prevalence surveys are strongly clustered in one area --- typically an area of high malaria risk --- but without high resolution surveillance data. 
-In these regions, fitting a model on just the points requires predictions far away from the survey locations whlie fitting a model just on the surveillance data will be underpowered. 
+In these regions, fitting a model on just the prevalence point-surveys requires predictions far away from the survey locations whlie fitting a model just on the polygon incidence data will be underpowered. 
 However, the benefits of these methods do not come for free, as indicated by the reduced performance in some cases.
 
 In order to specifically compare the affects of combining the data types, we have aimed to keep the models fitted here as simple as possible.
