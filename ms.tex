@@ -331,7 +331,13 @@ Finally, for Madagascar we selected 2013 for both polygon incidence (110 regions
 
 The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \cite{bhatt2015effect}.
 As the prevalence point-surveys cover different age ranges they were standardised to an age-range of 2--10 using the model from \cite{smith2007standardizing}.
-
+Many of the points have relatively small sample sizes.
+285 surveys out of 290 in Senegal have a sample size less than 50 while 618 out of 969 surveys in Indonesia have a sample size less than 100.
+Furthermore, due to the small sample sizes and low malaria prevalence in these countries, many of the surveys have find very few malaria infections.
+Amongst the Senegal surveys, 189 out of 290 have zero positive cases while a further 30 have only one positive case.
+In Indonesia 620 out of 969 surveys have zero positive cases and 195 have one positive case.
+Finally, in Madagascar 189 out of 290 surveys have zero positive cases and 30 have one positive case.
+The age standardisation model gives the surveys with zero positive cases a small positive prevalence.
 
 \subsection*{Polygon incidence data}
 
@@ -454,7 +460,7 @@ This regularisation is particularly important given the small number of observat
 
 \subsection*{Experiments}
 
-To compare the three models we used two cross validation schemes. 
+To compare the three models we used two cross-validation schemes. 
 In the first, the combined data set of prevalence and incidence data was split into ten cross-validation folds stratified by data type (Figure~\ref{fig:cv_random}).
 This reflects real world data where we in some locations we have incidence data but no prevalence data and visa versa.
 Thus this cross-validation scheme can be seen as asking whether the joint model is preferable to using just polygon incidence data.
@@ -587,10 +593,11 @@ The incidence (log10) data, predicted log10 incidence from the joint model for r
 %figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
 \begin{figure}[!t]
 % to be removed before submission
-\includegraphics[width = \textwidth]{figures/random_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
+\includegraphics[width = 1.05\textwidth]{figures/random_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
 \caption{{\bf Observed-predicted plots for random cross-validation experiments.}
 A-B) Indonesia, C-D) PseudoSenegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
+The bimodal distribution in observed prevalence in Indonesia is caused by the large number of surveys with exactly one positive case.
 }
 \label{randompredobsscatter}
 \end{figure}
@@ -602,10 +609,11 @@ Results from all three models are included with the points only model being show
 %figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
 \begin{figure}[!t]
 % to be removed before submission
-\includegraphics[width = \textwidth]{figures/spatial_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
+\includegraphics[width = 1.05\textwidth]{figures/spatial_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
 \caption{{\bf Observed-predicted plots for spatial cross-validation experiments.}
 A-B) Indonesia, C-D) PseudoSenegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
+The bimodal distribution in observed prevalence in Indonesia is caused by the large number of surveys with exactly one positive case.
 }
 \label{spatialpredobsscatter}
 \end{figure}
@@ -700,12 +708,20 @@ With regards to a spatial cross-validation scheme, which tests a models ability 
 
 
 We used held-out prevalence point-surveys to measure how well model were predicting the within-polygon, pixel-level malaria risk.
-Given the poor performance by all models (Figures~\ref{randompredobsscatter} and \ref{spatialpredobsscatter}) these results must be interpreted with care.
-Of the four cases where predictions of polygon incidence were improved or remained similar after adding prevalence point-survey data (Indonesia and Madagascar random cross-validation and PseudoSenegal and Madagascar spatial cross validation) the predictive performance on prevalence point-surveys was always unchanged or marginally improved.
-However, the benchmark points-only model was the top or equal top model at predicting prevalence point-surveys in four out of six cases and only marginally worse in one further case.
-Only in the Madagascar, spatial cross-validation, experiment was the points-only model notably worse at predicting prevalence point surveys.
+Given the poor performance by all models including the points-only model (Figures~\ref{randompredobsscatter} and \ref{spatialpredobsscatter}), particularly in Indonesia and PseudoSenegal these results must be interpreted with care.
+% Add sample size, comparisons etc.
+In particular, nearly all of the prevalence point-surveys in PseudoSenegal found zero malaria infections (though the age standardisation moves these to slightly non-zero values).
+Given the poor performance of the points-only model, it is not useful to interpret these results as a direct measure of a models ability to predict within-polygon, pixel level risk.
+Instead we can, with care, interpret the relative performance of models.
+In five cases, the polygon-only and joint model had the same predictive performance on the prevalence point-surveys.
+In only one cases, the joint model was marginally better.
+Therefore we have no evidence that the joint model is better than the polygon-only model at predicting within-polygon, pixel-level malaria risk.
+
+
+
 
 % Discuss and interpret. Generalise
+
 
 The joint model improved the prediction of polygon incidence in two of three countries under the spatial cross-validation scheme but only one country in the random cross-validation scheme.
 The two countries where the joint model performed best in the spatial cross-validation scheme are the two countries with the least data.
