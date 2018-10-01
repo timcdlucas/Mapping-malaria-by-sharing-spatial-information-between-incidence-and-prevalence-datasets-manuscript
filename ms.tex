@@ -288,7 +288,7 @@ Here we formulate a joint model that combines aggregated surveillance data and p
 The model has seperate likelihoods for the two data types.
 We relate the two malariometric measures by using a previously estimated relationship within the model \cite{cameron2015defining}.
 We compare the joint model to an aggregated-incidence disaggregation model similar to previous models \cite{sturrock2014fine, wilson2017pointless} and a further benchmark model that contains on;y prevalence-survey data.
-As case studies we use data from Indonesia, Senegal and Madagascar as these countries have both good routine surveillance data and good coverage of prevalence point surveys.
+As case studies we use data from Indonesia, PseudoSenegal and Madagascar as these countries have both good routine surveillance data and good coverage of prevalence point surveys.
 
 
 %here we compared 3 models, point only, polygon only and joint models
@@ -304,10 +304,10 @@ we find that...
 \subsection*{Malaria data}
 
 We used two data sources that reflect malaria burden; point prevalence surveys and polygon-level, aggregated incidence data.
-We selected Indonesia, Senegal and Madagascar as case examples as they all have good surveillance data and good country wide surveys from approximately the same time.
+We selected Indonesia, PseudoSenegal and Madagascar as case examples as they all have good surveillance data and good country wide surveys from approximately the same time.
 To minimise temporal effects we select, for each country, one year of prevalence survey data and one year of surveillance data.
 For Indonesia we selected 2012 for surveillance data (380 regions) and 2010 for  prevalence data (969 surveys, 128,537 individuals).
-For Senegal we selected 2015 for both surveillance data (46 regions) and prevalence data (216 surveys, 8,114). % update todo
+For PseudoSenegal we selected 2015 for both surveillance data (46 regions) and prevalence data (216 surveys, 8,114). % update todo
 Finally, for Madagascar we selected 2013 for both surveillance (110 regions) and prevalence (290 surveys, 7,244 individuals) data.
 
 
@@ -361,12 +361,14 @@ where $p_b$ is the estimated prevalence and $n_b$ is the observed survey sample 
 
 The two quantities are linked to each other and to the predictor variables by the following system of equations.
 
-$$i_a = \frac{ \sum(i_b \mathrm{pop}_b)}{\sum  \mathrm{pop}_b} $$
+$$i_a = \frac{ \sum_{b \in a}(i_b \mathrm{pop}_b)}{\sum_{b \in a}\mathrm{pop}_b} $$
 
-$$i_b = \mathrm{p2i}(p_b)$$
+where
 
-where $\mathrm{p2i}$ is a function from a previously fitted model \cite{cameron2015defining} 
-$$\mathrm{p2i}: f\left(P\right) = 2.616P - 3.596P^2 + 1.594P^3.$$
+$$i_b = \mathrm{PrevInc}(p_b)$$
+
+where $\mathrm{PrevInc}$ is a function from a previously fitted model \cite{cameron2015defining} 
+$$\mathrm{PrevInc}: f\left(p_b\right) = 2.616p_b - 3.596{p_b}^2 + 1.594{p_b}^3.$$
 
 The linear predictor of the model, $\eta_b$, is related to prevalence by a typical logit link function.
 
@@ -393,7 +395,7 @@ In this empirical Bayes scheme the hyperparameters are learned from the data but
 
 Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
 We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \cite{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
-We used different $\zeta$ values for each country: Indonesia $\zeta = 3$, Senegal $\zeta = 1$ and Madagascar $\zeta = 1$.
+We used different $\zeta$ values for each country: Indonesia $\zeta = 3$, PseudoSenegal $\zeta = 1$ and Madagascar $\zeta = 1$.
 We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected \cite{bhatt2017improved}, so we set this prior such that the random field could explain most of the range of the data.
 
 We assigned $\sigma_v$ a penalised complexity prior \cite{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$
@@ -407,7 +409,7 @@ Given that the error on a prevalence estimate with sample size greater than 500 
 Finally, we set regularising priors on the regression coefficients $\beta_i \sim \operatorname{Norm}(0, 0.04)$. 
 Given the standardised covariates, a regression coefficient from the 95\% IQR of this distribution, and an intercept of -3, each covariate would be able to predict prevalences between 0.004 and 0.27. 
 This prior encodes our belief that the full range of malaria transmission can not be explained by a single covariate and our desire to regularise our model.
-This regularisation is particularly important given the small number of observations in Senegal (n = 46) and Madagascar (n = 110).
+This regularisation is particularly important given the small number of observations in PseudoSenegal (n = 46) and Madagascar (n = 110).
 
 
 
@@ -426,7 +428,7 @@ Thus this cross-validation scheme can be seen as asking whether aggregated incid
 
 \includegraphics[width = 0.9\textwidth]{figures/random_crossvalidation_full.png} %\caption{Indonesia random crossvalidation} 
 
-\caption{{\bf Random cross-validation scheme for Indonesia, Senegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
+\caption{{\bf Random cross-validation scheme for Indonesia, PseudoSenegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
 \label{fig:cv_random}
 \end{figure}
 
@@ -437,14 +439,14 @@ Thus this cross-validation scheme can be seen as asking whether aggregated incid
 
 \includegraphics[width = 0.9\textwidth]{figures/spatial_crossvalidation_full.png} %\caption{Indonesia random crossvalidation} 
 
-\caption{{\bf Spatial cross-validation scheme for Indonesia, Senegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
+\caption{{\bf Spatial cross-validation scheme for Indonesia, PseudoSenegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
 \label{fig:cv_spatial}
 \end{figure}
 
 
 
 In the second validation scheme the data was split into spatial cross-validation folds (see Figure~\ref{fig:cv_spatial}).
-The number of folds was seven for Indonesia, four for Senegal and three for Madagascar due to their differing sizes and geographies.
+The number of folds was seven for Indonesia, four for PseudoSenegal and three for Madagascar due to their differing sizes and geographies.
 The data was divided by combining the point locations and the centroids of the incidence polygons and performing k means clustering.
 This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
 
@@ -453,7 +455,7 @@ As there is no good way of combining predictive error from both types of data in
 We considered the ability to predict incidence correctly out main objective.
 However, a problem with using polygon data in a cross-validation scheme is that a model can perform well at the polygon level but not correctly predict the pixel-level malaria risk.
 Predictive performance on prevalence points is one way to measure how well a model can predict pixel-level malaria risk.
-However, in areas of low prevalence, small or moderately sized prevalence surveys can be noisey or unsensitive and so care must be taken when interpreting predictive performance on these data.
+However, in areas of low prevalence, small or moderately sized prevalence surveys can be noisy or unsensitive and so care must be taken when interpreting predictive performance on these data.
 Our main performance metric was mean absolute error (MAE) for incidence and MAE weighted by survey sample size for prevalence.
 While other metrics could have been used, we specifically did not use correlation as correlation measures linear dependance without regard to slope or intercept.
 As the models are being fitted on data on difference scales we found that predictions were sometimes correlated but strongly displaced from the one-one line and therefore correlation metrics were misleading.
@@ -472,7 +474,7 @@ To assess how well the models were calibrated we considered coverage of the 80\%
 % Maps, reasonable for both
 % MAE performance.
 
-For the random cross-validation experiments, the polygon-only model had the lowest mean absolute error, with respect to predicting incidence, for Indonesia (14.02) and Senegal (26.74) (Table~\ref{table1}).
+For the random cross-validation experiments, the polygon-only model had the lowest mean absolute error, with respect to predicting incidence, for Indonesia (14.02) and PseudoSenegal (26.74) (Table~\ref{table1}).
 Incidence in Madagascar was best predicted by the join model (34.49).
 However, the difference between the two models in Indonesia was small (polygons-only 14.02, joint model 14.09).
 Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter}A, C and E.
@@ -490,10 +492,10 @@ Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{rando
 {\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
 Incidence & Indonesia & 18.33 & {\bf 14.02} &  14.09\\
-& Senegal & 51.24 & {\bf 26.74} &  28.45\\
+& PseudoSenegal & 51.24 & {\bf 26.74} &  28.45\\
 & Madagascar & 85.54 & 37.45 &  {\bf 34.49}\vspace{3mm}\\
 Prevalence & Indonesia & 0.010 & 0.010 &  0.010\\
-& Senegal & {\bf 0.015} & 0.024 &  0.024\\
+& PseudoSenegal & {\bf 0.015} & 0.024 &  0.024\\
 & Madagascar & {\bf 0.054} & 0.059 &  0.059\\
 \end{tabular}
 \begin{flushleft}
@@ -515,15 +517,15 @@ The data were split randomly into 10 groups stratified by data type (incidence p
 {\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
 Incidence & Indonesia &  18.13 &  {\bf 14.77} &   15.02\\
-& Senegal &  51.17 &  41.43 &   {\bf 36.76}\\
+& PseudoSenegal &  51.17 &  41.43 &   {\bf 36.76}\\
 & Madagascar & 107.32 &  71.44 &   {\bf 65.50}\vspace{3mm}\\
 Prevalence & Indonesia & 0.011 & {\bf 0.010} &  {\bf 0.010}\\
-& Senegal & {\bf 0.015} & 0.019 &  0.019\\
+& PseudoSenegal & {\bf 0.015} & 0.019 &  0.019\\
 & Madagascar & 0.069 & 0.066 &  {\bf 0.065}\\
 \end{tabular}
 \begin{flushleft}
 Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
-The data were split into seven, four and three groups in Indonesia, Senegal and Madagascar respectively.
+The data were split into seven, four and three groups in Indonesia, PseudoSenegal and Madagascar respectively.
 \end{flushleft}
 \label{table2}
 \end{adjustwidth}
@@ -532,13 +534,13 @@ The data were split into seven, four and three groups in Indonesia, Senegal and 
 
 
 
-The benchmark points-only model had the lowest weighted MAE between observed and predicted prevalence for both Senegal (0.015) and  Madagascar (0.054) while the wighted MAE was the same for all three models in Indonesia (0.010) (Table~\ref{table1}).
+The benchmark points-only model had the lowest weighted MAE between observed and predicted prevalence for both PseudoSenegal (0.015) and  Madagascar (0.054) while the wighted MAE was the same for all three models in Indonesia (0.010) (Table~\ref{table1}).
 The more pertinent comparison is whether the addition of the prevalence data improves the ability of the disaggregation models to predict pixel level prevalence.
-However, weighted MAE was unchanged between the polygon model and the joint model for Indonesia (0.010), Senegal (0.024) or Madagascar (0.059).
-Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter} B, D and F and show poor predictive performance for all models in both Indonesia and Senegal.
+However, weighted MAE was unchanged between the polygon model and the joint model for Indonesia (0.010), PseudoSenegal (0.024) or Madagascar (0.059).
+Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter} B, D and F and show poor predictive performance for all models in both Indonesia and PseudoSenegal.
 
 Maps of the Indonesian input data and predictions (Figures~\ref{predobsmapidn}A and B) indicate that the broad spatial patterns of malaria incidence were recovered with areas in Papua, Borneo and Suluwasi being estimated as relatively high risk.
-Similarly, input data and predictions (Figures~\ref{predobsmapsen}A and B) for Senegal show broad agreement with malaria incidence being higher in the South.
+Similarly, input data and predictions (Figures~\ref{predobsmapsen}A and B) for PseudoSenegal show broad agreement with malaria incidence being higher in the South.
 
 
 % Further results. Accuracy or recall of Sen. Correlation for some?
@@ -548,18 +550,18 @@ Similarly, input data and predictions (Figures~\ref{predobsmapsen}A and B) for S
 % MAE performance.
 
 For the spatial cross-validation experiments, the polygon-only model again had the lowest mean absolute error between observed and predicted incidence for Indonesia (14.77) (Table~\ref{table2}).
-However, for both Senegal (36.76) and Madagascar (65.50) the joint model had the best predictive performance.
+However, for both PseudoSenegal (36.76) and Madagascar (65.50) the joint model had the best predictive performance.
 Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{spatialpredobsscatter}A, C and E.
 
-Again, the benchmark points-only model had the lowest weighted MAE between spatially cross-validated observed and predicted prevalence for Senegal (0.015).
+Again, the benchmark points-only model had the lowest weighted MAE between spatially cross-validated observed and predicted prevalence for PseudoSenegal (0.015).
 However, for Indonesia, both the disaggration models marginally outperformed the points-only model (polygons-only 0.010, joint model 0.010). 
-For Senegal, the joint model (0.065) had the lowest weighted MAE for predicted prevalence though this was again marginal (points-only 0.069, polygons-only 0.066).
-Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter} B, D and F and show poor predictive performance for all models in both Indonesia and Senegal.
+For PseudoSenegal, the joint model (0.065) had the lowest weighted MAE for predicted prevalence though this was again marginal (points-only 0.069, polygons-only 0.066).
+Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{randompredobsscatter} B, D and F and show poor predictive performance for all models in both Indonesia and PseudoSenegal.
 
 Maps of the Indonesian input data and spatially out-of-sample predictions (Figures~\ref{predobsmapidn}A and C) suggest the that the broad spatial patterns were once again recovered.
 This acceptable performance is notable given the very large areas held out-of-sample (Fig~\ref{fig:cv_spatial}).
 For example, the whole of Papua and West Papua the the East are held out in a single fold.
-In contrast the predictions for Senegal do not match those observed in the input data (Figures~\ref{predobsmapsen}A and C). 
+In contrast the predictions for PseudoSenegal do not match those observed in the input data (Figures~\ref{predobsmapsen}A and C). 
 
 
 % Coverage results
@@ -570,8 +572,8 @@ The proportion of out-of-sample prevalence datapoints being within their 80\% cr
 The points only model was reasonably well calibrated for predictions of prevalence (coverage ranging from 0.8 to 0.93) but was poorly calibrated for predicting incidence with coverage values as low as 0.11 and the best coverage value being 0.68 for spatial cross-validation in Madagascar.
 With respect to uncertainty in incidence predictions, the polygon-only model and joint model were similar; adding the points sometimes improved coverage and sometimes made it worse.
 However, with respect to uncertainty in prevalence predictions, the coverage was substantially improved in three of six cases and marginally improved in one case.
-Coverage improved in the random cross-validation in Indonesia (polygon-only 0.50, joint 0.80) and Madagascar (polygon-only 0.53, joint 0.74) and spatial cross-validation in Madagascar (polygon-only 0.68, joint 0.83) and marginally improved in the spatial cross-validation in Senegal (polygon-only 0.88, joint 0.79).
-In the remaining two cases, adding points did not substantially improve coverage, but did make the model more conservative, with coverage of 0.91 rather than 0.71 in the random cross-validation Senegal experiment and 0.96 instead of 0.62 in the spatial cross-validation Indonesia experiment.
+Coverage improved in the random cross-validation in Indonesia (polygon-only 0.50, joint 0.80) and Madagascar (polygon-only 0.53, joint 0.74) and spatial cross-validation in Madagascar (polygon-only 0.68, joint 0.83) and marginally improved in the spatial cross-validation in PseudoSenegal (polygon-only 0.88, joint 0.79).
+In the remaining two cases, adding points did not substantially improve coverage, but did make the model more conservative, with coverage of 0.91 rather than 0.71 in the random cross-validation PseudoSenegal experiment and 0.96 instead of 0.62 in the spatial cross-validation Indonesia experiment.
 
 % Overall
 
@@ -579,7 +581,7 @@ In the remaining two cases, adding points did not substantially improve coverage
 
 
 
-%figure 3 and 4. data and predicted incidence maps. Indonesia and Senegal only. Fig 3 ind, fig 4 rand. Data, Rand, Spatial for best model? Joint model?
+%figure 3 and 4. data and predicted incidence maps. Indonesia and PseudoSenegal only. Fig 3 ind, fig 4 rand. Data, Rand, Spatial for best model? Joint model?
 
 \begin{figure}[!t]
 % to be removed before submission
@@ -597,7 +599,7 @@ The incidence (log10) data (top), predicted log10 incidence from the joint model
 % to be removed before submission
 \includegraphics[width = 0.9\textwidth]{figures/sen_both_cv12_preds.png}
 \caption{{\bf Input incidence data and predicted incidence maps. } 
-The incidence (log10) data, predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Senegal.
+The incidence (log10) data, predicted log10 incidence from the joint model for randomly sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for PseudoSenegal.
 }
 \label{predobsmapsen}
 \end{figure}
@@ -608,7 +610,7 @@ The incidence (log10) data, predicted log10 incidence from the joint model for r
 % to be removed before submission
 \includegraphics[width = 0.9\textwidth]{figures/random_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
 \caption{{\bf Observed-predicted plots for random cross-validation experiments.}
-A-B) Indonesia, C-D) Senegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
+A-B) Indonesia, C-D) PseudoSenegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
 }
 \label{randompredobsscatter}
@@ -623,7 +625,7 @@ Results from all three models are included with the points only model being show
 % to be removed before submission
 \includegraphics[width = 0.9\textwidth]{figures/spatial_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
 \caption{{\bf Observed-predicted plots for spatial cross-validation experiments.}
-A-B) Indonesia, C-D) Senegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
+A-B) Indonesia, C-D) PseudoSenegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
 }
 \label{spatialpredobsscatter}
@@ -644,16 +646,16 @@ Results from all three models are included with the points only model being show
 {\bf Holdout data} & {\bf Cross-validation} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
 Incidence & Random & Indonesia & 0.13 & 0.72 &  0.73\\
-&& Senegal & 0.11 & 0.80 &  0.85\\
+&& PseudoSenegal & 0.11 & 0.80 &  0.85\\
 && Madagascar & 0.59 & 0.82 &  0.77\vspace{1mm}\\
 & Spatial & Indonesia & 0.14 & 0.76 &  0.68\\
-&& Senegal & 0.30 & 0.67 &  0.70\\
+&& PseudoSenegal & 0.30 & 0.67 &  0.70\\
 && Madagascar & 0.68 & 0.65 &  0.68\vspace{3mm} \\
 Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
-&& Senegal & 0.80 & 0.71 &  0.91\\
+&& PseudoSenegal & 0.80 & 0.71 &  0.91\\
 && Madagascar & 0.83 & 0.53 &  0.74\vspace{1mm}\\
 & Spatial & Indonesia & 0.87 & 0.62 &  0.96\\
-&& Senegal & 0.90 & 0.88 &  0.79\\
+&& PseudoSenegal & 0.90 & 0.88 &  0.79\\
 && Madagascar & 0.93 & 0.68 &  0.83\\
 \end{tabular}
 \begin{flushleft}
@@ -676,10 +678,10 @@ Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
 
 We have compared the predictive performance of a disaggration model and a model that jointly learns from aggregated incidence data and point prevalence surveys.
 With regards to a random cross-validation scheme, adding points to the disaggregation model improved performance in one of three countries (Madagascar).
-With regards to a spatial cross-validation scheme, which tests a models ability to predict malaria risk far away from available data, we found that adding the point surveys improved the disaggregation models in both Senegal and Madagascar.
+With regards to a spatial cross-validation scheme, which tests a models ability to predict malaria risk far away from available data, we found that adding the point surveys improved the disaggregation models in both PseudoSenegal and Madagascar but not Indonesia.
 
-A problem with using cross-validation on polygon data is that models can correctly predict polygon-level incidence while incorrectly predicting the within-polygon, pixel-level risk.
-Of the four cases where polygon predictions were improved or similar (Indonesia and Madagascar random cross-validation and Senegal and Madagascar spatial cross validation) the predictive performance on prevalence points was always unchanged or marginally improved.
+A problem with using cross-validation on polygon data is that a model could correctly predict polygon-level incidence while incorrectly predicting the within-polygon, pixel-level risk which is the real target of inference.
+Of the four cases where polygon predictions were improved or similar (Indonesia and Madagascar random cross-validation and PseudoSenegal and Madagascar spatial cross validation) the predictive performance on prevalence points was always unchanged or marginally improved.
 However, the points only model was the top or equal top model at predicting point level prevalence in four out of six cases and only marginally worse in one further case.
 Only in the Madagascar, spatial cross-validation experiment was the points-only model notably worse at predicting prevalence.
 
@@ -691,7 +693,7 @@ The joint model seems to be helping in the cases where predictions have little i
 In contrast, the joint model does not in general improve on the polygon-only model in the random cross-validation scheme.
 A noticable element of this scheme was that locations where polygon data was removed for validation could still potentially have prevalence data.
 Figure~\ref{fig:cv_random} implies that this situation is the norm.
-Yes this spatial information did not improve performance in Indonesia or Senegal.
+Yes this spatial information did not improve performance in Indonesia or PseudoSenegal.
 
 
 % Clear benefits, when some areas have polygon and some have PR.
@@ -718,9 +720,9 @@ This could be by estimating the parameters of the polynomial jointly with the re
 Informative priors based on the original model should be used to regularise this joint fit both to prevent unbelievable inferences but also because if the relationship is too flexible, the information from the prevalence data might not be used by the incidence level model.
 This is particularly true for even more flexible model forms that could be used such as a spline or a Gaussian process on the relationship between prevalence and incidence.
 
-For the model to handle noisey or biased prevalence data points, the modeller can control the iid random effect on the point surveys, $w_i$. 
+For the model to handle noisy or biased prevalence data points, the modeller can control the iid random effect on the point surveys, $w_i$. 
 Here we have tried to maximise the influence of the prevalence data by setting the prior based on the belief that the random effect should only explain extra-binomial variation that is impossible to explain with the covariates (i.e. based on the differences in prevalence surveys within the same pixel).
-Weakening this prior will allow the iid effect to explain more of the point survey variation which both reduces the potential statistical power gained by adding the point data but also reduces the effects of biased or noisey estimates.
+Weakening this prior will allow the iid effect to explain more of the point survey variation which both reduces the potential statistical power gained by adding the point data but also reduces the effects of biased or noisy estimates.
 
 In order to specifically compare the affects of combining the data types, we have aimed to keep the models fitted here as simple as possible.
 However, a number of improvements could be made.
@@ -732,7 +734,7 @@ Furthermore, it has been clearly established that simple linear combinations of 
 A number of methods could be used to include non-linear effects of covariates and interactions into the model.
 Firstly, as in \cite{bhatt2017improved}, machine learning models could be fitted to the prevalence data and then predictions from these models could be used as covariates in the full model.
 This approach is feasible but does not allow any information from the polygons to inform non-linear relationships.
-To directly model non-linear effects in the full model could be achieved by including simple non-linear functions such as splines, though the increased model complexity would require more data than was used in Senegal and Madagascar in this study.
+To directly model non-linear effects in the full model could be achieved by including simple non-linear functions such as splines, though the increased model complexity would require more data than was used in PseudoSenegal and Madagascar in this study.
 Finally, Gaussian process regression, with smoothly varying effects in environmental and geographic space could be used \cite{law2018variational}.
 These are computational expensive without careful approximations via variational Bayes or other approximations.
 Again these models need a lot of data and careful regularisation for good predictive performance.
