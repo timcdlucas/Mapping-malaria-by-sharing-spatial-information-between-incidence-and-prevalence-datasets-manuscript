@@ -343,7 +343,7 @@ The covariates were standardised to have a mean of zero and a standard deviation
 \subsection*{The model}
 
 We compared three models 1) a full model with prevalence surveys and aggregated incidence data 2) the submodel with only aggregated incidence data and 3) the benchmark submodel with only prevalence point-survey data. 
-The models were implemented and fitted using Template Model Builder \cite{TMB} in R \cite{R}
+The models were implemented and fitted in R \cite{R} using Template Model Builder \cite{TMB} which allows a Laplace approximation of the posterior to be calculated.
 
 The full, joint likelihood model is described as follows. 
 Values at the aggregate, polygon level are given the subscript $a$ while pixel or point level below are indexed with $b$.
@@ -385,6 +385,11 @@ The second iid random effect, $w_i \sim \operatorname{Norm}(0, \sigma_w)$, was a
 This effect modelled extra-binomial sampling noise.
 As such, this random effect is not included in the predicted uncertainty in the incidence or prevalence layers.
 However, it is included in predictions of out-of-sample point surveys.
+The randoms effects are all integrated out during the TMB model fitting.
+The hyperparameters are fitted during model fitting using empirical Bayes.
+In this empirical Bayes scheme the hyperparameters are learned from the data but are treated as point estimates rather than the model using the full posterior of the hyperparameters.
+
+
 
 Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
 We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \cite{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
