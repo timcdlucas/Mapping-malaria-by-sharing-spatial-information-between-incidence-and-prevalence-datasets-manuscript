@@ -109,6 +109,8 @@
 % multirow for multiple row tables. 
 \usepackage{multirow}
 
+
+
 % create "+" rule type for thick vertical lines
 \newcolumntype{+}{!{\vrule width 2pt}}
 
@@ -154,6 +156,7 @@
 
 % Header and Footer with logo
 \usepackage{lastpage,fancyhdr,graphicx}
+\DeclareGraphicsExtensions{.pdf,.png}   
 \usepackage{epstopdf}
 %\pagestyle{myheadings}
 \pagestyle{fancy}
@@ -186,7 +189,7 @@
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
 \\
-Tim C.D. Lucas*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguyen\textsuperscript{1}, Susan Rumisha \textsuperscript{1}, Rosalind Howes \textsuperscript{1}, Ewan Cameron\textsuperscript{1}, Pete Gething\textsuperscript{1} and Dan Weiss\textsuperscript{1},
+Tim C.D. Lucas*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguyen\textsuperscript{1}, Susan Rumisha \textsuperscript{1}, Rosalind Howes \textsuperscript{1}, Katherine Battle \textsuperscript{1}, Andre Python \textsuperscript{1}, Ewan Cameron\textsuperscript{1}, Pete Gething\textsuperscript{1} and Dan Weiss\textsuperscript{1},
 \\
 \bigskip
 \textbf{1} BDI, Oxford
@@ -246,9 +249,9 @@ Todo
 Global malaria incidence has decreased dramatically over the last 20 years \cite{abajobir2017global, bhatt2015effect}.
 This decrease has been accompanied by a strategic shift towards aiming for elimination in low incidence countries \cite{world2016world, newby2016path}.
 Accurate, high-resolution maps of malaria risk are vital in countries in the elimination and pre-elimination phases \cite{sturrock2016mapping, cohen2017mapping}.
-However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence \cite{gething2011new, bhatt2017improved, gething2012long} using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite{sturrock2016mapping, sturrock2014fine}.
-In low burden areas, very large sample sizes are needed before a prevalence survey is informative.
-Furthermore, large, countrywide surveys of prevalence, such as DHS or MIS, are rare in low burden countries due to costs and percieved low utility \cite{dhs}.
+However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence \cite{gething2011new, bhatt2017improved, gething2012long, bhatt2015effect} using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite{sturrock2016mapping, sturrock2014fine}.
+In low burden areas, very large sample sizes are needed before a prevalence survey is informative because so few individuals have parasitaemia that most sample points will have no cases.
+As a result, large, countrywide surveys of prevalence, such as DHS or MIS, are rare in low burden countries due to costs and percieved low utility \cite{dhs}.
 We therefore need new data sources and associated statistical methods.
 
 %Despite major reductions in incidence over the last fifteen years, malaria still causes millions of deaths and loads of DALYs annually \cite{abajobir2017global}.
@@ -258,9 +261,9 @@ We therefore need new data sources and associated statistical methods.
 %cohen2017mapping Different metrics are useful for different things. Most maps use prevalence. Govts do use maps.
 
 Routine surveillance data, of malaria case counts, is becoming more widely available and of better quality \cite{sturrock2016mapping, ohrt2015information, cibulskis2011worldwide}.
-Surveillance data is commonly aggregated, reporting the number of cases that occurred within a certain geographic or administrative region defined by a polygon.
+Surveillance data is commonly aggregated from information collected at healthcare facilities or by community health workers, reporting the number of cases that occurred within a certain geographic or administrative region defined by a polygon.
 This polygon incidence data can be more sensitive than prevalence point-surveys in low transmission areas as the entire public health system is being used to passively monitor disease risk \cite{cibulskis2011worldwide}.
-Furthermore, polygon incidence data is also often timely, with reports being released annually or monthly, while countrywide collection of prevalence point-surveys is performed on a more decadely time scale.
+Furthermore, polygon incidence data is also often timely, with reports being released annually or monthly with little lag, while countrywide collection of prevalence point-surveys are both rare and often released one to two years after field data collection is completed.
 However, the unstructured nature of data collection and reporting of polygon incidence data from national disease surveillance systems means that dealing with biases and data gaps is an ongoing research priority \cite{battle2016treatment, cibulskis2011worldwide}.
 
 %however surveillance data is sometimes high quality in these areas
@@ -269,13 +272,13 @@ However, the unstructured nature of data collection and reporting of polygon inc
 %sturrock used two.
 %undeveloped area of statistics but see Leon.
 
-Disaggregation regression methods have been proposed to handle polygon incidence data \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
-However using polygon incidence data to estimate malaria risk for high resolution maps presents particular modelling difficulties. 
+Disaggregation regression methods have been proposed as a way to model malaria burden using polygon-level incidence \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
+However using polygon incidence data to estimate malaria risk for high resolution maps presents several noteworthy modelling difficulties. 
 %Disaggregation models aim to estimate high-resolution maps from aggregated data and are characterised by having a variable number of pixels, and therefore multiple rows of covariate data, per row of response data.
 The aggregation of cases over space means that the data may be relatively uninformative, especially if the case counts are aggregated over a large or heterogenous area.
-For example, Sturrock \emph{et al.} used only two environmental covariates in their model \cite{sturrock2014fine}.
-Disaggregation models are also simply an underrepresented class of models in the statistical literature and statistical software.
-Wilson \emph{et al.} \cite{wilson2017pointless} used an approximation to represent a downscaling model as a convolution matrix within R-INLA \cite{INLA} but more generally, downscaling models are not available in popular software packages and must be programmed explicitely.
+For example, Sturrock \emph{et al.} used only two environmental covariates in their model as although they had a reasonable number of data points, the data were not informative enough to support retaining more covariates \cite{sturrock2014fine}.
+Disaggregation models are also simply an underrepresented class of models in the statistical literature and statistical software relative to model-based geostatistical approaches.
+Likewise, downscaling models are not available in popular software packages and must typically be programmed explicitly though Wilson \emph{et al.} \cite{wilson2017pointless} used an approximation to represent a downscaling model as a convolution matrix within R-INLA \cite{INLA}.
 Furthermore, disaggregation models are relatively difficult to implement as they have more rows of covariate data than response data.
 
 
@@ -419,27 +422,27 @@ This was chosen by finding the maximum difference in prevalence between point-su
 The differences between points within the same pixel can only be accounted for by the binomial error and this iid effect.
 Given that the error on a prevalence estimate with sample size greater than 500 is quite small, the iid effect needs to be able to explain this difference.
 
-\begin{figure}[t!]
-% to be removed before submission
-\centering
-
-\includegraphics[width = 0.9\textwidth]{figures/random_crossvalidation_full.png} %\caption{Indonesia random crossvalidation} 
-
-\caption{{\bf Random cross-validation scheme for Indonesia, PseudoSenegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
-\label{fig:cv_random}
-\end{figure}
-
-
-\begin{figure}[!t]
-% to be removed before submission
-\centering
-
-\includegraphics[width = 0.9\textwidth]{figures/spatial_crossvalidation_full.png} %\caption{Indonesia random crossvalidation} 
-
-\caption{{\bf Spatial cross-validation scheme for Indonesia, PseudoSenegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
-\label{fig:cv_spatial}
-\end{figure}
-
+%\begin{figure}[t!]
+%% to be removed before submission
+%\centering
+%
+%\includegraphics[width = 0.9\textwidth]{figures/random_crossvalidation_full.png} %\caption{Indonesia random crossvalidation} 
+%
+%\caption{{\bf Random cross-validation scheme for Indonesia, PseudoSenegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
+%\label{fig:cv_random}
+%\end{figure}
+%
+%
+%\begin{figure}[!t]
+%% to be removed before submission
+%\centering
+%
+%\includegraphics[width = 0.9\textwidth]{figures/spatial_crossvalidation_full.png} %\caption{Indonesia random crossvalidation} 
+%
+%\caption{{\bf Spatial cross-validation scheme for Indonesia, PseudoSenegal and Madagascar.} The fold for both aggregated incidence data and prevalence point data is shown.}
+%\label{fig:cv_spatial}
+%\end{figure}
+%
 
 Finally, we set regularising priors on the regression coefficients $\beta_i \sim \operatorname{Norm}(0, 0.04)$. 
 Given the standardised covariates, a regression coefficient from the 95\% IQR of this distribution, and an intercept of -3, each covariate would be able to predict prevalences between 0.004 and 0.27. 
@@ -550,23 +553,30 @@ From the scatter plots it can be seen that the point-only model is strongly bias
 %figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 1.05\textwidth]{figures/random_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
+\includegraphics[width = 1.05\textwidth]{figures/random_cv_poly_facet} %\caption{Indonesia spatial crossvalidation} 
 \caption{{\bf Observed-predicted plots for random cross-validation experiments.}
-A-B) Indonesia, C-D) PseudoSenegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
+A) Indonesia, B) PseudoSenegal, C) Madagascar. Square root aggregated incidence (per 1,000).
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
-The bimodal distribution in observed prevalence in Indonesia is caused by the large number of surveys with exactly one positive case.
 }
-\label{randompredobsscatter}
+\label{randompredobspolyfacet}
 \end{figure}
 
-
+\begin{figure}
+% to be removed before submission
+\includegraphics[width = 1.05\textwidth]{figures/random_cv_points_facet} %\caption{Indonesia spatial crossvalidation} 
+\caption{{\bf Observed-predicted plots for random cross-validation experiments.}
+A) Indonesia, B) PseudoSenegal, C) Madagascar. Square root prevalence.
+Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
+}
+\label{randompredobspointfacet}
+\end{figure}
 
 
 
 %figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 1.05\textwidth]{figures/spatial_cv_scatter.pdf} %\caption{Indonesia spatial crossvalidation} 
+\includegraphics[width = 1.05\textwidth]{figures/spatial_cv_scatter} %\caption{Indonesia spatial crossvalidation} 
 \caption{{\bf Observed-predicted plots for spatial cross-validation experiments.}
 A-B) Indonesia, C-D) PseudoSenegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
@@ -710,7 +720,7 @@ Given the poor performance of the points-only model, it is not useful to interpr
 Instead we can, with care, interpret the relative performance of models.
 In five cases, the polygon-only and joint model had the same predictive performance on the prevalence point-surveys.
 In only one cases, the joint model was marginally better.
-Therefore we have no evidence that the joint model is better than the polygon-only model at predicting within-polygon, pixel-level malaria risk.
+Therefore we conclude that the joint model is no better than the polygon-only model at predicting within-polygon, pixel-level malaria risk.
 
 
 
