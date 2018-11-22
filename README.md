@@ -17,3 +17,12 @@ title: A comparison of models for polygon data, point data or both for malaria m
 10. gives country X model X CV X metric X prevalence vs incidence.
 
 
+
+
+To create a docx.
+
+pandoc ms.tex --filter pandoc-citeproc --webtex -t html | pandoc --filter pandoc-citeproc -f html -o lucas_ms.docx
+
+
+
+
