@@ -193,7 +193,7 @@
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
 \\
-Tim C.D. Lucas*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguyen\textsuperscript{1}, Susan Rumisha \textsuperscript{1}, Rosalind Howes \textsuperscript{1}, Katherine Battle \textsuperscript{1}, Andre Python \textsuperscript{1}, Ewan Cameron\textsuperscript{1}, Pete Gething\textsuperscript{1} and Dan Weiss\textsuperscript{1}
+Tim C.D. Lucas*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguyen\textsuperscript{1}, Susan Rumisha \textsuperscript{1}, Rosalind Howes \textsuperscript{1}, Katherine E. Battle \textsuperscript{1}, Andre Python \textsuperscript{1}, Ewan Cameron\textsuperscript{1}, Pete Gething\textsuperscript{1} and Daniel J. Weiss\textsuperscript{1}
 \\
 \bigskip
 \textbf{1} BDI, Oxford
@@ -319,9 +319,9 @@ We find that the joint model performs better than the polygon-only model in case
 \subsection*{Malaria data}
 
 We used two data sources that reflect malaria burden; prevalence point-surveys and polygon incidence data.
-We selected Indonesia, Senegal and Madagascar as case examples as they all have good surveillance data and good country wide surveys from approximately the same time.
-To minimise temporal effects we select, for each country, one year of prevalence point-survey data and one year of polygon incidence data.
-For Indonesia we selected 2012 for polygon incidence data (380 regions) and 2010 for prevalence data (969 surveys, 128,537 individuals).
+We selected Indonesia, Senegal and Madagascar as case examples as they all have abundant subnational surveillance data and country wide surveys from approximately the same period.
+To minimise temporal effects we selected, for each country, one year of prevalence point-survey data and one year of polygon incidence data.
+For Indonesia we selected polygon incidence data from 2012 that covers 380 regions, and prevalence data from 2010 that consists of 969 surveys, accounting for 128,537 individuals.
 For Senegal we selected 2015 for both polygon incidence data (46 regions) and prevalence data (216 surveys, 8,114). % update todo
 Finally, for Madagascar we selected 2013 for both polygon incidence (110 regions) and prevalence (290 surveys, 7,244 individuals) data.
 
@@ -329,13 +329,13 @@ Finally, for Madagascar we selected 2013 for both polygon incidence (110 regions
 
 \subsection*{Prevalence survey data}
 
-The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \cite{bhatt2015effect}.
+The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \cite{bhatt2015effect, guerra2007assembling, gething2011new}.
 As the prevalence point-surveys cover different age ranges they were standardised to an age-range of 2--10 using the model from \cite{smith2007standardizing}.
-Many of the points have relatively small sample sizes.
-285 surveys out of 290 in Senegal have a sample size less than 50 while 618 out of 969 surveys in Indonesia have a sample size less than 100.
+A challenge associated with using the prevalence points is that many of them have relatively small sample sizes.
+For example, 285 surveys out of 290 in Senegal have a sample size less than 50 while 618 out of 969 surveys in Indonesia have a sample size less than 100.
 Furthermore, due to the small sample sizes and low malaria prevalence in these countries, many of the surveys have find very few malaria infections.
 Amongst the Senegal surveys, 189 out of 290 have zero positive cases while a further 30 have only one positive case.
-In Indonesia 620 out of 969 surveys have zero positive cases and 195 have one positive case.
+In Indonesia 620 out of 969 surveys have zero positive cases and 195 have only one positive case.
 Finally, in Madagascar 189 out of 290 surveys have zero positive cases and 30 have one positive case.
 The age standardisation model gives the surveys with zero positive cases a small positive prevalence.
 
@@ -343,10 +343,9 @@ The age standardisation model gives the surveys with zero positive cases a small
 
 % (Figures~\ref{predobsmapidn}A and \ref{predobsmapsen}A)
 
-The polygon incidence data were collated from various government reports.
-To account for underreporting of clinical cases due to lack of treatment seeking, missed case reports and cases that sought medical attention outside the public health systems, the methods in \cite{cibulskis2011worldwide} were used using estimates of treatment seeking from \cite{battle2016treatment}.
-Where species specific reports were given, these were used. 
-For reports where no species specific, national estimates of the ratio between \emph{P. falciparum} and \emph{P. vivax} cases were used to calculate \emph{P. falciparum} only cases.
+The polygon incidence data were collated from various government reports and adjusted to a standard metric using methods defined in \cite{cibulskis2011worldwide}.
+These adjustments account for underreporting of clinical cases due to lack of treatment seeking, missed case reports, and cases that sought medical attention outside the public health systems, and treatment seeking behaviour \cite{battle2016treatment}.
+Where species specific reports were given, these were used, and in reports that did not distinguish between species of \emph{Plasmodium} the national estimate of the ratio between \emph{P. falciparum} and \emph{P. vivax} cases were used to estimate \emph{P. falciparum} only cases.
 
 
 
