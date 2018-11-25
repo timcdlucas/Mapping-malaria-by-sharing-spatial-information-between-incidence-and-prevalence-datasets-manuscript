@@ -496,12 +496,12 @@ To assess how well the models were calibrated we considered coverage of the 80\%
 \hline
 {\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
-Incidence & Indonesia & 18.33 & {\bf 14.02} &  14.09\\
-& Senegal & 51.24 & {\bf 26.74} &  28.45\\
-& Madagascar & 85.54 & 37.45 &  {\bf 34.49}\vspace{3mm}\\
+Incidence & Indonesia & 18.33 & 14.02 &  14.09\\
+& Senegal & 85.73 & 12.52 &  12.63\\
+& Madagascar & 85.54 & 37.45 &  34.49\vspace{3mm}\\
 Prevalence & Indonesia & 0.010 & 0.010 &  0.010\\
-& Senegal & {\bf 0.015} & 0.024 &  0.024\\
-& Madagascar & {\bf 0.054} & 0.059 &  0.059\\
+& Senegal & 0.052 & 0.059 &  0.058\\
+& Madagascar & 0.054 & 0.059 &  0.059\\
 \end{tabular}
 \begin{flushleft}
 Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
@@ -521,12 +521,12 @@ The data were split randomly into 10 groups stratified by data type (incidence p
 \hline
 {\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
-Incidence & Indonesia &  18.13 &  {\bf 14.77} &   15.02\\
-& Senegal &  51.17 &  41.43 &   {\bf 36.76}\\
-& Madagascar & 107.32 &  71.44 &   {\bf 65.50}\vspace{3mm}\\
-Prevalence & Indonesia & 0.011 & {\bf 0.010} &  {\bf 0.010}\\
-& Senegal & {\bf 0.015} & 0.019 &  0.019\\
-& Madagascar & 0.069 & 0.066 &  {\bf 0.065}\\
+Incidence & Indonesia &  18.13 &  14.77 &   15.02\\
+& Senegal &  62.71 &  13.53 &   17.62\\
+& Madagascar & 107.32 &  71.44 &   65.50\vspace{3mm}\\
+Prevalence & Indonesia & 0.011 & 0.010 &  0.010\\
+& Senegal & 0.062 & 0.060 &  0.060\\
+& Madagascar & 0.069 & 0.066 &  0.065\\
 \end{tabular}
 \begin{flushleft}
 Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
@@ -582,14 +582,24 @@ Results from all three models are included with the points only model being show
 %figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 1.05\textwidth]{figures/spatial_cv_scatter} %\caption{Indonesia spatial crossvalidation} 
+\includegraphics[width = 1.05\textwidth]{figures/spatial_cv_poly_facet} %\caption{Indonesia spatial crossvalidation} 
 \caption{{\bf Observed-predicted plots for spatial cross-validation experiments.}
-A-B) Indonesia, C-D) Senegal, E-F) Madagascar. A, C, E) square root aggregated incidence (per 1,000), B, D, F) square root prevalence.
+A) Indonesia, B) Senegal, C) Madagascar. Square root aggregated incidence (per 1,000).
 Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
-The bimodal distribution in observed prevalence in Indonesia is caused by the large number of surveys with exactly one positive case.
 }
-\label{spatialpredobsscatter}
+\label{spatialpredobspolyfacet}
 \end{figure}
+
+\begin{figure}
+% to be removed before submission
+\includegraphics[width = 1.05\textwidth]{figures/spatial_cv_points_facet} %\caption{Indonesia spatial crossvalidation} 
+\caption{{\bf Observed-predicted plots for spatial cross-validation experiments.}
+A) Indonesia, B) Senegal, C) Madagascar. Square root prevalence.
+Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
+}
+\label{spatialpredobspointfacet}
+\end{figure}
+
 
 
 \begin{table}[t]
@@ -602,16 +612,16 @@ The bimodal distribution in observed prevalence in Indonesia is caused by the la
 {\bf Holdout data} & {\bf Cross-validation} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
 Incidence & Random & Indonesia & 0.13 & 0.72 &  0.73\\
-&& Senegal & 0.11 & 0.80 &  0.85\\
+&& Senegal & 0.20 & 0.78 &  0.71\\
 && Madagascar & 0.59 & 0.82 &  0.77\vspace{1mm}\\
 & Spatial & Indonesia & 0.14 & 0.76 &  0.68\\
-&& Senegal & 0.30 & 0.67 &  0.70\\
+&& Senegal & 0.34 & 0.90 &  0.78\\
 && Madagascar & 0.68 & 0.65 &  0.68\vspace{3mm} \\
 Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
-&& Senegal & 0.80 & 0.71 &  0.91\\
+&& Senegal & 0.83 & 0.19 &  0.77\\
 && Madagascar & 0.83 & 0.53 &  0.74\vspace{1mm}\\
 & Spatial & Indonesia & 0.87 & 0.62 &  0.96\\
-&& Senegal & 0.90 & 0.88 &  0.79\\
+&& Senegal & 0.85 & 0.26 &  0.79\\
 && Madagascar & 0.93 & 0.68 &  0.83\\
 \end{tabular}
 \begin{flushleft}
