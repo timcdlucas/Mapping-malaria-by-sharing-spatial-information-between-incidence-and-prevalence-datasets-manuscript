@@ -193,7 +193,7 @@
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
 \\
-Tim C.D. Lucas*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguyen\textsuperscript{1}, Susan Rumisha \textsuperscript{1}, Rosalind Howes \textsuperscript{1}, Katherine E. Battle \textsuperscript{1}, Andre Python \textsuperscript{1}, Ewan Cameron\textsuperscript{1}, Pete Gething\textsuperscript{1} and Daniel J. Weiss\textsuperscript{1}
+Tim C.D. Lucas*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguyen\textsuperscript{1}, Susan Rumisha \textsuperscript{1}, Rosalind Howes \textsuperscript{1}, Katherine E. Battle \textsuperscript{1}, Penelope Hancock \textsuperscript{1}, Andre Python \textsuperscript{1}, Ewan Cameron\textsuperscript{1}, Pete Gething\textsuperscript{1} and Daniel J. Weiss\textsuperscript{1}
 \\
 \bigskip
 \textbf{1} BDI, Oxford
@@ -329,7 +329,7 @@ Finally, for Madagascar we selected 2013 for both polygon incidence (110 regions
 
 \subsection*{Prevalence survey data}
 
-The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \cite{bhatt2015effect, guerra2007assembling, gething2011new}.
+The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \cite{bhatt2015effect, guerra2007assembling, gething2011new, pfeffer2018ma}.
 As the prevalence point-surveys cover different age ranges they were standardised to an age-range of 2--10 using the model from \cite{smith2007standardizing}.
 A challenge associated with using the prevalence points is that many of them have relatively small sample sizes.
 For example, 285 surveys out of 290 in Senegal have a sample size less than 50 while 618 out of 969 surveys in Indonesia have a sample size less than 100.
@@ -344,7 +344,7 @@ The age standardisation model gives the surveys with zero positive cases a small
 % (Figures~\ref{predobsmapidn}A and \ref{predobsmapsen}A)
 
 The polygon incidence data were collated from various government reports and adjusted to a standard metric using methods defined in \cite{cibulskis2011worldwide}.
-These adjustments account for underreporting of clinical cases due to lack of treatment seeking, missed case reports, and cases that sought medical attention outside the public health systems, and treatment seeking behaviour \cite{battle2016treatment}.
+These adjustments account for underreporting of clinical cases due to lack of treatment seeking, missed case reports, and cases that sought medical attention outside the public health systems \cite{battle2016treatment}.
 Where species specific reports were given, these were used, and in reports that did not distinguish between species of \emph{Plasmodium} the national estimate of the ratio between \emph{P. falciparum} and \emph{P. vivax} cases were used to estimate \emph{P. falciparum} only cases.
 
 
@@ -358,13 +358,12 @@ Finally, for each year, national population estimates from the UN were raked ove
 \subsection*{Covariate data}
 
 We considered an initial suite of environmental and anthropological covariates, at a resolution of approximately $5 \times 5$ kilometres at the equator that included land surface temperature annual mean and standard deviation \cite{LST}, enhanced vegetation index \cite{TCB}, mosquito temperature suitability index \cite{weiss2014air}, elevation \cite{SRTMElev}, tassel cap brightness \cite{TCB}, tassel cap wetness \cite{TCB}, accessibility to cities \cite{weiss2018global}, night lights \cite{} and proportion of urban land cover \cite{}.
-Elevation, land surface temperature standard deviation, accessibility to cities and night lights were all log transformed to reduce skewness.
-After preliminary analyses, tassel cap brightness and urban land cover were removed as they were highly correlated with other variables.
+Some covariates were log-transformed to remove skewness or removed due to multicollineariy with other predictor variables using the threshold of 0.8. % think we decided this on indonesia data only. Sen is currently 0.81... just a bit messy.
 The covariates were standardised to have a mean of zero and a standard deviation of one.
 
 \subsection*{The model}
 
-We compared three models 1) a full model with prevalence point-surveys and polygon incidence data 2) the submodel with only polygon incidence data and 3) the benchmark submodel with only prevalence point-survey data. 
+We compared three models 1) a joint model using both  prevalence point-surveys and polygon incidence data as the response variable 2) a submodel using only polygon incidence data and 3) a benchmark submodel using only prevalence point-survey data. 
 The models were implemented and fitted in R \cite{R} using Template Model Builder \cite{TMB} which allows a Laplace approximation of the posterior to be calculated.
 
 The full, joint likelihood model is described as follows. 
@@ -422,9 +421,9 @@ We believe that a large proportion of the variance of malaria prevalence and inc
 
 We assigned $\sigma_v$ a penalised complexity prior \cite{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$
 This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for the case counts using the approach defined in \cite{cibulskis2011worldwide}.
-We found that an iid effect with a standard deviation of 0.05 would be able to account for the discrepancy between the assumed Poisson error and the independently derived error.
+We found that an iid effect with a standard deviation of 0.05 is able to account for the discrepancy between the assumed Poisson error and the independently derived error.
 We assigned $\sigma_w$ a penalised complexity prior such that $P(\sigma_w > 0.3) = 0.0000001$. 
-This was chosen by finding the maximum difference in prevalence between point-surveys (with a sample size greater than 500) within the same raster pixel.
+This was chosen by finding the maximum difference in prevalence between point-surveys (with a sample size greater than 500 individuals) within the same raster pixel.
 The differences between points within the same pixel can only be accounted for by the binomial error and this iid effect.
 Given that the error on a prevalence estimate with sample size greater than 500 is quite small, the iid effect needs to be able to explain this difference.
 
@@ -451,8 +450,8 @@ Given that the error on a prevalence estimate with sample size greater than 500 
 %
 
 Finally, we set regularising priors on the regression coefficients $\beta_i \sim \operatorname{Norm}(0, 0.04)$. 
-Given the standardised covariates, a regression coefficient from the 95\% IQR of this distribution, and an intercept of -3, each covariate would be able to predict prevalences between 0.004 and 0.27. 
-This prior encodes our belief that the full range of malaria transmission can not be explained by a single covariate and our desire to regularise our model.
+Given the standardised covariates, a regression coefficient from the 95\% IQR of this distribution, and an intercept of -3, each covariate is able to predict prevalences between 0.004 and 0.27. 
+This prior encodes our desire to regularise our model and and belief that the full range of malaria transmission can not be explained by a single covariate and our desire to regularise our model.
 This regularisation is particularly important given the small number of observations in Senegal (n = 46) and Madagascar (n = 110).
 
 
@@ -462,13 +461,13 @@ This regularisation is particularly important given the small number of observat
 To compare the three models we used two cross-validation schemes. 
 In the first, the combined data set of prevalence and incidence data was split into ten cross-validation folds stratified by data type (Figure~\ref{fig:cv_random}).
 This reflects real world data where we in some locations we have incidence data but no prevalence data and visa versa.
-Thus this cross-validation scheme can be seen as asking whether the joint model is preferable to using just polygon incidence data.
+Thus this cross-validation scheme directly addresses the question of whether the joint model is preferable to using just polygon incidence data.
 
 %figure 1.cross validation. %% Do fig 1 and 2, random and spatial cv. IDN on top, MDG and SEN below in each.
 
 
 In the second validation scheme the data was split into spatial cross-validation folds (see Figure~\ref{fig:cv_spatial}).
-The number of folds was seven for Indonesia, four for Senegal and three for Madagascar due to their differing sizes and geographies.
+The number of folds was seven for Indonesia, four for Senegal and three for Madagascar due to their differing sizes and and epidemiological settings.
 The data was divided by combining the prevalence point-survey locations and the centroids of the incidence polygons and performing k means clustering.
 This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
 
@@ -477,7 +476,7 @@ As there is no good way of combining predictive error from both types of data in
 We considered the ability to predict polygon incidence correctly our main objective and our performance metric was mean absolute error (MAE).
 However, a problem with using polygon data in a cross-validation scheme is that a model can perform well at the polygon level but not correctly predict the pixel-level malaria risk.
 Predictive performance on prevalence survey-points is one way to measure how well a model can predict pixel-level malaria risk.
-However, in areas of low prevalence, small or moderately sized prevalence point-surveys can be noisy or unsensitive and so care must be taken when interpreting predictive performance on these data.
+However, in areas of low prevalence, small or moderately sized prevalence point-surveys can be noisy or insensitive and so care must be taken when interpreting predictive performance on these data.
 Therefore our secondary metric was MAE, weighted by survey sample size, of prevalence point-surveys.
 While other metrics could have been used, we specifically did not use correlation as correlation measures linear dependance without regard to slope or intercept.
 As the models are being fitted on data on difference scales we found that observations and predictions were sometimes correlated but strongly displaced from the one-one line and therefore correlation metrics were misleading.
@@ -622,7 +621,7 @@ Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
 && Madagascar & 0.83 & 0.53 &  0.74\vspace{1mm}\\
 & Spatial & Indonesia & 0.87 & 0.62 &  0.96\\
 && Senegal & 0.85 & 0.26 &  0.79\\
-&& Madagascar & 0.93 & 0.68 &  0.83\\
+&& Madagascar &   0.93 & 0.68 &  0.83\\
 \end{tabular}
 \begin{flushleft}
 
