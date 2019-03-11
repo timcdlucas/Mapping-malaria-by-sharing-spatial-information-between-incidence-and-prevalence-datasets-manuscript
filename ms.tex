@@ -321,9 +321,9 @@ We find that the joint model performs better than the polygon-only model in case
 We used two data sources that reflect malaria burden; prevalence point-surveys and polygon incidence data.
 We selected Indonesia, Senegal and Madagascar as case examples as they all have abundant subnational surveillance data and country wide surveys from approximately the same period.
 To minimise temporal effects we selected, for each country, one year of prevalence point-survey data and one year of polygon incidence data.
-For Indonesia we selected polygon incidence data from 2012 that covers 380 regions, and prevalence data from 2010 that consists of 969 surveys, accounting for 128,537 individuals.
-For Senegal we selected 2015 for both polygon incidence data (46 regions) and prevalence data (216 surveys, 8,114). % update todo
-Finally, for Madagascar we selected 2013 for both polygon incidence (110 regions) and prevalence (290 surveys, 7,244 individuals) data.
+For Indonesia we selected polygon incidence data from 2012 that covers 380 regions, and prevalence data from 2010 to 2014 that consists of todo surveys, accounting for todo individuals.
+For Senegal we selected 2015 for polygon incidence data (46 regions) and 2013 to 2017 for prevalence data (todo surveys, todo).
+Finally, for Madagascar we selected 2013 for polygon incidence (110 regions) and 2011 to 2015 prevalence (todo surveys, todo individuals) data.
 
 
 
@@ -331,12 +331,6 @@ Finally, for Madagascar we selected 2013 for both polygon incidence (110 regions
 
 The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \cite{bhatt2015effect, guerra2007assembling, gething2011new, pfeffer2018ma}.
 As the prevalence point-surveys cover different age ranges they were standardised to an age-range of 2--10 using the model from \cite{smith2007standardizing}.
-A challenge associated with using the prevalence points is that many of them have relatively small sample sizes.
-For example, 285 surveys out of 290 in Senegal have a sample size less than 50 while 618 out of 969 surveys in Indonesia have a sample size less than 100.
-Furthermore, due to the small sample sizes and low malaria prevalence in these countries, many of the surveys have find very few malaria infections.
-Amongst the Senegal surveys, 189 out of 290 have zero positive cases while a further 30 have only one positive case.
-In Indonesia 620 out of 969 surveys have zero positive cases and 195 have only one positive case.
-Finally, in Madagascar 189 out of 290 surveys have zero positive cases and 30 have one positive case.
 The age standardisation model gives the surveys with zero positive cases a small positive prevalence.
 
 \subsection*{Polygon incidence data}
@@ -458,27 +452,19 @@ This regularisation is particularly important given the small number of observat
 
 \subsection*{Experiments}
 
-To compare the three models we used two cross-validation schemes. 
-In the first, the combined data set of prevalence and incidence data was split into ten cross-validation folds stratified by data type (Figure~\ref{fig:cv_random}).
-This reflects real world data where we in some locations we have incidence data but no prevalence data and visa versa.
-Thus this cross-validation scheme directly addresses the question of whether the joint model is preferable to using just polygon incidence data.
-
-%figure 1.cross validation. %% Do fig 1 and 2, random and spatial cv. IDN on top, MDG and SEN below in each.
-
-
-In the second validation scheme the data was split into spatial cross-validation folds (see Figure~\ref{fig:cv_spatial}).
+To compare the three models we used three cross-validation schemes. 
+In the first, the incidence data was split into ten cross-validation folds while all the prevalence data was used in each case.
+%This cross-validation scheme directly addresses the question of whethe
+In the second validation scheme, the incidence data was split into spatial cross-validation folds (see Figure~\ref{fig:cv_spatial}) while again all prevalence points were used in all folds.
 The number of folds was seven for Indonesia, four for Senegal and three for Madagascar due to their differing sizes and and epidemiological settings.
 The data was divided by combining the prevalence point-survey locations and the centroids of the incidence polygons and performing k means clustering.
+This scheme is specifically testing whether the joint model can improve predictions by increasing geographic coverage.
+This situation is particularly common in continental scale models where done countries will have large DHS style surveys while others will not.
+In the final scheme the data is again split  spatially but the prevalence surveys from the hold-out areas are also witheld.
 This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
+It is therefore testing how well the models learn the parameters that relate the environment to malaria risk.
 
-In both cases we examined performance metrics for both the withheld prevalence point-survey data and the withheld incidence polygon data.
-As there is no good way of combining predictive error from both types of data into one performance metric, we considered performance separately throughout.
 We considered the ability to predict polygon incidence correctly our main objective and our performance metric was mean absolute error (MAE).
-However, a problem with using polygon data in a cross-validation scheme is that a model can perform well at the polygon level but not correctly predict the pixel-level malaria risk.
-Predictive performance on prevalence survey-points is one way to measure how well a model can predict pixel-level malaria risk.
-However, in areas of low prevalence, small or moderately sized prevalence point-surveys can be noisy or insensitive and so care must be taken when interpreting predictive performance on these data.
-Therefore our secondary metric was MAE, weighted by survey sample size, of prevalence point-surveys.
-While other metrics could have been used, we specifically did not use correlation as correlation measures linear dependance without regard to slope or intercept.
 As the models are being fitted on data on difference scales we found that observations and predictions were sometimes correlated but strongly displaced from the one-one line and therefore correlation metrics were misleading.
 % Why not correlation
 To assess how well the models were calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
