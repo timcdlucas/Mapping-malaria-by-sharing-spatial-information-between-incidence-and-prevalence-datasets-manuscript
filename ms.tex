@@ -453,14 +453,14 @@ This regularisation is particularly important given the small number of observat
 \subsection*{Experiments}
 
 To compare the three models we used three cross-validation schemes. 
-In the first, the incidence data was split into ten cross-validation folds while all the prevalence data was used in each case.
+In the first (random), the incidence data was split into ten cross-validation folds while all the prevalence data was used in each case.
 %This cross-validation scheme directly addresses the question of whethe
-In the second validation scheme, the incidence data was split into spatial cross-validation folds (see Figure~\ref{fig:cv_spatial}) while again all prevalence points were used in all folds.
-The number of folds was seven for Indonesia, four for Senegal and three for Madagascar due to their differing sizes and and epidemiological settings.
+In the second validation scheme (spatial a), the incidence data was split into spatial cross-validation folds while again all prevalence points were used in all folds.
+The number of folds was seven for Indonesia, five for Senegal and three for Madagascar due to their differing sizes and epidemiological settings.
 The data was divided by combining the prevalence point-survey locations and the centroids of the incidence polygons and performing k means clustering.
-This scheme is specifically testing whether the joint model can improve predictions by increasing geographic coverage.
-This situation is particularly common in continental scale models where done countries will have large DHS style surveys while others will not.
-In the final scheme the data is again split  spatially but the prevalence surveys from the hold-out areas are also witheld.
+This scheme is specifically testing whether the joint model can improve predictions by increasing geographic data coverage.
+This situation is particularly common in continental scale models where some countries will have large DHS style surveys but little incidence data.
+In the final scheme (spatial b) the data is again split  spatially but the prevalence surveys from the hold-out areas are also witheld.
 This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
 It is therefore testing how well the models learn the parameters that relate the environment to malaria risk.
 
@@ -476,50 +476,29 @@ To assess how well the models were calibrated we considered coverage of the 80\%
 \begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
 \centering
 \caption{
-{\bf Summary of out-of-sample accuracy for random cross-validation experiment.}}
-\begin{tabular}{llllll}
+{\bf Summary of out-of-sample accuracy for all three cross-validation experiments.}}
+\begin{tabular}{llll}
 \hline
-{\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+{\bf CV scheme} & {\bf Country} &  {\bf Polygons} & {\bf Joint} \\
 \thickhline 
-Incidence & Indonesia & 18.33 & 14.02 &  14.09\\
-& Senegal & 85.73 & 12.52 &  12.63\\
-& Madagascar & 85.54 & 37.45 &  34.49\vspace{3mm}\\
-Prevalence & Indonesia & 0.010 & 0.010 &  0.010\\
-& Senegal & 0.052 & 0.059 &  0.058\\
-& Madagascar & 0.054 & 0.059 &  0.059\\
+Random & Indonesia  & 13.95 &  {\bf 13.88}\\
+& Senegal  & {\bf 12.41} &  12.81\\
+& Madagascar  & 39.06 &  {\bf 36.36}\vspace{3mm}\\
+Spatial a & Indonesia & {\bf 14.81} &  16.45\\
+& Senegal  & {\bf 12.31} &  30.12\\
+& Madagascar & 67.73 &  {\bf 44.05} \vspace{3mm}\\
+Spatial b & Indonesia & {\bf 14.77} &  15.02\\
+& Senegal  & {\bf 12.39} &  18.75\\
+& Madagascar  & 70.72 &  {\bf 61.05}\\
 \end{tabular}
 \begin{flushleft}
-Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
-The data were split randomly into 10 groups stratified by data type (incidence polygon and prevalence points).
+Mean absolute error of predicted incidence rate against out-of-sample observed data for three countries.
 \end{flushleft}
 \label{table1}
 \end{adjustwidth}
 \end{table}
 
 
-\begin{table}[!t]
-\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
-\centering
-\caption{
-{\bf Summary of out-of-sample accuracy for spatial cross-validation experiment.}}
-\begin{tabular}{llllll}
-\hline
-{\bf Holdout data} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
-\thickhline 
-Incidence & Indonesia &  18.13 &  14.77 &   15.02\\
-& Senegal &  62.71 &  13.53 &   17.62\\
-& Madagascar & 107.32 &  71.44 &   65.50\vspace{3mm}\\
-Prevalence & Indonesia & 0.011 & 0.010 &  0.010\\
-& Senegal & 0.062 & 0.060 &  0.060\\
-& Madagascar & 0.069 & 0.066 &  0.065\\
-\end{tabular}
-\begin{flushleft}
-Mean absolute error of predicted incidence rate and weighted mean absolute error of prevalence against out-of-sample observed data for three countries.
-The data were split into seven, four and three groups in Indonesia, Senegal and Madagascar respectively.
-\end{flushleft}
-\label{table2}
-\end{adjustwidth}
-\end{table}
 
 
 
@@ -541,50 +520,41 @@ Scatter plots of the out-of-sample predictions can be seen in Figures~\ref{rando
 From the scatter plots it can be seen that the point-only model is strongly biased, overestimating incidence in Indonesia and Madagascar and underestimating incidence in Senegal.
 
 
-%figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 1.05\textwidth]{figures/random_cv_poly_facet} %\caption{Indonesia spatial crossvalidation} 
+\includegraphics[width = 1.05\textwidth]{figures/random_cv_poly_facet}  
 \caption{{\bf Observed-predicted plots for random cross-validation experiments.}
 A) Indonesia, B) Senegal, C) Madagascar. Square root aggregated incidence (per 1,000).
-Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
+Results from the standard downscaling model are shown in blue and the combined model is shown in green.
 }
 \label{randompredobspolyfacet}
 \end{figure}
 
+
+%figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
+
+
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 1.05\textwidth]{figures/random_cv_points_facet} %\caption{Indonesia spatial crossvalidation} 
-\caption{{\bf Observed-predicted plots for random cross-validation experiments.}
-A) Indonesia, B) Senegal, C) Madagascar. Square root prevalence.
-Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
+\includegraphics[width = 1.05\textwidth]{figures/spatialkeeppr_cv_poly_facet}  
+\caption{{\bf Observed-predicted plots for spatial a cross-validation experiments where all prevalence points are used in model fitting.}
+A) Indonesia, B) Senegal, C) Madagascar. Square root aggregated incidence (per 1,000).
+Results from the standard downscaling model are shown in blue and the combined model is shown in green.
 }
-\label{randompredobspointfacet}
+\label{spatial2predobspolyfacet}
 \end{figure}
 
 
 
-%figure 5, 6. Spat and random cv. PR vs Poly columns, countries as rows, model as colour?
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 1.05\textwidth]{figures/spatial_cv_poly_facet} %\caption{Indonesia spatial crossvalidation} 
-\caption{{\bf Observed-predicted plots for spatial cross-validation experiments.}
+\includegraphics[width = 1.05\textwidth]{figures/spatial_cv_poly_facet} 
+\caption{{\bf Observed-predicted plots for spatial b cross-validation experiments where prevalence points are spatially witheld.}
 A) Indonesia, B) Senegal, C) Madagascar. Square root aggregated incidence (per 1,000).
-Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
+Results from the standard downscaling model are shown in blue and the combined model is shown in green.
 }
 \label{spatialpredobspolyfacet}
 \end{figure}
-
-\begin{figure}
-% to be removed before submission
-\includegraphics[width = 1.05\textwidth]{figures/spatial_cv_points_facet} %\caption{Indonesia spatial crossvalidation} 
-\caption{{\bf Observed-predicted plots for spatial cross-validation experiments.}
-A) Indonesia, B) Senegal, C) Madagascar. Square root prevalence.
-Results from all three models are included with the points only model being shown in orange, the downscaling model being shown in blue and the combined model being shown in green.
-}
-\label{spatialpredobspointfacet}
-\end{figure}
-
 
 
 \begin{table}[t]
@@ -592,22 +562,20 @@ Results from all three models are included with the points only model being show
 \centering
 \caption{
 {\bf Summary of coverage of 80\% credible intervals.}}
-\begin{tabular}{llllll}
+\begin{tabular}{llll}
 \hline
-{\bf Holdout data} & {\bf Cross-validation} & {\bf Country} &  {\bf Points} & {\bf Polygons} & {\bf Joint} \\
+{\bf Cross-validation} & {\bf Country}  & {\bf Polygons} & {\bf Joint} \\
 \thickhline 
-Incidence & Random & Indonesia & 0.13 & 0.72 &  0.73\\
-&& Senegal & 0.20 & 0.78 &  0.71\\
-&& Madagascar & 0.59 & 0.82 &  0.77\vspace{1mm}\\
-& Spatial & Indonesia & 0.14 & 0.76 &  0.68\\
-&& Senegal & 0.34 & 0.90 &  0.78\\
-&& Madagascar & 0.68 & 0.65 &  0.68\vspace{3mm} \\
-Prevalence & Random & Indonesia & 0.90 & 0.50 &  0.80\\
-&& Senegal & 0.83 & 0.19 &  0.77\\
-&& Madagascar & 0.83 & 0.53 &  0.74\vspace{1mm}\\
-& Spatial & Indonesia & 0.87 & 0.62 &  0.96\\
-&& Senegal & 0.85 & 0.26 &  0.79\\
-&& Madagascar &   0.93 & 0.68 &  0.83\\
+Random & Indonesia  & 0.73 &  0.74\\
+& Senegal  & 0.76 &  0.73\\
+& Madagascar  & 0.78 &  0.78\vspace{1mm}\\
+ Spatial a & Indonesia  & {\bf 0.69} &  {\bf 0.54}\\
+& Senegal  & 0.83 &  {\bf 0.59}\\
+& Madagascar  & {\bf 0.67} &  0.72 \vspace{1mm} \\
+Spatial b & Indonesia & 0.74 &  0.70\\
+& Senegal  & {\bf 0.90} &  0.73\\
+& Madagascar  & {\bf 0.61} &  {\bf 0.69}\\
+
 \end{tabular}
 \begin{flushleft}
 
