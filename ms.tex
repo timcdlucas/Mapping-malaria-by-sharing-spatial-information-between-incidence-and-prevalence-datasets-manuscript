@@ -379,10 +379,11 @@ $$i_a = \frac{ \sum_{b \in a}(i_b \mathrm{pop}_b)}{\sum_{b \in a}\mathrm{pop}_b}
 
 where
 
-$$i_b = \mathrm{PrevInc}(p_b)$$
+$$i_b = \exp(\alpha)\mathrm{PrevInc}(p_b).$$
 
-where $\mathrm{PrevInc}$ is a function from a previously fitted model \cite{cameron2015defining} 
+Here $\mathrm{PrevInc}$ is a function from a previously fitted model \cite{cameron2015defining} 
 $$\mathrm{PrevInc}: f\left(p_b\right) = 2.616p_b - 3.596{p_b}^2 + 1.594{p_b}^3.$$
+$\alpha$ is a parameter to be fitted that adjusts the previously fitted function.
 
 The linear predictor of the model, $\eta_b$, is related to prevalence by a typical logit link function.
 
@@ -390,9 +391,11 @@ $$p_b = \operatorname{logit}^{-1}(\eta_b)$$
 
 
 The form of the link function means we get predictions of prevalence and incidence simultaneously whether we used both data types or just one.
-The linear predictor is composed of an intercept, covariates, a spatial, Gaussian random field and two iid random effects.
+The linear predictor is composed of a global intercept, $b_0$, and a prevalence survey only intercept $b_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point survey is being considered.
+The linear predictor also includes covariates, $X$, and a vector of regression coefficients $\beta$.
+Finally we include a spatial, Gaussian random field and two iid random effects.
 
-$$\eta_b = \beta_0 + \beta X  + u(s, \rho, \sigma_u) + v_j(\sigma_v) + w_i(\sigma_w)$$
+$$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \beta X  + u(s, \rho, \sigma_u) + v_j(\sigma_v) + w_i(\sigma_w)$$
 
 The Gaussian spatial effect $u(s, \rho, \sigma_u)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range (beyond which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
 The first iid random effect, $v_j \sim \operatorname{Norm}(0, \sigma_v)$,  was grouped by polygon, with all pixels and point surveys within polygon $j$ being grouped together.
@@ -407,7 +410,7 @@ In this empirical Bayes scheme the hyperparameters are learned from the data but
 
 
 
-Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
+Finally, we complete the model by setting priors on the parameters $\beta_0, \brta_p, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
 We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \cite{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
 We used different $\zeta$ values for each country: Indonesia $\zeta = 3$, Senegal $\zeta = 1$ and Madagascar $\zeta = 1$.
 We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected \cite{bhatt2017improved}, so we set this prior such that the random field could explain most of the range of the data.
@@ -442,6 +445,8 @@ Given that the error on a prevalence estimate with sample size greater than 500 
 %\end{figure}
 %
 
+The intercept was given a wide prior, $b_0 \sim \operatorname{Norm}(-2, 4)$ with a mean less than zero as we know \emph{a priori} that these countries have low or medium levels of malaria transmission.
+The prevalence only intercept was given a wide, zero-mean prior, $b_0 \sim \operatorname{Norm}(0, 4)$. % check
 Finally, we set regularising priors on the regression coefficients $\beta_i \sim \operatorname{Norm}(0, 0.04)$. 
 Given the standardised covariates, a regression coefficient from the 95\% IQR of this distribution, and an intercept of -3, each covariate is able to predict prevalences between 0.004 and 0.27. 
 This prior encodes our desire to regularise our model and and belief that the full range of malaria transmission can not be explained by a single covariate and our desire to regularise our model.
@@ -483,12 +488,12 @@ To assess how well the models were calibrated we considered coverage of the 80\%
 Random & Indonesia  & 13.95 &  {\bf 13.88}\\
 & Senegal  & {\bf 12.41} &  12.81\\
 & Madagascar  & 39.06 &  {\bf 36.36}\vspace{3mm}\\
-Spatial a & Indonesia & {\bf 14.81} &  16.45\\
-& Senegal  & {\bf 12.31} &  30.12\\
-& Madagascar & 67.73 &  {\bf 44.05} \vspace{3mm}\\
-Spatial b & Indonesia & {\bf 14.77} &  15.02\\
-& Senegal  & {\bf 12.39} &  18.75\\
-& Madagascar  & 70.72 &  {\bf 61.05}\\
+Spatial 1 & Indonesia & {\bf 14.77} &  15.08\\
+& Senegal  & {\bf 12.39} &  16.56\\
+& Madagascar  & 70.72 &  {\bf 61.05}\vspace{3mm}\\
+Spatial 2 & Indonesia & {\bf 14.81} &  16.36\\
+& Senegal  & {\bf 12.31} &  15.91\\
+& Madagascar & 67.73 &  {\bf 44.05}\\
 \end{tabular}
 \begin{flushleft}
 Mean absolute error of predicted incidence rate against out-of-sample observed data for three countries.
@@ -580,12 +585,13 @@ Results from the standard downscaling model are shown in blue and the combined m
 Random & Indonesia  & 0.73 &  0.74\\
 & Senegal  & 0.76 &  0.73\\
 & Madagascar  & 0.78 &  0.78\vspace{1mm}\\
- Spatial a & Indonesia  & {\bf 0.69} &  {\bf 0.54}\\
-& Senegal  & 0.83 &  {\bf 0.59}\\
-& Madagascar  & {\bf 0.67} &  0.72 \vspace{1mm} \\
-Spatial b & Indonesia & 0.74 &  0.70\\
-& Senegal  & {\bf 0.90} &  0.73\\
-& Madagascar  & {\bf 0.61} &  {\bf 0.69}\\
+ Spatial 1 & Indonesia & 0.74 &  0.68\\
+& Senegal  & 0.90 &  0.83\\
+& Madagascar  & 0.61 &  0.69\vspace{1mm} \\
+ Spatial 2 & Indonesia  & 0.69 &  0.53\\
+& Senegal  & 0.83 &  0.73\\
+& Madagascar  & 0.67 &  0.72\\
+
 
 \end{tabular}
 \begin{flushleft}
