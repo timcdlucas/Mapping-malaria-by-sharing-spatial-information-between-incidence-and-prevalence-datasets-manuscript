@@ -410,7 +410,7 @@ In this empirical Bayes scheme the hyperparameters are learned from the data but
 
 
 
-Finally, we complete the model by setting priors on the parameters $\beta_0, \brta_p, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
+Finally, we complete the model by setting priors on the parameters $\beta_0, \beta_p, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
 We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \cite{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
 We used different $\zeta$ values for each country: Indonesia $\zeta = 3$, Senegal $\zeta = 1$ and Madagascar $\zeta = 1$.
 We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected \cite{bhatt2017improved}, so we set this prior such that the random field could explain most of the range of the data.
