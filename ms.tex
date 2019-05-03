@@ -459,12 +459,11 @@ This regularisation is particularly important given the small number of observat
 To compare the three models we used three cross-validation schemes. 
 In the first (random), the incidence data was split into ten cross-validation folds while all the prevalence data was used in each case.
 %This cross-validation scheme directly addresses the question of whethe
-In the second validation scheme (spatial a), the incidence data was split into spatial cross-validation folds while again all prevalence points were used in all folds.
+In the second validation scheme (spatial a), the incidence data was split into spatial cross-validation folds, using k means clustering on polygon centroids, while again all prevalence points were used in all folds.
 The number of folds was seven for Indonesia, five for Senegal and three for Madagascar due to their differing sizes and epidemiological settings.
-The data was divided by combining the prevalence point-survey locations and the centroids of the incidence polygons and performing k means clustering.
 This scheme is specifically testing whether the joint model can improve predictions by increasing geographic data coverage.
 This situation is particularly common in continental scale models where some countries will have large DHS style surveys but little incidence data.
-In the final scheme (spatial b) the data is again split  spatially but the prevalence surveys from the hold-out areas are also witheld.
+In the final scheme (spatial b) the data is again split spatially but the prevalence surveys from the hold-out areas are also witheld.
 This scheme is testing the models' ability to predict into new areas with little information from the spatial random field.
 It is therefore testing how well the models learn the parameters that relate the environment to malaria risk.
 
@@ -487,12 +486,15 @@ To assess how well the models were calibrated we considered coverage of the 80\%
 \thickhline 
 Random & Indonesia  & 13.95 &  {\bf 13.88}\\
 & Senegal  & {\bf 12.41} &  12.81\\
+& Zambia  & {\bf 154.59} &  154.96\\
 & Madagascar  & 39.06 &  {\bf 36.36}\vspace{3mm}\\
 Spatial 1 & Indonesia & {\bf 14.77} &  15.08\\
 & Senegal  & {\bf 12.39} &  16.56\\
+& Zambia  & {\bf 162.74} &  163.74\\
 & Madagascar  & 70.72 &  {\bf 61.05}\vspace{3mm}\\
 Spatial 2 & Indonesia & {\bf 14.81} &  16.36\\
 & Senegal  & {\bf 12.31} &  15.91\\
+& Zambia  & {\bf 135.39} &  184.14\\
 & Madagascar & 67.73 &  {\bf 44.05}\\
 \end{tabular}
 \begin{flushleft}
