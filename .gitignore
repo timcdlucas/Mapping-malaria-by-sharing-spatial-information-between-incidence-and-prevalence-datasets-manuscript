@@ -8,3 +8,4 @@ plos-latex-template/*
 *.docx
 ms.bbl
 ms.blg
+.*
