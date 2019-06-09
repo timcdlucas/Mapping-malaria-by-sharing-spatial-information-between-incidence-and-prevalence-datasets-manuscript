@@ -398,12 +398,8 @@ $$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \beta X  + u(s, \rho, \sigma_u) + v_
 
 The Gaussian spatial effect $u(s, \rho, \sigma_u)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range (beyond which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
 The iid random effect, $v_j \sim \operatorname{Norm}(0, \sigma_v)$,  was grouped by polygon, with all pixels within polygon $j$ being grouped together.
-This random effect modelled both missing covariates and extra-Poisson sampling error. 
-The randoms effects are all integrated out during the TMB model fitting.
-The hyperparameters are fitted during model fitting using empirical Bayes.
-In this empirical Bayes scheme the hyperparameters are learned from the data but are treated as point estimates rather than the model using the full posterior of the hyperparameters.
-
-
+This random effect modelled both missing covariates and extra-Poisson sampling error.
+The hyperparameters are fitted using empirical Bayes whereby the hyperparameters are learned from the data but are treated as point estimates rather than using the full posterior of the hyperparameters.
 
 Finally, we complete the model by setting priors on the parameters $\beta_0, \beta_p, \beta, \rho$ and $\sigma_u$, $\sigma_v$ and $\sigma_w$.
 We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \cite{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
@@ -446,8 +442,14 @@ This regularisation is particularly important given the small number of observat
 
 The models were implemented and fitted in R \cite{R} using Template Model Builder \cite{TMB} which allows a Laplace approximation of the posterior to be calculated.
 
+
 \subsection*{Prevalence Gaussian process covariate model}
 
+This model is the same as the baseline disaggregation model except that it has one extra covariate.
+This covariate is created by fitting a Gaussian random field to the prevalence survey data.
+For each country we fitted a binomial likelihood, hierarchical Gaussian random field with the same hyperpriors as above.
+These models were fitted using R-INLA \cite{INLA}.
+To be in the correct scale for the dissagregation model, the inverse logit of the predicted Gaussian field (i.e. the liver predictor of the model) was used for the additional covariate.
 
 \subsection*{Full joint model}
 
