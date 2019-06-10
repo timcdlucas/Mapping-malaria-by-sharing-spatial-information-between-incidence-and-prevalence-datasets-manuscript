@@ -394,7 +394,7 @@ The form of the link function means we get predictions of prevalence and inciden
 The linear predictor is composed of a global intercept, $b_0$, covariates, $X$, and a vector of regression coefficients $\beta$.
 Finally we include a spatial, Gaussian random field and one iid random effect.
 
-$$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \beta X  + u(s, \rho, \sigma_u) + v_j(\sigma_v) $$
+$$\eta_b = \beta_0 + \beta X  + u(s, \rho, \sigma_u) + v_j(\sigma_v) $$
 
 The Gaussian spatial effect $u(s, \rho, \sigma_u)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range (beyond which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
 The iid random effect, $v_j \sim \operatorname{Norm}(0, \sigma_v)$,  was grouped by polygon, with all pixels within polygon $j$ being grouped together.
@@ -453,28 +453,26 @@ To be in the correct scale for the dissagregation model, the inverse logit of th
 
 \subsection*{Full joint model}
 
-The prevalence point-survey data, $z_b$, is given a binomial likelihood
+The final model is a joint-likelihood model with separate likelihoods for prevalence point surveys and polygon incidence data.
+The polygon data are assigned a Poisson likelihood as before but the prevalence point-survey data, $z_b$, is given a binomial likelihood
 
 $$z_b \sim \operatorname{Binom}(p_b, n_b) $$
 
 where $p_b$ is the estimated prevalence and $n_b$ is the observed survey sample size. 
+The only further additions to the baseline model are in the linear predictor which becomes 
 
-and a prevalence survey only intercept $b_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point survey is being considered.
+$$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \beta X  + u(s, \rho, \sigma_u) + v_j(\sigma_v) + w_i(\sigma_w).$$
 
-The iid random effect, $v_j \sim \operatorname{Norm}(0, \sigma_v)$,  was grouped by polygon, with all pixels within polygon $j$ being grouped together.
-
-The second iid random effect, $w_i \sim \operatorname{Norm}(0, \sigma_w)$, was applied to each point survey.
+As well as the global intercept, $\beta_0$, this model has a prevalence survey only intercept $b_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point survey is being considered.
+The iid random effect, $v_j \sim \operatorname{Norm}(0, \sigma_v)$,  was grouped by polygon, with all point surveys within polygon $j$ being in the same group as polygon $j$.
+Finally, the second iid random effect, $w_i \sim \operatorname{Norm}(0, \sigma_w)$, was applied to each point survey.
 This effect modelled extra-binomial sampling noise.
 As such, this random effect is not included in the predicted uncertainty in the incidence or prevalence layers.
-However, it is included in predictions of out-of-sample point surveys.
-
 
 We assigned $\sigma_w$ a penalised complexity prior such that $P(\sigma_w > 0.3) = 0.0000001$. 
 This was chosen by finding the maximum difference in prevalence between point-surveys (with a sample size greater than 500 individuals) within the same raster pixel.
 The differences between points within the same pixel can only be accounted for by the binomial error and this iid effect.
 Given that the error on a prevalence estimate with sample size greater than 500 is quite small, the iid effect needs to be able to explain this difference.
-
-
 
 
 
