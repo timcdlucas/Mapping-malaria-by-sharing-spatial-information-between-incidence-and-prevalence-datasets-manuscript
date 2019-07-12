@@ -320,6 +320,27 @@ For Senegal we selected 2015 for polygon incidence data (46 regions) and 2013 to
 Finally, for Madagascar we selected 2013 for polygon incidence (110 regions) and 2011 to 2015 for prevalence (todo surveys, todo individuals) data.
 
 
+\begin{figure}
+% to be removed before submission
+\includegraphics[width = 0.6\textwidth]{figures/sen_both_cv12_preds.png}
+\caption{{\bf Input incidence data and predicted incidence maps. } 
+The incidence (log10) data, predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
+}
+\label{predobsmapsen}
+\end{figure}
+
+
+
+\begin{figure}
+% to be removed before submission
+\includegraphics[width = 1.1\textwidth]{figures/mdg_both_cv12_preds.png}
+\caption{{\bf Input incidence data and predicted incidence maps. } 
+The incidence (log10) data, predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
+}
+\label{predobsmapmdg}
+\end{figure}
+
+
 
 \subsection*{Prevalence survey data}
 
@@ -334,7 +355,7 @@ The age standardisation model gives the surveys with zero positive cases a small
 The polygon incidence data were collated from various government reports and adjusted to a standard metric using methods defined in \cite{cibulskis2011worldwide, weiss2019mapping}.
 These adjustments account for underreporting of clinical cases due to lack of treatment seeking, missed case reports, and cases that sought medical attention outside the public health systems \cite{battle2016treatment}.
 Where species specific reports were given, these were used, and in reports that did not distinguish between species of \emph{Plasmodium} the national estimate of the ratio between \emph{P. falciparum} and \emph{P. vivax} cases were used to estimate \emph{P. falciparum} only cases.
-
+The polygon incidence data for Senegal and Madagascar can be seen in Figures~\ref{predobsmapsen}A and \ref{predobsmapmdg}A)
 
 
 \subsection*{Population data}
@@ -425,7 +446,7 @@ The hyperparameters are fitted using empirical Bayes whereby the hyperparameters
 
 \subsection*{Prevalence Gaussian process covariate model}
 
-This model is the same as the baseline disaggregation model except that it has one extra covariate.
+This model (henceforth the prevalence GP model) is the same as the baseline disaggregation model except that it has one extra covariate.
 This covariate is created by fitting a Gaussian random field to the prevalence survey data.
 For each country we fitted a binomial likelihood, hierarchical Gaussian random field with the same hyperpriors for $\rho$ and $\sigma_u$ as above.
 These models were fitted using R-INLA \cite{INLA}.
@@ -516,7 +537,7 @@ Mean absolute error of predicted incidence rate against out-of-sample observed d
 Under the random cross-validation scheme, the prevalence GP model performed best in Senegal and Madagascar while the joint model performed best in Indonesia (Table \ref{table1}).
 The differences were relatively small in all three countries.
 This lack of strong differences is highlighted by the fact that there are no clear differences in scatter plots of observed and predicted data (Figure \ref{randompredobspolyfacet}).
- 
+
 
 
 % spatial 1
@@ -526,7 +547,7 @@ In contrast to the random cross-validation results, the differences between mode
 Furthermore, notable difference can be seen in the scattor plots of observed and predicted values (Figure \ref{spatial2predobspolyfacet}).
 In Indonesia it can be seen the the joint model is more strongly biased at low incidence values with many data points being overpredicted.
 However, the joint model clearly performs better in Madagascar with the polygon only model particularly struggling to predict high incidence observations correctly.
-
+Out-of-sample predictions, under spatial cross validation, from the prevalence GP model and full joint model can be seen in Figures~\ref{predobsmapsen} and \ref{predobsmapmdg}.
 
 \begin{figure}
 % to be removed before submission
@@ -575,7 +596,8 @@ Random & Indonesia  & 0.73 &  0.72 &  0.72\\
 
 \end{tabular}
 \begin{flushleft}
-
+The proportion of held out data points that fall within their 80\% credible intervals. 
+Cases where this is below 0.7 are highlighted in bold.
 \end{flushleft}
 \label{table3}
 \end{adjustwidth}
@@ -602,37 +624,16 @@ In contrast, the joint model was only better than baseline in three out of six e
 
 %figure 3 and 4. data and predicted incidence maps. Indonesia and Senegal only. Fig 3 ind, fig 4 rand. Data, Rand, Spatial for best model? Joint model?
 
-\begin{figure}
+%\begin{figure}
 % to be removed before submission
-\includegraphics[width = 0.7\textwidth]{figures/idn_both_cv12_preds.png}
-\caption{{\bf Input incidence data and predicted incidence maps. } 
-The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for spatially sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Indonesia. The values plotted for areas with no polygon data are the means across all cross-validation folds.
-}
-\label{predobsmapidn}
-\end{figure}
+%\includegraphics[width = 0.7\textwidth]{figures/idn_both_cv12_preds.png}
+%\caption{{\bf Input incidence data and predicted incidence maps. } 
+%The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for spatially sampled out-of-sample polygons (middle) and predicted log10 %incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Indonesia. The values plotted for areas with no polygon data are the means across all cross-validation folds.
+%}
+%\label{predobsmapidn}
+%\end{figure}
 
 
-
-
-\begin{figure}
-% to be removed before submission
-\includegraphics[width = 0.7\textwidth]{figures/sen_both_cv12_preds.png}
-\caption{{\bf Input incidence data and predicted incidence maps. } 
-The incidence (log10) data, predicted log10 incidence from the prevalence GP model for spatially sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Senegal.
-}
-\label{predobsmapsen}
-\end{figure}
-
-
-
-\begin{figure}
-% to be removed before submission
-\includegraphics[width = 1.1\textwidth]{figures/mdg_both_cv12_preds.png}
-\caption{{\bf Input incidence data and predicted incidence maps. } 
-The incidence (log10) data, predicted log10 incidence from the prevalence GP model for spatially sampled out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially sampled out-of-sample polygons (bottom) for Senegal.
-}
-\label{predobsmapsen}
-\end{figure}
 
 
 % Results and Discussion can be combined.
