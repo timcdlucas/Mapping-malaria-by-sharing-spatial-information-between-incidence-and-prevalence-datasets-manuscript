@@ -437,14 +437,13 @@ The final model is a joint-likelihood model with separate likelihoods for preval
 The polygon data are assigned a Poisson likelihood as before but the point-survey data, with positive cases $z_b$, is given a binomial likelihood
 
 $$z_b \sim \operatorname{Binom}(p_b, n_b) $$
-
 where $p_b$ is the estimated prevalence and $n_b$ is the observed survey sample size. 
 As this model has both prevalence and incidence data we add a parameter $\alpha$ that modifies the relationship between the two.
-$$i_b = \mathrm{PrevInc}(p_b).$$
+$$i_b = \exp(\alpha)\mathrm{PrevInc}(p_b).$$
+
 The only further additions to the baseline model are in the linear predictor which becomes 
 
 $$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \beta X  + u(s, \rho, \sigma_u) + v_j(\sigma_v) + w_i(\sigma_w).$$
-
 As well as the global intercept, $\beta_0$, this model has a prevalence survey only intercept $b_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point survey is being considered.
 The iid random effect, $v_j \sim \operatorname{Norm}(0, \sigma_v)$,  was grouped by polygon, with all point surveys within polygon $j$ being in the same group as polygon $j$.
 The second iid random effect, $w_i \sim \operatorname{Norm}(0, \sigma_w)$, was applied to each point survey.
@@ -535,6 +534,7 @@ However, the joint model clearly performs better in Madagascar with the polygon 
 \caption{{\bf Observed-predicted plots for random cross-validation experiments.}
 A) Indonesia, B) Senegal, C) Madagascar. Square root aggregated incidence (per 1,000).
 Results from the standard downscaling model are shown in red, the prevalence GP model is shown in green while the joint model is shown in blue.
+The one-one line is shown with a black line and a simple linear regression through the points is shown by a coloured line.
 }
 \label{randompredobspolyfacet}
 \end{figure}
@@ -549,6 +549,7 @@ Results from the standard downscaling model are shown in red, the prevalence GP 
 \caption{{\bf Observed-predicted plots for spatial a cross-validation experiments where all prevalence points are used in model fitting.}
 A) Indonesia, B) Senegal, C) Madagascar. Square root aggregated incidence (per 1,000).
 Results from the standard downscaling model are shown in red, the prevalence GP model is shown in green while the joint model is shown in blue.
+The one-one line is shown with a black line and a simple linear regression through the points is shown by a coloured line.
 }
 \label{spatial2predobspolyfacet}
 \end{figure}
@@ -644,12 +645,15 @@ The incidence (log10) data, predicted log10 incidence from the prevalence GP mod
 
 We have compared the predictive performance of a polygon-only model and a model that jointly learns from polygon incidence data and prevalence point-surveys.
 Overal the prevalence GP model appears to peform best.
-The joint model does sometimes perform best but also performs worse than baseline half of the time.
+While the joint model sometimes performs best it also performs worse than baseline half of the time.
+Therefore, fitting a spatial Gaussian process to prevalence points and including these predictions seems to be a more reliable way of using spatial information from prevalence points.
 
 
 % simple model best
 % less fiddly, but none of these models are in packages
 %
+
+
 
 % joint model benefits
 % robust
@@ -657,10 +661,13 @@ The joint model does sometimes perform best but also performs worse than baselin
 % learn relationship
 % disappointed that we couldn't get it to out perform
 
-There are two main reasons why a model fitted jointly on prevalence point-surveys and polygon incidence data may perform worse than a polygon-only mode.
-Firstly, the data are on difference scales.
+A full joint model using both prevalence surveys and incidence data is gaining quite a large number of additional degrees of freedom compared to the baseline model and compared to the model that creates a new covariate from prevalence surveys.
+Therefore it is worth considering why the performance of this model was generally less good than the simpler prevalence GP model that did not benefit from the additional degrees of freedom.
+There are two main reasons why a model fitted jointly on prevalence point-surveys and polygon incidence data may perform worse than a model without that does not prevalence surveys as response data.
+Firstly, the data are on different scales.
 Here we have used a previously fitted model \cite{cameron2015defining} in order to be able to fit the joint model.
 However, this model is imperfect in that it is calibrated with a relatively small amount of matched prevalence and incidence data.
+Although we have added the parameter $\alpha$ that scales this relationship, it is a very simple scaling.
 Furthermore the true relationship between prevalence and incidence is likely to vary spatially as aspects such as immunity, seasonality and age-structure are not constant \cite{cameron2015defining, battle2015defining, reiner2015seasonality}.
 In using a joint model we are accepting these failings in the hope that the benefits of including additional data are stronger than the costs of using mismatched data.
 The second aspect of prevalence point-survey data that could reduce the predictive ability of a polygon-only model by adding point data is if the point data is of low quality.
@@ -669,22 +676,22 @@ In particular, non-random sampling of individuals can produce biased estimates o
 
 For a model to be robust to shortcomings in the prevalence-incidence relationship from \cite{cameron2015defining}, future models could be more flexible in the way they use this relationship.
 This could be by estimating the parameters of the polynomial jointly with the rest of the model.
-Informative priors based on the original model should be used to regularise this joint fit both to prevent unbelievable inferences but also because if the relationship is too flexible, the information from the prevalence data might not be used by the incidence level model.
+Informative priors based on the original model should be used to regularise this joint fit both to prevent unbelievable inferences but also because if the relationship is too flexible, the information from the prevalence data might not inform the predictions of incidence.
 This is particularly true for even more flexible model forms that could be used such as a spline or a Gaussian process on the relationship between prevalence and incidence.
 
-For the model to handle noisy or biased prevalence point-surveys, the modeller can control the iid random effect on the point-surveys, $w_i$. 
+For the model to handle noisy or biased prevalence point-surveys, the modeller can control the iid random effect on the point-surveys, $w_i$ and the prevalence-only intercept $\beta_p$. 
 Here we have tried to maximise the influence of the prevalence data by setting the prior based on the belief that the random effect should only explain extra-binomial variation that is impossible to explain with the covariates (i.e. based on the differences in prevalence surveys within the same pixel).
 Weakening this prior will allow the iid effect to explain more of the prevalence point-survey variation which both reduces the potential statistical power gained by adding the point-surveys but also reduces the effects of biased or noisy estimates.
 
-However, fitting a full spatio-temporal model would be a suitable way to combine data from different periods but would be computationally more expensive \cite{bhatt2015effect, taylor2017continuous}.
-This is an avenue of work that should be pursued.
-Furthermore, it has been clearly established that simple linear combinations of environmental covariates cannot fully explain malaria risk \cite{bhatt2017improved}.
+
+Here we have used purely linear covariates.
+It has been clearly established that simple linear combinations of environmental covariates cannot fully explain malaria risk \cite{bhatt2017improved}.
 A number of methods could be used to include non-linear effects of covariates and interactions into the model.
-Firstly, as in \cite{bhatt2017improved}, machine learning models could be fitted to the prevalence data and then predictions from these models could be used as covariates in the full model.
+Firstly, as in \cite{bhatt2017improved}, machine learning models could be fitted to the prevalence data and then predictions from these models could be used as covariates in the full model \cite{lucas2019model}.
 This approach is feasible but does not allow any information from the polygons to inform non-linear relationships.
-To directly model non-linear effects in the full model could be achieved by including simple non-linear functions such as splines \cite{sissoko2017temporal, sewe2017using, hundessa2018projecting}, though the increased model complexity would require more data than was used in Senegal and Madagascar in this study.
+Directly modelling non-linear effects in the full model could be achieved by including simple non-linear functions such as splines \cite{sissoko2017temporal, sewe2017using, hundessa2018projecting}, though the increased model complexity would require more data than was used in Senegal and Madagascar in this study.
 Finally, Gaussian process regression, with smoothly varying effects in environmental and geographic space could be used \cite{law2018variational}.
-These are computational expensive without variational Bayes or other approximations \cite{law2018variational,  ton2018spatial} which can be difficult to derive.
+These are computational expensive without variational Bayes or other approximations \cite{law2018variational, ton2018spatial} which can be difficult to derive.
 Again these models need a lot of data and careful regularisation for good predictive performance.
 
 
@@ -696,7 +703,10 @@ Again these models need a lot of data and careful regularisation for good predic
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
+Overall, we have shown that including spatial information from prevalence surveys generally improves the predictive performance of disaggregation regression of aggregated incidence data.
+However, we found that the more complex joint model was unreliable in its predictive performance.
+In contrast, summarising the spatial information from the prevalence surveys by fitting a spatial Gaussian process model and using predictions from this model as a new covariate nearly always improved predictive performance.
+As disaggregation regression becomes more widely used \cite{weiss2019mapping, battle2019mapping}, methods such as these to improve their performance are particularly needed
 
 
 \section*{Supporting information}
