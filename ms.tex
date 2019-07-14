@@ -1,220 +1,43 @@
-% Template for PLoS
-% Version 3.5 March 2018
-%
-% % % % % % % % % % % % % % % % % % % % % %
-%
-% -- IMPORTANT NOTE
-%
-% This template contains comments intended 
-% to minimize problems and delays during our production 
-% process. Please follow the template instructions
-% whenever possible.
-%
-% % % % % % % % % % % % % % % % % % % % % % % 
-%
-% Once your paper is accepted for publication, 
-% PLEASE REMOVE ALL TRACKED CHANGES in this file 
-% and leave only the final text of your manuscript. 
-% PLOS recommends the use of latexdiff to track changes during review, as this will help to maintain a clean tex file.
-% Visit https://www.ctan.org/pkg/latexdiff?lang=en for info or contact us at latex@plos.org.
-%
-%
-% There are no restrictions on package use within the LaTeX files except that 
-% no packages listed in the template may be deleted.
-%
-% Please do not include colors or graphics in the text.
-%
-% The manuscript LaTeX source should be contained within a single file (do not use \input, \externaldocument, or similar commands).
-%
-% % % % % % % % % % % % % % % % % % % % % % %
-%
-% -- FIGURES AND TABLES
-%
-% Please include tables/figure captions directly after the paragraph where they are first cited in the text.
-%
-% DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
-% - Figures should be uploaded separately from your manuscript file. 
-% - Figures generated using LaTeX should be extracted and removed from the PDF before submission. 
-% - Figures containing multiple panels/subfigures must be combined into one image file before submission.
-% For figure citations, please use "Fig" instead of "Figure".
-% See http://journals.plos.org/plosone/s/figures for PLOS figure guidelines.
-%
-% Tables should be cell-based and may not contain:
-% - spacing/line breaks within cells to alter layout or alignment
-% - do not nest tabular environments (no tabular environments within tabular environments)
-% - no graphics or colored text (cell background color/shading OK)
-% See http://journals.plos.org/plosone/s/tables for table guidelines.
-%
-% For tables that exceed the width of the text column, use the adjustwidth environment as illustrated in the example table in text below.
-%
-% % % % % % % % % % % % % % % % % % % % % % % %
-%
-% -- EQUATIONS, MATH SYMBOLS, SUBSCRIPTS, AND SUPERSCRIPTS
-%
-% IMPORTANT
-% Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://journals.plos.org/plosone/s/latex
-%
-% For inline equations, please be sure to include all portions of an equation in the math environment.  For example, x$^2$ is incorrect; this should be formatted as $x^2$ (or $\mathrm{x}^2$ if the romanized font is desired).
-%
-% Do not include text that is not math in the math environment. For example, CO2 should be written as CO\textsubscript{2} instead of CO$_2$.
-%
-% Please add line breaks to long display equations when possible in order to fit size of the column. 
-%
-% For inline equations, please do not include punctuation (commas, etc) within the math environment unless this is part of the equation.
-%
-% When adding superscript or subscripts outside of brackets/braces, please group using {}.  For example, change "[U(D,E,\gamma)]^2" to "{[U(D,E,\gamma)]}^2". 
-%
-% Do not use \cal for caligraphic font.  Instead, use \mathcal{}
-%
-% % % % % % % % % % % % % % % % % % % % % % % % 
-%
-% Please contact latex@plos.org with any questions.
-%
-% % % % % % % % % % % % % % % % % % % % % % % %
 
-\documentclass[10pt,letterpaper]{article}
-\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+\documentclass{statsoc}
 
-% amsmath and amssymb packages, useful for mathematical formulas and symbols
-\usepackage{amsmath,amssymb}
+%\usepackage{hyperref}
 
-% Use adjustwidth environment to exceed column width (see example table in text)
-\usepackage{changepage}
+\usepackage[a4paper]{geometry}
+\usepackage{graphicx}
+\usepackage[textwidth=8em,textsize=small]{todonotes}
+\usepackage{amsmath}
 
-% Use Unicode characters when possible
-\usepackage[utf8x]{inputenc}
-
-% textcomp package and marvosym package for additional characters
-\usepackage{textcomp,marvosym}
-
-% cite package, to clean up citations in the main text. Do not remove.
-\usepackage{cite}
-
-% Use nameref to cite supporting information files (see Supporting Information section for more info)
-\usepackage{nameref,hyperref}
-
-% line numbers
-\usepackage[right]{lineno}
-
-% ligatures disabled
-\usepackage{microtype}
-\DisableLigatures[f]{encoding = *, family = * }
-
-% color can be used to apply background shading to table cells only
-\usepackage[table]{xcolor}
-
-% array package and thick rules for tables
-\usepackage{array}
-
-% multirow for multiple row tables. 
-\usepackage{multirow}
+\usepackage[authoryear]{natbib}
 
 
 
-% create "+" rule type for thick vertical lines
-\newcolumntype{+}{!{\vrule width 2pt}}
-
-% create \thickcline for thick horizontal lines of variable length
-\newlength\savedwidth
-\newcommand\thickcline[1]{%
-  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
-  \cline{#1}%
-  \noalign{\vskip\arrayrulewidth}%
-  \noalign{\global\arrayrulewidth\savedwidth}%
-}
-
-% \thickhline command for thick horizontal lines that span the table
-\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
-\hline
-\noalign{\global\arrayrulewidth\savedwidth}}
-
-
-% Remove comment for double spacing
-%\usepackage{setspace} 
-%\doublespacing
-
-% Text layout
-\raggedright
-\setlength{\parindent}{0.5cm}
-\textwidth 5.25in 
-\textheight 8.75in
-
-% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
-% Captions will be left justified
-\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
-\renewcommand{\figurename}{Fig}
-
-% Use the PLoS provided BiBTeX style
-\bibliographystyle{plos2015}
-
-% Remove brackets from numbering in List of References
-\makeatletter
-\renewcommand{\@biblabel}[1]{\quad#1.}
-\makeatother
 
 
 
-% Header and Footer with logo
-\usepackage{lastpage,fancyhdr,graphicx}
-\DeclareGraphicsExtensions{.pdf,.png}   
-\usepackage{epstopdf}
-%\pagestyle{myheadings}
-\pagestyle{fancy}
-\fancyhf{}
-%\setlength{\headheight}{27.023pt}
-%\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
-\rfoot{\thepage/\pageref{LastPage}}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
-\fancyheadoffset[L]{2.25in}
-\fancyfootoffset[L]{2.25in}
-\lfoot{\today}
+\title[Mapping malaria by sharing spatial information]{Mapping malaria in pre-elimination settings by sharing spatial information between incidence and prevalence datasets}
+\author[Tim C.D. Lucas {\it et al.}]{Tim C.D. Lucas}
+\address{Big Data Institute,
+Oxford,
+UK.}
+\email{timcdlucas@gmail.com}
+\author{Anita Nandi}
+\address{Big Data Institute,
+Oxford,
+UK.}
 
-%% Include all macros below
+% Title must be 250 characters or less.
 
-\newcommand{\lorem}{{\bf LOREM}}
-\newcommand{\ipsum}{{\bf IPSUM}}
-
-\usepackage{xr}
-\externaldocument{si}
+%*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguyen\textsuperscript{1}, Susan Rumisha\textsuperscript{1}, Rosalind Howes\textsuperscript{1}, Katherine E. Battle\textsuperscript{1}, Penelope Hancock\textsuperscript{1}, Andre Python\textsuperscript{1}, Ewan Cameron\textsuperscript{1}, Pete Gething\textsuperscript{1} and Daniel J. Weiss\textsuperscript{1}
 
 
-%% END MACROS SECTION
+
 
 
 \begin{document}
-\vspace*{0.2in}
 
-% Title must be 250 characters or less.
-\begin{flushleft}
-{\Large
-\textbf\newline{Mapping malaria by sharing spatial information between incidence and prevalence datasets} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
-}
-\newline
-% Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
-\\
-Tim C.D. Lucas*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguyen\textsuperscript{1}, Susan Rumisha\textsuperscript{1}, Rosalind Howes\textsuperscript{1}, Katherine E. Battle\textsuperscript{1}, Penelope Hancock\textsuperscript{1}, Andre Python\textsuperscript{1}, Ewan Cameron\textsuperscript{1}, Pete Gething\textsuperscript{1} and Daniel J. Weiss\textsuperscript{1}
-\\
-\bigskip
-\textbf{1} BDI, Oxford
-\\
-\bigskip
-
-% Insert additional author notes using the symbols described below. Insert symbol callouts after author names as necessary.
-% 
-% Remove or comment out the author notes below if they aren't used.
-%
-
-% Current address notes
-
-
-
-% Use the asterisk to denote corresponding authorship and provide email address in note below.
-* timcdlucas@gmail.com
-
-\end{flushleft}
 % Please keep the abstract below 300 words
-\section*{Abstract}
+\begin{abstract}
 As malaria incidence decreases and more countries move towards elimination, maps of malaria risk in low prevalence areas are becoming increasingly needed.
 However, traditional mapping using prevalence point-surveys are often ineffective in low prevalence areas due to low statistical power and a lack of data.
 More recently, dissagregation regression models have been developed that can estimate risk at high spatial resolution from surveillance data that reports incidence aggregated to a geographic polygon.
@@ -224,17 +47,10 @@ The first is a simple model that fits a Gaussian random field to prevalence poin
 The second is a more complex, multi-likelihood model that jointly fits a model using prevalence point-surveys and  polygon incidence data.
 We find that the simple model generally performs better than a baseline disaggregation model while the joint model sometimes performs better than baseline but often worse.
 Our results demonstrate that a simple method can be used to combine spatial information from prevalence point-surveys and polygon incidence data and that more generally, combining these types of data improves estimates of malaria incidence.
+\end{abstract}
 
 
-
-% Please keep the Author Summary between 150 and 200 words
-% Use first person. PLOS ONE authors please skip this step. 
-% Author Summary not valid for PLOS ONE submissions.   
-\section*{Author summary}
-Todo
-
-
-\linenumbers
+%\linenumbers
 
 % Use "Eq" instead of "Equation" for equation citations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -255,17 +71,17 @@ Todo
 %   Polygon-level incidence
 %   Pixel-level incidence
 
-Global malaria incidence has decreased dramatically over the last 20 years \cite{abajobir2017global, bhatt2015effect}.
-This decrease has been accompanied by a strategic shift towards aiming for elimination in low incidence countries \cite{world2016world, newby2016path}.
-Accurate, high-resolution maps of malaria risk are vital in countries in the elimination and pre-elimination phases \cite{sturrock2016mapping, cohen2017mapping}.
-However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence \cite{gething2011new, bhatt2017improved, gething2012long, bhatt2015effect} using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \cite{sturrock2016mapping, sturrock2014fine}.
+Global malaria incidence has decreased dramatically over the last 20 years \citep{abajobir2017global, bhatt2015effect}.
+This decrease has been accompanied by a strategic shift towards aiming for elimination in low incidence countries \citep{world2016world, newby2016path}.
+Accurate, high-resolution maps of malaria risk are vital in countries in the elimination and pre-elimination phases \citep{sturrock2016mapping, cohen2017mapping}.
+However, mapping malaria in low burden countries presents new challenges as traditional mapping of prevalence \citep{gething2011new, bhatt2017improved, gething2012long, bhatt2015effect} using cluster-level surveys and model-based geostatistics are not necessarily effective in these areas \citep{sturrock2016mapping, sturrock2014fine}.
 In low burden areas, very large sample sizes are needed before a prevalence survey is informative because so few individuals have parasitaemia that most sample points will have no cases.
-Routine surveillance data, of malaria case counts, is becoming more widely available and of better quality \cite{sturrock2016mapping, ohrt2015information, cibulskis2011worldwide}.
-This polygon incidence data can be more sensitive than prevalence point-surveys in low transmission areas as the entire public health system is being used to passively monitor disease risk \cite{cibulskis2011worldwide}.
+Routine surveillance data, of malaria case counts, is becoming more widely available and of better quality \citep{sturrock2016mapping, ohrt2015information, cibulskis2011worldwide}.
+This polygon incidence data can be more sensitive than prevalence point-surveys in low transmission areas as the entire public health system is being used to passively monitor disease risk \citep{cibulskis2011worldwide}.
 
-%Despite major reductions in incidence over the last fifteen years, malaria still causes millions of deaths and loads of DALYs annually \cite{abajobir2017global}.
-%Elimination of malaria, country-by-county has become a central goal in the global malaria strategy \cite{world2016world}.
-%Elimination of malaria requires high resolution maps of malaria risk, in low prevalence areas in order to optimise interventions and minimise costs \cite{sturrock2016mapping}.
+%Despite major reductions in incidence over the last fifteen years, malaria still causes millions of deaths and loads of DALYs annually \citep{abajobir2017global}.
+%Elimination of malaria, country-by-county has become a central goal in the global malaria strategy \citep{world2016world}.
+%Elimination of malaria requires high resolution maps of malaria risk, in low prevalence areas in order to optimise interventions and minimise costs \citep{sturrock2016mapping}.
 
 %cohen2017mapping Different metrics are useful for different things. Most maps use prevalence. Govts do use maps.
 
@@ -275,19 +91,19 @@ This polygon incidence data can be more sensitive than prevalence point-surveys 
 %sturrock used two.
 %undeveloped area of statistics but see Leon.
 
-Disaggregation regression methods have been proposed as a way to model malaria burden using polygon-level, routine surveillance records of incidence \cite{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
+Disaggregation regression methods have been proposed as a way to model malaria burden using polygon-level, routine surveillance records of incidence \citep{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
 However using polygon-level incidence data to estimate malaria risk for high resolution maps presents at least three noteworthy modelling difficulties. 
-(1) There are often some areas with better coverage of prevalence surveys than polygon incidence data. This is particularly true when modelling at continental scales \cite{weiss2019mapping, battle2019mapping}.
+(1) There are often some areas with better coverage of prevalence surveys than polygon incidence data. This is particularly true when modelling at continental scales \citep{weiss2019mapping, battle2019mapping}.
 %Disaggregation models aim to estimate high-resolution maps from aggregated data and are characterised by having a variable number of pixels, and therefore multiple rows of covariate data, per row of response data.
 (2) The aggregation of cases over space means that it may be difficult to learn relationships between malaria risk and the environment from aggregated incidence data, especially if the case counts are aggregated over a large or heterogenous area.
-(3) Finally, estimates of both prevalence and incidence metrics are useful for policy makers \cite{cohen2017mapping} but typically models are fitted to observations of one metric and then a secondary model is used to convert to the other \emph{post hoc} \cite{battle2019mapping, bhatt2015effect}.
+(3) Finally, estimates of both prevalence and incidence metrics are useful for policy makers \citep{cohen2017mapping} but typically models are fitted to observations of one metric and then a secondary model is used to convert to the other \emph{post hoc} \citep{battle2019mapping, bhatt2015effect}.
 
 There are two broad ways that spatial information from prevalence surveys could be included in a dissaggregation regression model of incidence.
 Firstly, the spatial information from prevalence surveys could be summarised using a seperate model and then included as a covariate in the disaggregation model.
-If the model used to summarise the prevalence surveys is explicitely spatial, this approach would make the spatial information in the prevalence data available to be used by the disaggregation model, therefore solving issue (1) above.
+If the model used to summarise the prevalence surveys is expliciteply spatial, this approach would make the spatial information in the prevalence data available to be used by the disaggregation model, therefore solving issue (1) above.
 However, this approach does not provide additional degrees of freedom in order to more accurately learn relationships between malaria risk and the environment and therefore does not solve issue (2).
 Furthermore, it does not allow joint predictions of incidence and prevalence from a single model and so does not solve issue (3).
-This broad approach of summarising the information in a different data set using a separate model has previously been used in a number of contexts such as including information on animal hosts \cite{shearer2016estimating} or summarising temperature suitability of malaria parasites \cite{weiss2014air} and using this in models of malaria prevalence \cite{bhatt2015effect, weiss2019mapping}.
+This broad approach of summarising the information in a different data set using a separate model has previously been used in a number of contexts such as including information on animal hosts \citep{shearer2016estimating} or summarising temperature suitability of malaria parasites \citep{weiss2014air} and using this in models of malaria prevalence \citep{bhatt2015effect, weiss2019mapping}.
 However, previous uses have not typically summarised the spatial component of the secondary response data.
 
 
@@ -301,7 +117,7 @@ Therefore, a full joint model has the potential to solve issue (3) as well.
 One major barrier to a joint modelling approach, however, is that these two data types measure metrics disease transmission on different scales.
 Point surveys are a measurement of prevalence in the range $\lbrack 0, 1\rbrack$ that quantify parasite rate during a short period of time.
 In contrast, routine surveillance measures incidence in the range $\lbrack 0, \infty\rbrack$ over a period of time (e.g., a year) during which individuals can have multiple malaria infections.
-%One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \cite{cameron2015defining}.
+%One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \citep{cameron2015defining}.
 
 %Ideal situation is to combine data
 %benefits of both
@@ -311,8 +127,8 @@ In contrast, routine surveillance measures incidence in the range $\lbrack 0, \i
 Here we compare two methods for using spatial information from prevalence surveys to inform a disaggregation model fitted to polygon incidence data of \emph{Plasmodium falciparum}  malaria.
 The first model fits a Gaussian process to prevalence point surveys then uses predictions from this model as a covariate in the disaggregation model.
 Secondly, we formulate a joint model that combines polygon incidence data and prevalence point-surveys using seperate likelihoods for both data types.
-We relate the differing malariometric measures by using a previously estimated relationship within the model \cite{cameron2015defining} which is then adjusted as part of the model fitting process.
-We then compare results from the two models with those made using a polygon-only, disaggregation model similar to previous models \cite{sturrock2014fine, wilson2017pointless}.
+We relate the differing malariometric measures by using a previously estimated relationship within the model \citep{cameron2015defining} which is then adjusted as part of the model fitting process.
+We then compare results from the two models with those made using a polygon-only, disaggregation model similar to previous models \citep{sturrock2014fine, wilson2017pointless}.
 Both models are fitted to data from Indonesia, Senegal and Madagascar to provide a set of case studies with disparate geographic settings and levels of malaria endemicity.
 
 %here we compared 3 models, point only, polygon only and joint models
@@ -338,38 +154,39 @@ Finally, for Madagascar we selected 2013 for polygon incidence (110 regions) and
 
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 0.6\textwidth]{figures/sen_both_cv12_preds.png}
-\caption{{\bf Incidence data and predicted incidence maps. } 
+\makebox{\includegraphics[width = 0.6\textwidth]{figures/sen_both_cv12_preds.png}}
+\caption{\label{predobsmapsen}
+Incidence data and predicted incidence maps.
 The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
 }
-\label{predobsmapsen}
+
 \end{figure}
 
 
 
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 1.1\textwidth]{figures/mdg_both_cv12_preds.png}
-\caption{{\bf Input incidence data and predicted incidence maps. } 
+\makebox{\includegraphics[width = 1.1\textwidth]{figures/mdg_both_cv12_preds.png}}
+\caption{\label{predobsmapmdg}Input incidence data and predicted incidence maps.
 The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (right) for Senegal.
 }
-\label{predobsmapmdg}
+
 \end{figure}
 
 
 
 \subsection*{Prevalence survey data}
 
-The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \cite{bhatt2015effect, guerra2007assembling, gething2011new, pfeffer2018ma}.
-As the prevalence point-surveys cover different age ranges they were standardised to an age-range of 2--10 using the model from \cite{smith2007standardizing}.
+The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \citep{bhatt2015effect, guerra2007assembling, gething2011new, pfeffer2018ma}.
+As the prevalence point-surveys cover different age ranges they were standardised to an age-range of 2--10 using the model from \citep{smith2007standardizing}.
 The age standardisation model gives the surveys with zero positive cases a small positive prevalence.
 
 \subsection*{Polygon incidence data}
 
 % (Figures~\ref{predobsmapidn}A and \ref{predobsmapsen}A)
 
-The polygon incidence data were collated from various government reports and adjusted to a standard metric using methods defined in \cite{cibulskis2011worldwide, weiss2019mapping}.
-These adjustments account for underreporting of clinical cases due to lack of treatment seeking, missed case reports, and cases that sought medical attention outside the public health systems \cite{battle2016treatment}.
+The polygon incidence data were collated from various government reports and adjusted to a standard metric using methods defined in \citep{cibulskis2011worldwide, weiss2019mapping}.
+These adjustments account for underreporting of clinical cases due to lack of treatment seeking, missed case reports, and cases that sought medical attention outside the public health systems \citep{battle2016treatment}.
 Where species specific reports were given, these were used, and in reports that did not distinguish between species of \emph{Plasmodium} the national estimate of the ratio between \emph{P. falciparum} and \emph{P. vivax} cases were used to estimate \emph{P. falciparum} only cases.
 These adjustments are uniform across each country.
 The polygon incidence data for Senegal and Madagascar can be seen in Figures~\ref{predobsmapsen}A and \ref{predobsmapmdg}A).
@@ -377,14 +194,14 @@ The polygon incidence data for Senegal and Madagascar can be seen in Figures~\re
 
 \subsection*{Population data}
 
-Raster surfaces of population for the years 2005, 2010 and 2015, were created using a hybrid of data from GPWv4 \cite{gpw4} and WorldPop \cite{tatem2017worldpop}, with the latter taking priority for those pixels where both had population data. 
+Raster surfaces of population for the years 2005, 2010 and 2015, were created using a hybrid of data from GPWv4 \citep{gpw4} and WorldPop \citep{tatem2017worldpop}, with the latter taking priority for those pixels where both had population data. 
 Yearly population rasters were created by linear interpolation of the surrounding five-yearly rasters.
 For each year, national population estimates from the UN were raked over the interpolated population surfaces. 
 
 
 \subsection*{Covariate data}
 
-We considered an initial suite of environmental and anthropological covariates, at a resolution of approximately $5 \times 5$ kilometres at the equator that included land surface temperature annual mean and standard deviation \cite{LST}, enhanced vegetation index \cite{TCB}, mosquito temperature suitability index \cite{weiss2014air}, elevation \cite{SRTMElev}, tassel cap brightness \cite{TCB}, tassel cap wetness \cite{TCB}, accessibility to cities \cite{weiss2018global}, night lights \cite{elvidge2017viirs} and proportion of urban land cover \cite{GUF}. % change to table
+We considered an initial suite of environmental and anthropological covariates, at a resolution of approximately $5 \times 5$ kilometres at the equator that included land surface temperature annual mean and standard deviation \citep{LST}, enhanced vegetation index \citep{TCB}, mosquito temperature suitability index \citep{weiss2014air}, elevation \citep{SRTMElev}, tassel cap brightness \citep{TCB}, tassel cap wetness \citep{TCB}, accessibility to cities \citep{weiss2018global}, night lights \citep{elvidge2017viirs} and proportion of urban land cover \citep{GUF}. % change to table
 Some covariates were log-transformed to remove skewness or removed due to multicollinearity with other predictor variables using the threshold of 0.8. % think we decided this on indonesia data only. Sen is currently 0.81... just a bit messy.
 The covariates were standardised to have a mean of zero and a standard deviation of one.
 
@@ -406,7 +223,7 @@ $$i_a = \frac{ \sum_{b \in a}i_b \mathrm{pop}_b}{\sum_{b \in a}\mathrm{pop}_b} $
 Here, $b \in a$ denotes that the summation is over the pixels in polygon $a$. 
 Incidence is related to prevalence by
 $$i_b = \mathrm{PrevInc}(p_b).$$
-Here $\mathrm{PrevInc}$ is a function from a previously fitted model \cite{cameron2015defining} 
+Here $\mathrm{PrevInc}$ is a function from a previously fitted model \citep{cameron2015defining} 
 $$\mathrm{PrevInc}: f\left(p_b\right) = 2.616p_b - 3.596{p_b}^2 + 1.594{p_b}^3.$$
 The linear predictor of the model, $\eta_b$, is related to the latent prevalence scale by a typical logit link function.
 $$p_b = \operatorname{logit}^{-1}(\eta_b)$$
@@ -427,16 +244,16 @@ Given the standardised covariates, an intercept of -3 and a regression coefficie
 This prior encodes our belief that the full range of malaria transmission can not be explained by a single covariate and our desire to regularise the model.
 This regularisation is particularly important given the small number of observations in Senegal (n = 46) and Madagascar (n = 110).
 
-We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \cite{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
+We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \citep{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
 We used different $\zeta$ values for each country: Indonesia $\zeta = 3$, Senegal $\zeta = 1$ and Madagascar $\zeta = 1$.
-We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected \cite{bhatt2017improved}, so we set this prior such that the random field could explain most of the range of the data.
+We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected \citep{bhatt2017improved}, so we set this prior such that the random field could explain most of the range of the data.
 
-We assigned $\sigma_v$ a penalised complexity prior \cite{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$
-This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for the case counts using the approach defined in \cite{cibulskis2011worldwide}.
+We assigned $\sigma_v$ a penalised complexity prior \citep{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$
+This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for the case counts using the approach defined in \citep{cibulskis2011worldwide}.
 We found that an iid effect with a standard deviation of 0.05 is able to account for the discrepancy between the assumed Poisson error and the independently derived error.
 
 
-The models were implemented and fitted in R \cite{R} using Template Model Builder \cite{TMB} which allows a Laplace approximation of the posterior to be calculated.
+The models were implemented and fitted in R \citep{R} using Template Model Builder \citep{TMB} which allows a Laplace approximation of the posterior to be calculated.
 The hyperparameters are fitted using empirical Bayes whereby the hyperparameters are learned from the data but are treated as point estimates rather than using the full posterior of the hyperparameters.
 
 %\begin{figure}[t!]
@@ -466,7 +283,7 @@ The hyperparameters are fitted using empirical Bayes whereby the hyperparameters
 This model (henceforth the prevalence GP model) is the same as the baseline disaggregation model except that it has one extra covariate.
 This covariate is created by fitting a Gaussian random field to the prevalence survey data.
 For each country we fitted a binomial likelihood, hierarchical Gaussian random field with the same hyperpriors for $\rho$ and $\sigma_u$ as above.
-These models were fitted using R-INLA \cite{INLA}.
+These models were fitted using R-INLA \citep{INLA}.
 To be in the correct scale for the dissagregation model, the inverse logit of the predicted Gaussian field (i.e. the linear predictor of the model) was used as the additional covariate.
 
 \subsection*{Full joint model}
@@ -518,30 +335,22 @@ To assess how well the models were calibrated we considered coverage of the 80\%
 
 
 
-\begin{table}[!t]
-\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+\begin{table}
+\caption{\label{table1}Summary of out-of-sample accuracy for all three cross-validation experiments. Mean absolute error of predicted incidence rate against out-of-sample observed data for three countries.}
 \centering
-\caption{
-{\bf Summary of out-of-sample accuracy for all three cross-validation experiments.}}
+\fbox{%
 \begin{tabular}{lllll}
 \hline
 {\bf Cross-validation} & {\bf Country}  & {\bf Baseline} & {\bf Prev GP} & {\bf Joint} \\
-\thickhline 
+\hline 
 Random & Indonesia  & 13.95 &  14.09 &  {\bf 13.79}\\
 & Senegal  & 12.41 &  {\bf 12.37} &  13.07\\
 & Madagascar  & 39.06 &  {\bf 35.82} &  36.36\vspace{3mm}\\
 Spatial & Indonesia & {\bf 14.77} &  {\bf 14.77} &  16.46\\
 & Senegal  & 13.09 &  {\bf 12.21} &  15.15\\
 & Madagascar & 67.73 &  50.38 &  {\bf 44.05}\\
-\end{tabular}
-\begin{flushleft}
-Mean absolute error of predicted incidence rate against out-of-sample observed data for three countries.
-\end{flushleft}
-\label{table1}
-\end{adjustwidth}
+\end{tabular}}
 \end{table}
-
-
 
 
 
@@ -569,13 +378,14 @@ Out-of-sample predictions, under spatial cross validation, from the prevalence G
 
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 1.05\textwidth]{figures/random_cv_poly_facet}  
-\caption{{\bf Observed-predicted plots for random cross-validation experiments.}
+\makebox{\includegraphics[width = 1.05\textwidth]{figures/random_cv_poly_facet.pdf}  }
+\caption{\label{randompredobspolyfacet} 
+Observed-predicted plots for random cross-validation experiments.
 A) Indonesia, B) Senegal, C) Madagascar. Square root aggregated incidence (cases per 1,000).
 Results from the standard downscaling model are shown in red, the prevalence GP model is shown in green while the joint model is shown in blue.
 The one-one line is shown with a black line and a simple linear regression through the points is shown by a coloured line.
 }
-\label{randompredobspolyfacet}
+
 \end{figure}
 
 
@@ -584,43 +394,35 @@ The one-one line is shown with a black line and a simple linear regression throu
 
 \begin{figure}
 % to be removed before submission
-\includegraphics[width = 1.05\textwidth]{figures/spatialkeeppr_cv_poly_facet}  
-\caption{{\bf Observed-predicted plots for spatial a cross-validation experiments where all prevalence points are used in model fitting.}
+\makebox{\includegraphics[width = 1.05\textwidth]{figures/spatialkeeppr_cv_poly_facet.pdf}}
+\caption{\label{spatial2predobspolyfacet} Observed-predicted plots for spatial a cross-validation experiments where all prevalence points are used in model fitting.
 A) Indonesia, B) Senegal, C) Madagascar. Square root aggregated incidence (cases per 1,000).
 Results from the standard downscaling model are shown in red, the prevalence GP model is shown in green while the joint model is shown in blue.
 The one-one line is shown with a black line and a simple linear regression through the points is shown by a coloured line.
 }
-\label{spatial2predobspolyfacet}
+
 \end{figure}
 
 
 
-\begin{table}[t]
-\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+
+\begin{table}
+\caption{\label{table2}Summary of coverage of 80\% credible intervals. The proportion of held out data points that fall within their 80\% credible intervals. 
+Cases where this is below 0.7 are highlighted in bold.}
 \centering
-\caption{
-{\bf Summary of coverage of 80\% credible intervals.}}
+\fbox{%
 \begin{tabular}{lllll}
 \hline
 {\bf Cross-validation} & {\bf Country}  & {\bf Baseline} & {\bf Prev GP} & {\bf Joint} \\
-\thickhline 
+\hline 
 Random & Indonesia  & 0.73 &  0.72 &  0.72\\
 & Senegal  & 0.76 &  0.78 &  0.80\\
 & Madagascar  & 0.78 &  0.79 &  0.78\vspace{1mm}\\
  Spatial  & Indonesia & 0.71 &  0.72 &  {\bf 0.51}\\
 & Senegal  & 0.78 &  0.88 &  0.71\\
 & Madagascar  & {\bf 0.67} &  0.70 &  0.72\\
-
-
-\end{tabular}
-\begin{flushleft}
-The proportion of held out data points that fall within their 80\% credible intervals. 
-Cases where this is below 0.7 are highlighted in bold.
-\end{flushleft}
-\label{table3}
-\end{adjustwidth}
+\end{tabular}}
 \end{table}
-
 
 
 
@@ -684,16 +486,16 @@ A full joint model using both prevalence surveys and incidence data gains quite 
 Therefore it is worth considering why the performance of this model was generally less good than the simpler prevalence GP model that did not benefit from the additional degrees of freedom.
 There are two main reasons why a model fitted jointly on prevalence point-surveys and polygon incidence data may perform worse than a model that does not use prevalence surveys as additional response data.
 Firstly, the data are on different scales.
-Here we have used a previously fitted model \cite{cameron2015defining} in order to be able to fit the joint model.
+Here we have used a previously fitted model \citep{cameron2015defining} in order to be able to fit the joint model.
 However, this model is imperfect in that it is calibrated with a relatively small amount of matched prevalence and incidence data.
 Although we have added the parameter $\alpha$ that scales this relationship, it is a very simple scaling.
-Furthermore the true relationship between prevalence and incidence is likely to vary spatially as aspects such as immunity, seasonality and age-structure are not constant \cite{cameron2015defining, battle2015defining, reiner2015seasonality}.
+Furthermore the true relationship between prevalence and incidence is likely to vary spatially as aspects such as immunity, seasonality and age-structure are not constant \citep{cameron2015defining, battle2015defining, reiner2015seasonality}.
 In using a joint model we are accepting these failings in the hope that the benefits of including additional data are stronger than the costs of using mismatched data.
 The second aspect of prevalence point-survey data that could reduce the predictive ability of a polygon-only model by adding point data is if the point data is of low quality.
 In particular, non-random sampling of individuals can produce biased estimates of prevalence and this will decrease model performance.
 
 
-For a model to be robust to shortcomings in the prevalence-incidence relationship from \cite{cameron2015defining}, future models could be more flexible in the way they use this relationship.
+For a model to be robust to shortcomings in the prevalence-incidence relationship from \citep{cameron2015defining}, future models could be more flexible in the way they use this relationship.
 This could be by estimating the parameters of the polynomial jointly with the rest of the model.
 Informative priors based on the original model should be used to regularise this joint fit both to prevent unbelievable inferences but also because if the relationship is too flexible, the information from the prevalence data might not contribute to learning the regression parameters and spatial random field.
 This is particularly true for even more flexible model forms that could be used such as a spline or a Gaussian process on the relationship between prevalence and incidence.
@@ -704,13 +506,13 @@ Weakening this prior will allow the iid effect to explain more of the prevalence
 
 
 Here we have used purely linear covariates.
-It has been clearly established that simple linear combinations of environmental covariates cannot fully explain malaria risk \cite{bhatt2017improved}.
+It has been clearly established that simple linear combinations of environmental covariates cannot fully explain malaria risk \citep{bhatt2017improved}.
 A number of methods could be used to include non-linear effects of covariates and interactions into the model.
-Firstly, as in \cite{bhatt2017improved}, machine learning models could be fitted to the prevalence data and then predictions from these models could be used as covariates in the full model \cite{lucas2019model}.
+Firstly, as in \citep{bhatt2017improved}, machine learning models could be fitted to the prevalence data and then predictions from these models could be used as covariates in the full model.
 This approach is feasible but does not allow any information from the polygons to inform non-linear relationships.
-Directly modelling non-linear effects in the full model could be achieved by including simple non-linear functions such as splines \cite{sissoko2017temporal, sewe2017using, hundessa2018projecting}, though the increased model complexity would require more data than was used in Senegal and Madagascar in this study.
-Finally, Gaussian process regression, with smoothly varying effects in environmental and geographic space could be used \cite{law2018variational}.
-These are computational expensive without variational Bayes or other approximations \cite{law2018variational, ton2018spatial} which can be difficult to derive.
+Directly modelling non-linear effects in the full model could be achieved by including simple non-linear functions such as splines \citep{sissoko2017temporal, sewe2017using, hundessa2018projecting}, though the increased model complexity would require more data than was used in Senegal and Madagascar in this study.
+Finally, Gaussian process regression, with smoothly varying effects in environmental and geographic space could be used \citep{law2018variational}.
+These are computational expensive without variational Bayes or other approximations \citep{law2018variational, ton2018spatial} which can be difficult to derive.
 Again these models need a lot of data and careful regularisation for good predictive performance.
 
 
@@ -725,42 +527,22 @@ Again these models need a lot of data and careful regularisation for good predic
 Overall, we have shown that including spatial information from prevalence surveys generally improves the predictive performance of disaggregation regression of aggregated incidence data.
 However, we found that the more complex joint model was unreliable in its predictive performance.
 In contrast, summarising the spatial information from the prevalence surveys by fitting a spatial Gaussian process model and using predictions from this model as a new covariate nearly always improved predictive performance.
-As disaggregation regression becomes more widely used \cite{weiss2019mapping, battle2019mapping}, methods such as these to improve their performance are particularly needed
+As disaggregation regression becomes more widely used \citep{weiss2019mapping, battle2019mapping}, methods such as these to improve their performance are particularly needed
 
 
 \section*{Supporting information}
-
-% Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
-%\paragraph*{S1 Fig.}
-%\label{S1_Fig}
-%{\bf Bold the title sentence.} Add descriptive text after the title of the item (optional).
 
 
 \section*{Acknowledgments}
 Thanks everyone.
 
 
-\nolinenumbers
+%\bibliographystyle{apalike} %or any other style you like
 
-% Either type in your references using
-% \begin{thebibliography}{}
-% \bibitem{}
-% Text
-% \end{thebibliography}
-%
-% or
-%
-% Compile your BiBTeX database using our plos2015.bst
-% style file and paste the contents of your .bbl file
-% here. See http://journals.plos.org/plosone/s/latex for 
-% step-by-step instructions.
-% 
+\bibliographystyle{rss}
+
+
 \bibliography{Malaria} 
-
-%\begin{thebibliography}{10}
-
-
-%\end{thebibliography}
 
 
 
