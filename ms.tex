@@ -18,13 +18,61 @@
 \title[Mapping malaria by sharing spatial information]{Mapping malaria in pre-elimination settings by sharing spatial information between incidence and prevalence datasets}
 \author[Tim C.D. Lucas {\it et al.}]{Tim C.D. Lucas}
 \address{Big Data Institute,
+University of Oxford,
 Oxford,
 UK.}
 \email{timcdlucas@gmail.com}
 \author{Anita Nandi}
 \address{Big Data Institute,
+University of Oxford,
 Oxford,
 UK.}
+\author{Michele Nguyen}
+\address{Big Data Institute,
+University of Oxford,
+Oxford,
+UK.}
+\author{Susan Rumisha}
+\address{Big Data Institute,
+University of Oxford,
+Oxford,
+UK.}
+\author{Rosalind Howes}
+\address{Big Data Institute,
+University of Oxford,
+Oxford,
+UK.}
+\author{Katherine E. Battle}
+\address{Big Data Institute,
+University of Oxford,
+Oxford,
+UK.}
+\author{Penelope Hancock}
+\address{Big Data Institute,
+University of Oxford,
+Oxford,
+UK.}
+\author{Andre Python}
+\address{Big Data Institute,
+University of Oxford,
+Oxford,
+UK.}
+\author{Ewan Cameron}
+\address{Big Data Institute,
+University of Oxford,
+Oxford,
+UK.}
+\author{Pete Gething}
+\address{Big Data Institute,
+University of Oxford,
+Oxford,
+UK.}
+\author{Daniel J. Weiss}
+\address{Big Data Institute,
+University of Oxford,
+Oxford,
+UK.}
+
 
 % Title must be 250 characters or less.
 
@@ -154,7 +202,7 @@ Finally, for Madagascar we selected 2013 for polygon incidence (110 regions) and
 
 \begin{figure}
 % to be removed before submission
-\makebox{\includegraphics[width = 0.6\textwidth]{figures/sen_both_cv12_preds.png}}
+\makebox{\includegraphics[width = 1.1\textwidth]{figures/sen_both_cv12_preds.png}}
 \caption{\label{predobsmapsen}
 Incidence data and predicted incidence maps.
 The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
@@ -244,9 +292,10 @@ Given the standardised covariates, an intercept of -3 and a regression coefficie
 This prior encodes our belief that the full range of malaria transmission can not be explained by a single covariate and our desire to regularise the model.
 This regularisation is particularly important given the small number of observations in Senegal (n = 46) and Madagascar (n = 110).
 
-We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \citep{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > 1) = 0.00001$.
-We used different $\zeta$ values for each country: Indonesia $\zeta = 3$, Senegal $\zeta = 1$ and Madagascar $\zeta = 1$.
+We assigned $\rho$ and $\sigma_u$ a joint penalised complexity prior \citep{fuglstad2018constructing} such that $P(\rho < \zeta) = 0.00001$ and $P(\sigma_u > \xi) = 0.00001$.
+We used different $\zeta$  and $\xi$ values for each country: Indonesia $\zeta = 3, \xi = 1$, Senegal $\zeta = 1, \xi = 0.5$ and Madagascar $\zeta = 1, \xi = 1$.
 We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected \citep{bhatt2017improved}, so we set this prior such that the random field could explain most of the range of the data.
+As Senegal has a lower range of incidences in the data we set $\xi$ to a smaller value for this country.
 
 We assigned $\sigma_v$ a penalised complexity prior \citep{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$
 This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for the case counts using the approach defined in \citep{cibulskis2011worldwide}.
@@ -306,10 +355,13 @@ The second iid random effect, $w_b \sim \operatorname{Norm}(0, \sigma_w)$, was a
 This effect modelled extra-binomial sampling noise.
 As such, this random effect is not included in the predicted uncertainty in the incidence or prevalence layers.
 
-We assigned $\sigma_w$ a penalised complexity prior such that $P(\sigma_w > 0.3) = 0.0000001$. 
+We assigned $\sigma_w$ a penalised complexity prior such that $P(\sigma_w > \phi) = 0.0000001$. 
 This was chosen by finding the maximum difference in prevalence between point-surveys (with a sample size greater than 500 individuals) within the same raster pixel.
 The differences between points within the same pixel can only be accounted for by the binomial error and this iid effect.
 Given that the error on a prevalence estimate with sample size greater than 500 is quite small, the iid effect needs to be able to explain this difference.
+In Senegal and Madagascar this value was relatively small so we set $\phi = 0.05$. 
+In Indonesia however, there are many prevalence surveys in small areas and there is large differences in estimated prevalence within the same pixel.
+Therefore we set $\phi = 0.3$.
 
 Given that the PrevInc relationship is fitted to the best available data, we have fairly strong \emph{a priori} confidence in it.
 Therefore, our prior belief is that $\exp(\alpha)$ is close to one (i.e.\thinspace the relationship remains unchanged) and therefore that $\alpha$ is close to zero.
@@ -331,7 +383,7 @@ We considered the ability to predict polygon incidence correctly our main object
 As the models are being fitted on data on different scales we found that observations and predictions were sometimes correlated but shifted from the one-one line (i.e. biased) and therefore correlation metrics were misleading.
 % Why not correlation
 To assess how well the models were calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
-
+%Finally, we fitted each model to the full data set and examine the parameter estimates for these models.
 
 
 
@@ -439,7 +491,11 @@ Overall, including the spatial information from prevalence surveys yields predic
 The prevalence GP model was as good or better than baseline in five out of six experiments.
 In contrast, the joint model was only better than baseline in three out of six experiments.
 
-
+%\subsection{Parameter estimates}
+% We can examine the parameters in the models fitted
+% discuss beta for prev go
+% discuss alpha 
+% are other betas the same across models and countries.
 
 
 %figure 3 and 4. data and predicted incidence maps. Indonesia and Senegal only. Fig 3 ind, fig 4 rand. Data, Rand, Spatial for best model? Joint model?
