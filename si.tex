@@ -1,79 +1,7 @@
-% Template for PLoS
-% Version 3.5 March 2018
-%
-% % % % % % % % % % % % % % % % % % % % % %
-%
-% -- IMPORTANT NOTE
-%
-% This template contains comments intended 
-% to minimize problems and delays during our production 
-% process. Please follow the template instructions
-% whenever possible.
-%
-% % % % % % % % % % % % % % % % % % % % % % % 
-%
-% Once your paper is accepted for publication, 
-% PLEASE REMOVE ALL TRACKED CHANGES in this file 
-% and leave only the final text of your manuscript. 
-% PLOS recommends the use of latexdiff to track changes during review, as this will help to maintain a clean tex file.
-% Visit https://www.ctan.org/pkg/latexdiff?lang=en for info or contact us at latex@plos.org.
-%
-%
-% There are no restrictions on package use within the LaTeX files except that 
-% no packages listed in the template may be deleted.
-%
-% Please do not include colors or graphics in the text.
-%
-% The manuscript LaTeX source should be contained within a single file (do not use \input, \externaldocument, or similar commands).
-%
-% % % % % % % % % % % % % % % % % % % % % % %
-%
-% -- FIGURES AND TABLES
-%
-% Please include tables/figure captions directly after the paragraph where they are first cited in the text.
-%
-% DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
-% - Figures should be uploaded separately from your manuscript file. 
-% - Figures generated using LaTeX should be extracted and removed from the PDF before submission. 
-% - Figures containing multiple panels/subfigures must be combined into one image file before submission.
-% For figure citations, please use "Fig" instead of "Figure".
-% See http://journals.plos.org/plosone/s/figures for PLOS figure guidelines.
-%
-% Tables should be cell-based and may not contain:
-% - spacing/line breaks within cells to alter layout or alignment
-% - do not nest tabular environments (no tabular environments within tabular environments)
-% - no graphics or colored text (cell background color/shading OK)
-% See http://journals.plos.org/plosone/s/tables for table guidelines.
-%
-% For tables that exceed the width of the text column, use the adjustwidth environment as illustrated in the example table in text below.
-%
-% % % % % % % % % % % % % % % % % % % % % % % %
-%
-% -- EQUATIONS, MATH SYMBOLS, SUBSCRIPTS, AND SUPERSCRIPTS
-%
-% IMPORTANT
-% Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://journals.plos.org/plosone/s/latex
-%
-% For inline equations, please be sure to include all portions of an equation in the math environment.  For example, x$^2$ is incorrect; this should be formatted as $x^2$ (or $\mathrm{x}^2$ if the romanized font is desired).
-%
-% Do not include text that is not math in the math environment. For example, CO2 should be written as CO\textsubscript{2} instead of CO$_2$.
-%
-% Please add line breaks to long display equations when possible in order to fit size of the column. 
-%
-% For inline equations, please do not include punctuation (commas, etc) within the math environment unless this is part of the equation.
-%
-% When adding superscript or subscripts outside of brackets/braces, please group using {}.  For example, change "[U(D,E,\gamma)]^2" to "{[U(D,E,\gamma)]}^2". 
-%
-% Do not use \cal for caligraphic font.  Instead, use \mathcal{}
-%
-% % % % % % % % % % % % % % % % % % % % % % % % 
-%
-% Please contact latex@plos.org with any questions.
-%
-% % % % % % % % % % % % % % % % % % % % % % % %
 
-\documentclass[10pt,letterpaper]{article}
-\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+\documentclass[10pt,a4]{article}
+\usepackage[top=0.85in,left=.75in,footskip=0.75in]{geometry}
 
 % amsmath and amssymb packages, useful for mathematical formulas and symbols
 \usepackage{amsmath,amssymb}
@@ -111,34 +39,6 @@
 
 
 
-% create "+" rule type for thick vertical lines
-\newcolumntype{+}{!{\vrule width 2pt}}
-
-% create \thickcline for thick horizontal lines of variable length
-\newlength\savedwidth
-\newcommand\thickcline[1]{%
-  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
-  \cline{#1}%
-  \noalign{\vskip\arrayrulewidth}%
-  \noalign{\global\arrayrulewidth\savedwidth}%
-}
-
-% \thickhline command for thick horizontal lines that span the table
-\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
-\hline
-\noalign{\global\arrayrulewidth\savedwidth}}
-
-
-% Remove comment for double spacing
-%\usepackage{setspace} 
-%\doublespacing
-
-% Text layout
-\raggedright
-\setlength{\parindent}{0.5cm}
-\textwidth 5.25in 
-\textheight 8.75in
-
 % Bold the 'Figure #' in the caption and separate it from the title/caption with a period
 % Captions will be left justified
 \usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
@@ -158,22 +58,6 @@
 \usepackage{lastpage,fancyhdr,graphicx}
 \DeclareGraphicsExtensions{.pdf,.png}   
 \usepackage{epstopdf}
-%\pagestyle{myheadings}
-\pagestyle{fancy}
-\fancyhf{}
-%\setlength{\headheight}{27.023pt}
-%\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
-\rfoot{\thepage/\pageref{LastPage}}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
-\fancyheadoffset[L]{2.25in}
-\fancyfootoffset[L]{2.25in}
-\lfoot{\today}
-
-%% Include all macros below
-
-\newcommand{\lorem}{{\bf LOREM}}
-\newcommand{\ipsum}{{\bf IPSUM}}
 
 
 \renewcommand\thefigure{S\arabic{figure}} 
@@ -233,6 +117,266 @@ Tim C.D. Lucas*\textsuperscript{1}, Anita Nandi\textsuperscript{1}, Michele Nguy
 \end{figure}
 
 
+
+\clearpage
+\subsection{Estimated parameters}
+
+
+
+% latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Mon Jul 15 21:04:30 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrrrrr}
+  \hline
+Parameters & Baseline & BaselineSD & PrevalenceGP & PrevalenceGPSD & Joint & JointSD \\ 
+  \hline
+$\beta_0$ & -5.58 & 0.29 & -4.72 & 0.57 & -5.35 & 0.51 \\ 
+  $\beta_p$ &  &  &  &  & 1.64 & 0.13 \\ 
+  LST day mean & 0.00 & 0.26 & -0.03 & 0.26 & -0.09 & 0.24 \\ 
+  EVI & 0.43 & 0.23 & 0.34 & 0.24 & 0.27 & 0.20 \\ 
+  TSI & -0.61 & 0.24 & -0.52 & 0.24 & 0.36 & 0.18 \\ 
+  accessability & -0.09 & 0.21 & -0.05 & 0.21 & 0.10 & 0.11 \\ 
+  elevation & 0.44 & 0.21 & 0.36 & 0.22 & 0.31 & 0.18 \\ 
+  LST day SD & 0.23 & 0.20 & 0.08 & 0.21 & 0.24 & 0.20 \\ 
+  Night lights & 0.10 & 0.06 & 0.09 & 0.06 & 0.05 & 0.04 \\ 
+  TCW & -0.02 & 0.28 & -0.07 & 0.28 & 0.17 & 0.24 \\ 
+  Prev GP &  &  & 0.27 & 0.17 &  &  \\ 
+  $\log(\tau)$ & 0.25 & 0.25 & 0.26 & 0.25 & -0.03 & 0.33 \\ 
+  $\log(\tau_{prev})$ &  &  &  &  & -1.06 & 0.13 \\ 
+  $\log(\sigma_u)$ & -2.48 & 0.61 & -2.26 & 0.57 & -3.41 & 0.52 \\ 
+  $\log(\rho)$ & 0.58 & 0.30 & 0.63 & 0.29 & 0.68 & 0.31 \\ 
+  $\log(\alpha)$ &  &  &  &  & -0.00 & 0.00 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+% latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Mon Jul 15 21:04:30 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrrrrr}
+  \hline
+Parameters & Baseline & BaselineSD & PrevalenceGP & PrevalenceGPSD & Joint & JointSD \\ 
+  \hline
+$\beta_0$ & -3.81 & 0.32 & -2.70 & 0.31 & -3.51 & 0.54 \\ 
+  $\beta_p$ &  &  &  &  & -0.02 & 0.10 \\ 
+  LST day mean & 0.17 & 0.29 & 0.16 & 0.27 & 0.19 & 0.24 \\ 
+  EVI & 0.34 & 0.21 & 0.24 & 0.19 & 0.48 & 0.13 \\ 
+  TSI & 0.45 & 0.22 & 0.43 & 0.21 & 0.66 & 0.18 \\ 
+  accessability & 0.36 & 0.11 & 0.16 & 0.10 & 0.29 & 0.07 \\ 
+  elevation & -0.11 & 0.18 & -0.04 & 0.16 & 0.30 & 0.12 \\ 
+  LST day SD & -0.22 & 0.21 & -0.16 & 0.18 & -0.19 & 0.16 \\ 
+  Night lights & -0.01 & 0.03 & -0.02 & 0.02 & -0.02 & 0.02 \\ 
+  TCW & -0.26 & 0.26 & -0.22 & 0.25 & -0.08 & 0.15 \\ 
+  Prev GP &  &  & 0.35 & 0.07 &  &  \\ 
+  $\log(\tau)$ & 1.19 & 0.23 & 1.18 & 0.22 & 1.15 & 0.22 \\ 
+  $\log(\tau_{prev})$ &  &  &  &  & -0.85 & 0.11 \\ 
+  $\log(\sigma_u)$ & -2.57 & 0.60 & -2.48 & 0.63 & -2.02 & 0.59 \\ 
+  $\log(\rho)$ & 0.99 & 0.32 & 0.84 & 0.32 & 1.37 & 0.37 \\ 
+  $\log(\alpha)$ &  &  &  &  & 0.00 & 0.00 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+\begin{figure}[h!]
+% to be removed before submission
+\makebox{\includegraphics[width = 0.7\textwidth]{figures/idn_both_cv12_random_preds.png}}
+\caption{\label{predobsmapsen}
+Incidence data and predicted incidence maps.
+The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for random cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
+}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+% to be removed before submission
+\makebox{\includegraphics[width = 0.8\textwidth]{figures/mdg_both_cv12_random_preds.png}}
+\caption{\label{predobsmapsen}
+Incidence data and predicted incidence maps.
+The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for random cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
+}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+% to be removed before submission
+\makebox{\includegraphics[width = 0.8\textwidth]{figures/sen_both_cv12_random_preds.png}}
+\caption{\label{predobsmapsen}
+Incidence data and predicted incidence maps.
+The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for ranomd cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
+}
+\end{figure}
+
+
+\clearpage
+\subsection{Spatial CV predictions}
+
+
+\begin{figure}[h!]
+% to be removed before submission
+\makebox{\includegraphics[width = 0.8\textwidth]{figures/idn_both_cv12_preds.png}}
+\caption{\label{predobsmapsen}
+Incidence data and predicted incidence maps.
+The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
+}
+\end{figure}
+
+\clearpage
+\subsection{Full model predictions}
+\subsubsection{Madagascar}
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/mdg_baseline_api.png}
+
+\caption{Predictions from the baseline model fitted to all data in Madagascar.}
+\end{figure}
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/mdg_prgp_api.png}
+
+\caption{Predictions from the prevalence GP model fitted to all data in Madagascar.}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/mdg_joint_api.png}
+
+\caption{Predictions from the joint model fitted to all data in Madagascar.}
+\end{figure}
+
+
+
+
+\subsubsection{Senegal}
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/sen_baseline_api.png}
+
+\caption{Predictions from the baseline model fitted to all data in Senegal.}
+\end{figure}
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/sen_prgp_api.png}
+
+\caption{Predictions from the prevalence GP model fitted to all data in Senegal.}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/sen_joint_api.png}
+
+\caption{Predictions from the joint model fitted to all data in Senegal.}
+\end{figure}
+
+
+
+
+
+
+
+
+
+\clearpage
+\subsection{Full model fields}
+
+
+\subsubsection{Senegal}
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/sen_prevgp.png}
+
+\caption{The prevalence GP model that is used as a covariate.}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.3\textheight]{figures/sen_baseline_field.png}
+
+\caption{The random field as fitted to all the data in the baseline model.}
+\end{figure}
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/sen_prgp_field.png}
+
+\caption{The random field as fitted to all the data in the prevalence GP model.}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.3\textheight]{figures/sen_joint_field.png}
+
+\caption{The random field as fitted to all the data in the joint model.}
+\end{figure}
+
+
+
+
+\clearpage
+\subsubsection{Indonesia}
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/idn_prevgp.png}
+
+\caption{The prevalence GP model that is used as a covariate.}
+\end{figure}
+
+
+
+
+
+\clearpage
+\subsubsection{Madagascar}
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.3\textheight]{figures/mdg_prevgp.png}
+
+\caption{The prevalence GP model that is used as a covariate.}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.3\textheight]{figures/mdg_baseline_field.png}
+
+\caption{The random field as fitted to all the data in the baseline model.}
+\end{figure}
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width = 0.3\textheight]{figures/mdg_prgp_field.png}
+
+\caption{The random field as fitted to all the data in the prevalence GP model.}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.3\textheight]{figures/mdg_joint_field.png}
+
+\caption{The random field as fitted to all the data in the joint model.}
+\end{figure}
 
 
 \end{document}
