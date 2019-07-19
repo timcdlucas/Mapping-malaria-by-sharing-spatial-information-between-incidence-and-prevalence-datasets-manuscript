@@ -90,7 +90,7 @@ UK.}
 \begin{abstract}
 As malaria incidence decreases and more countries move towards elimination, maps of malaria risk in low prevalence areas are becoming increasingly needed.
 However, traditional mapping using prevalence point-surveys are often ineffective in low prevalence areas due to low statistical power and a lack of data.
-More recently, dissagregation regression models have been developed that can estimate risk at high spatial resolution from surveillance data that reports incidence aggregated to a geographic polygon.
+More recently, disaggregation regression models have been developed that can estimate risk at high spatial resolution from surveillance data that reports incidence aggregated to a geographic polygon.
 However, there is generally low spatial overlap between prevalence point-surveys and polygon incidence data and therefore models that make use of the spatial information from prevalence point surveys have great potential.
 Here, using case studies in Indonesia, Senegal and Madagascar, we compare two methods for incorporating this spatial information into a disaggregation regression model.
 The first is a simple model that fits a Gaussian random field to prevalence point-surveys and then uses predictions from the random field as a covariate in the disaggregation regression model.
@@ -142,15 +142,15 @@ Disaggregation regression methods have been proposed as a way to model malaria b
 %sturrock used two.
 %undeveloped area of statistics but see Leon.
 
-However using only polygon-level incidence data to estimate malaria risk, and ignoring preevalence survey data, presents at least three noteworthy areas where improvements are possible. 
+However using only polygon-level incidence data to estimate malaria risk, and ignoring prevalence survey data, presents at least three noteworthy areas where improvements are possible. 
 (1) There are often some areas with better coverage of prevalence surveys than polygon incidence data. This is particularly true when modelling at continental scales \citep{weiss2019mapping, battle2019mapping}.
 %Disaggregation models aim to estimate high-resolution maps from aggregated data and are characterised by having a variable number of pixels, and therefore multiple rows of covariate data, per row of response data.
-(2) The aggregation of cases over space means that it may be difficult to learn relationships between malaria risk and the environment from aggregated incidence data, especially if the case counts are aggregated over large or heterogenous areas.
+(2) The aggregation of cases over space means that it may be difficult to learn relationships between malaria risk and the environment from aggregated incidence data, especially if the case counts are aggregated over large or heterogeneous areas.
 (3) Finally, estimates of both prevalence and incidence metrics are useful for policy makers \citep{cohen2017mapping}. Typically models are fitted to observations of one metric and then a secondary model is used to convert to the other metric \emph{post hoc} \citep{battle2019mapping, bhatt2015effect}. This misses an opportunity to learn the relationship between prevalence and incidence at the same time as fitting the geographic model.
 
 There are two broad ways that spatial information from prevalence surveys could be included in a dissaggregation regression model of incidence.
-Firstly, the spatial information from prevalence surveys could be summarised using a seperate model and then included as a covariate in the disaggregation model.
-If the model used to summarise the prevalence surveys is explicitely spatial, this approach would make the spatial information in the prevalence data available to be used by the disaggregation model, therefore solving issue (1) above.
+Firstly, the spatial information from prevalence surveys could be summarised using a separate model and then included as a covariate in the disaggregation model.
+If the model used to summarise the prevalence surveys is explicitly spatial, this approach would make the spatial information in the prevalence data available to be used by the disaggregation model, therefore solving issue (1) above.
 However, this approach does not provide additional degrees of freedom in order to more accurately learn relationships between malaria risk and the environment and therefore does not solve issue (2).
 Furthermore, it does not allow joint predictions of incidence and prevalence from a single model and so does not solve issue (3).
 This broad approach of summarising the information in a different data set using a separate model has previously been used in a number of contexts such as including information on animal hosts \citep{shearer2016estimating} or summarising temperature suitability of malaria parasites \citep{weiss2014air} and using this in models of malaria prevalence \citep{bhatt2015effect, weiss2019mapping}.
@@ -165,7 +165,7 @@ Therefore, a full joint model has the potential to solve issue (3) as well.
 While a joint model provides the opportunity to learn the relationship between prevalence and incidence, this is technically challenging as these two data types measure disease intensity on different scales.
 Point surveys are a measurement of prevalence in the range $\lbrack 0, 1\rbrack$ that quantify parasite rate during a short period of time.
 In contrast, routine surveillance measures incidence in the range $\lbrack 0, \infty\rbrack$ over a period of time (e.g., a year) during which individuals can have multiple malaria infections.
-%One approach to combining these datasets is to use a seperately estimated model that maps one scale to another such as \citep{cameron2015defining}.
+%One approach to combining these datasets is to use a separately estimated model that maps one scale to another such as \citep{cameron2015defining}.
 
 %Ideal situation is to combine data
 %benefits of both
@@ -174,7 +174,7 @@ In contrast, routine surveillance measures incidence in the range $\lbrack 0, \i
 
 Here we compare two methods for using spatial information from prevalence surveys to inform a disaggregation model fitted to polygon incidence data of \emph{Plasmodium falciparum}  malaria.
 The first model fits a Gaussian process to prevalence point surveys then uses predictions from this model as a covariate in the disaggregation model.
-Secondly, we formulate a joint model that combines polygon incidence data and prevalence point-surveys using seperate likelihoods for both data types.
+Secondly, we formulate a joint model that combines polygon incidence data and prevalence point-surveys using separate likelihoods for both data types.
 We relate the differing malariometric measures by using a previously estimated relationship within the model \citep{cameron2015defining} which is then adjusted as part of the model fitting process.
 We then compare results from the two models with those made using a polygon-only, disaggregation model similar to previous models \citep{sturrock2014fine, wilson2017pointless}.
 All models are fitted to data from Indonesia, Senegal and Madagascar to provide a set of case studies with disparate geographic settings and levels of malaria endemicity.
@@ -391,7 +391,9 @@ To assess how well the models were calibrated we considered coverage of the 80\%
 
 
 \begin{table}
-\caption{\label{table1}Summary of out-of-sample accuracy for all three cross-validation experiments. Mean absolute error of predicted incidence rate against out-of-sample observed data for three countries.}
+\caption{\label{table1}
+Summary of out-of-sample accuracy for all three cross-validation experiments. 
+Mean absolute error of predicted incidence rate against out-of-sample observed data for three countries.}
 \centering
 \fbox{%
 \begin{tabular}{lllll}
@@ -478,7 +480,7 @@ In Madagascar the joint model performed the best in the spatial cross-validation
 Comparing the parameter estimates for the joint model specific parameters between Madagascar and the other two countries therefore seems useful.
 The prevalence only intercept, $\beta_p$, is large in the Senegal fit (mean = 1.36, sd = 0.13) but small in Indonesia (mean = 0.03, sd = 0.20) and Madagascar (mean = 0.07, sd = 0.10).
 This implies there is a strong bias (given the prevalence to incidence model) between the prevalence and incidence data in Senegal.
-Furthermore, the standard deviation of the prevalence point iid effect, $w_b(\sigma_w)$, is much larger in Indonesia (mean $\omega_w = -2.6$, sd $\omega_w = 0.09$ which corresponds to $\sigma_w$ = 13.46) than in Senegal (mean $\omega_w = -1.03$, sd $\omega_w = 0.13$ which corresponds to $\sigma_w$ = 2.80) or Madagascar (mean $\omega_w = -0.77$, sd $\omega_w = 0.11$ which corresponsed to $\sigma_w$ = 2.16).
+Furthermore, the standard deviation of the prevalence point iid effect, $w_b(\sigma_w)$, is much larger in Indonesia (mean $\omega_w = -2.6$, sd $\omega_w = 0.09$ which corresponds to a mean of $\sigma_w$ of 13.46) than in Senegal (mean $\omega_w = -1.03$, sd $\omega_w = 0.13$ which corresponds to a mean of $\sigma_w$ of 2.80) or Madagascar (mean $\omega_w = -0.77$, sd $\omega_w = 0.11$ which corresponds to a mean of $\sigma_w$ of 2.16).
 This implies there is a lot of noise in the prevalence data in Indonesia.
 
 We set a strong prior on $\alpha$ being close to one, encoding our belief that the incidence prevalence relationship should be close to the previously fitted model.
