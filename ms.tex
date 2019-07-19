@@ -146,7 +146,7 @@ However using only polygon-level incidence data to estimate malaria risk, and ig
 (1) There are often some areas with better coverage of prevalence surveys than polygon incidence data. This is particularly true when modelling at continental scales \citep{weiss2019mapping, battle2019mapping}.
 %Disaggregation models aim to estimate high-resolution maps from aggregated data and are characterised by having a variable number of pixels, and therefore multiple rows of covariate data, per row of response data.
 (2) The aggregation of cases over space means that it may be difficult to learn relationships between malaria risk and the environment from aggregated incidence data, especially if the case counts are aggregated over large or heterogenous areas.
-(3) Finally, estimates of both prevalence and incidence metrics are useful for policy makers \citep{cohen2017mapping}. Typically models are fitted to observations of one metric and then a secondary model is used to convert to the other \emph{post hoc} \citep{battle2019mapping, bhatt2015effect}. However, this misses an opportunity to learn the relationship between prevalence and incidence at the same time as fitting the geographic model.
+(3) Finally, estimates of both prevalence and incidence metrics are useful for policy makers \citep{cohen2017mapping}. Typically models are fitted to observations of one metric and then a secondary model is used to convert to the other metric \emph{post hoc} \citep{battle2019mapping, bhatt2015effect}. This misses an opportunity to learn the relationship between prevalence and incidence at the same time as fitting the geographic model.
 
 There are two broad ways that spatial information from prevalence surveys could be included in a dissaggregation regression model of incidence.
 Firstly, the spatial information from prevalence surveys could be summarised using a seperate model and then included as a covariate in the disaggregation model.
@@ -197,12 +197,12 @@ We selected Indonesia, Senegal and Madagascar as case examples as they all have 
 To minimise temporal effects we selected one year of polygon incidence data and the surrounding five years of prevalence point-survey data for each country.
 For Indonesia we selected polygon incidence data from 2012 that covers 379 regions, and prevalence data from 2010 to 2014 that consists of 1,233 surveys, representing 230,747 individuals.
 For Senegal we selected 2015 for polygon incidence data (41 regions) and 2013 to 2017 for prevalence data (804 surveys, 17,037 individuals).
-Finally, for Madagascar we selected 2013 for polygon incidence (110 regions) and 2011 to 2015 for prevalence (1,049 surveys, 36,411 individuals) data.
+Finally, for Madagascar we selected 2013 for polygon incidence (110 regions) and 2011 to 2015 for prevalence data (1,049 surveys, 36,411 individuals).
 
 
 \subsection*{Prevalence survey data}
 
-The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \citep{bhatt2015effect, guerra2007assembling, gething2011new, pfeffer2018ma}.
+The prevalence point-survey data were extracted from the Malaria Atlas Project prevalence survey database \citep{bhatt2015effect, guerra2007assembling, pfeffer2018ma}.
 As the prevalence point-surveys cover different age ranges they were standardised to an age-range of 2--10 using the model from \citep{smith2007standardizing}.
 The age standardisation model gives the surveys with zero positive cases a small positive prevalence.
 
@@ -282,6 +282,7 @@ We also include a spatial, Gaussian random field, $u(s, \rho, \sigma_u)$ and a p
 $$\eta_b = \beta_0 + \beta X  + u(s, \rho, \sigma_u) + v_a(\sigma_v) $$
 The Gaussian spatial effect $u(s, \rho, \sigma_u)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range (beyond which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
 The iid random effect, $v_a \sim \operatorname{Norm}(0, \sigma_v)$,  was grouped by polygon, with all pixels within polygon $j$ being grouped together.
+Internally, this effect is parameterised as the log of the precision, $\omega_v = \log(\tau_v) = \log(\frac{1}{{\sigma_v}^2})$ to improve numeric stability.
 This random effect modelled both missing covariates and extra-Poisson sampling error.
 
 
@@ -352,8 +353,10 @@ $$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \beta X  + u(s, \rho, \sigma_u) + v_
 As well as the global intercept, $\beta_0$, this model has a prevalence survey only intercept $b_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point survey is being considered.
 The iid random effect, $v_a \sim \operatorname{Norm}(0, \sigma_v)$, was again grouped by polygon, with all pixels and point surveys within polygon $a$ being in the same group as polygon $a$.
 The second iid random effect, $w_b \sim \operatorname{Norm}(0, \sigma_w)$, was applied to each point survey.
+To improve numeric stability this effect is also parameterised internally as the log of the precision, $\omega_w = \log(\tau_w) = \log(\frac{1}{{\sigma_w}^2})$.
 This effect modelled extra-binomial sampling noise.
 As such, this random effect is not included in the predicted uncertainty in the incidence or prevalence layers.
+
 
 We assigned $\sigma_w$ a penalised complexity prior such that $P(\sigma_w > \phi) = 0.0000001$. 
 This was chosen by finding the maximum difference in prevalence between point-surveys (with a sample size greater than 500 individuals) within the same raster pixel.
@@ -475,7 +478,7 @@ In Madagascar the joint model performed the best in the spatial cross-validation
 Comparing the parameter estimates for the joint model specific parameters between Madagascar and the other two countries therefore seems useful.
 The prevalence only intercept, $\beta_p$, is large in the Senegal fit (mean = 1.36, sd = 0.13) but small in Indonesia (mean = 0.03, sd = 0.20) and Madagascar (mean = 0.07, sd = 0.10).
 This implies there is a strong bias (given the prevalence to incidence model) between the prevalence and incidence data in Senegal.
-Furthermore, the standard deviation of the prevalence point iid effect, $w_b(\sigma_w)$, is much larger in Indonesia (mean $\sigma_w$ = 13.46, mean $\log(\tau_w) = -2.6$, sd $\log(\tau_w) = 0.09$) than in Senegal (mean $\sigma_w$ = 2.80, mean $\log(\tau_w) = -1.03$, sd $\log(\tau_w) = 0.13$) or Madagascar (mean $\sigma_w$ = 2.16, mean $\log(\tau_w) = -0.77$, sd $\log(\tau_w) = 0.11$).
+Furthermore, the standard deviation of the prevalence point iid effect, $w_b(\sigma_w)$, is much larger in Indonesia (mean $\omega_w = -2.6$, sd $\omega_w = 0.09$ which corresponds to $\sigma_w$ = 13.46) than in Senegal (mean $\omega_w = -1.03$, sd $\omega_w = 0.13$ which corresponds to $\sigma_w$ = 2.80) or Madagascar (mean $\omega_w = -0.77$, sd $\omega_w = 0.11$ which corresponsed to $\sigma_w$ = 2.16).
 This implies there is a lot of noise in the prevalence data in Indonesia.
 
 We set a strong prior on $\alpha$ being close to one, encoding our belief that the incidence prevalence relationship should be close to the previously fitted model.
