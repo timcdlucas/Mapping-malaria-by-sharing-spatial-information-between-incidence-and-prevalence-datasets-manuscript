@@ -195,32 +195,9 @@ All models are fitted to data from Indonesia, Senegal and Madagascar to provide 
 We used two data sources that reflect malaria burden; prevalence point-surveys and polygon incidence data.
 We selected Indonesia, Senegal and Madagascar as case examples as they all have abundant subnational surveillance data and country wide surveys from approximately the same period.
 To minimise temporal effects we selected one year of polygon incidence data and the surrounding five years of prevalence point-survey data for each country.
-For Indonesia we selected polygon incidence data from 2012 that covers 380 regions, and prevalence data from 2010 to 2014 that consists of todo surveys, representing todo individuals.
-For Senegal we selected 2015 for polygon incidence data (46 regions) and 2013 to 2017 for prevalence data (todo surveys, todo individuals).
-Finally, for Madagascar we selected 2013 for polygon incidence (110 regions) and 2011 to 2015 for prevalence (todo surveys, todo individuals) data.
-
-
-\begin{figure}
-% to be removed before submission
-\makebox{\includegraphics[width = 1.1\textwidth]{figures/sen_both_cv12_preds.png}}
-\caption{\label{predobsmapsen}
-Incidence data and predicted incidence maps.
-The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
-}
-
-\end{figure}
-
-
-
-\begin{figure}
-% to be removed before submission
-\makebox{\includegraphics[width = 1.1\textwidth]{figures/mdg_both_cv12_preds.png}}
-\caption{\label{predobsmapmdg}Input incidence data and predicted incidence maps.
-The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (right) for Senegal.
-}
-
-\end{figure}
-
+For Indonesia we selected polygon incidence data from 2012 that covers 379 regions, and prevalence data from 2010 to 2014 that consists of 1,233 surveys, representing 230,747 individuals.
+For Senegal we selected 2015 for polygon incidence data (41 regions) and 2013 to 2017 for prevalence data (804 surveys, 17,037 individuals).
+Finally, for Madagascar we selected 2013 for polygon incidence (110 regions) and 2011 to 2015 for prevalence (1,049 surveys, 36,411 individuals) data.
 
 
 \subsection*{Prevalence survey data}
@@ -252,6 +229,29 @@ For each year, national population estimates from the UN were raked over the int
 We considered an initial suite of environmental and anthropological covariates, at a resolution of approximately $5 \times 5$ kilometres at the equator that included land surface temperature annual mean and standard deviation \citep{LST}, enhanced vegetation index \citep{TCB}, mosquito temperature suitability index \citep{weiss2014air}, elevation \citep{SRTMElev}, tassel cap brightness \citep{TCB}, tassel cap wetness \citep{TCB}, accessibility to cities \citep{weiss2018global}, night lights \citep{elvidge2017viirs} and proportion of urban land cover \citep{GUF}. % change to table
 Some covariates were log-transformed to remove skewness or removed due to multicollinearity with other predictor variables using the threshold of 0.8. % think we decided this on indonesia data only. Sen is currently 0.81... just a bit messy.
 The covariates were standardised to have a mean of zero and a standard deviation of one.
+
+\begin{figure}
+% to be removed before submission
+\makebox{\includegraphics[width = 1.1\textwidth]{figures/sen_both_cv12_preds.png}}
+\caption{\label{predobsmapsen}
+Incidence data and predicted incidence maps.
+The incidence (log10) data (left), predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (right) for Senegal.
+}
+
+\end{figure}
+
+
+
+\begin{figure}
+% to be removed before submission
+\makebox{\includegraphics[width = 1.1\textwidth]{figures/mdg_both_cv12_preds.png}}
+\caption{\label{predobsmapmdg}Input incidence data and predicted incidence maps.
+The incidence (log10) data (left), predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (right) for Madagascar.
+}
+
+\end{figure}
+
+
 
 
 
@@ -538,8 +538,8 @@ Random & Indonesia  & 0.73 &  0.72 &  0.72\\
 
 %Summarise results
 
-We have compared the predictive performance of a polygon-only model and a model that jointly learns from polygon incidence data and prevalence point-surveys.
-Overal the prevalence GP model appears to peform best.
+We have compared the predictive performance of three models: a baseline polygon-only model; a disaggregation model with spatial information from prevalence surveys included as an additional covariate from a seperate Gaussian process model; and a model that jointly learns from polygon incidence data and prevalence point-surveys.
+Overall the prevalence GP model appears to peform best.
 While the joint model sometimes performs best it also performs worse than baseline half of the time.
 Therefore, fitting a spatial Gaussian process to prevalence points and including these predictions seems to be a more reliable way of using spatial information from prevalence points.
 
