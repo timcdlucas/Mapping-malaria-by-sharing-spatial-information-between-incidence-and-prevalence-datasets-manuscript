@@ -96,7 +96,7 @@ UK.}
 As malaria incidence decreases and more countries move towards elimination, maps of malaria risk in low prevalence areas are becoming increasingly needed.
 However, traditional mapping using prevalence point-surveys are often ineffective in low prevalence areas due to low statistical power and a lack of data.
 More recently, disaggregation regression models have been developed that can estimate risk at high spatial resolution from routine surveillance reports incidence aggregated to administrative unit polygon.
-However, there is generally low spatial overlap between prevalence point-surveys and polygon incidence data and therefore models that make use of the spatial information from prevalence point surveys have great potential.
+However, in areas with both routine surveillance data and prevalence surveys, models that make use of the spatial information from prevalence point surveys have great potential.
 Using case studies in Indonesia, Senegal and Madagascar, we compare two methods for incorporating point-level, spatial information into a disaggregation regression model.
 The first is a simple model that fits a Gaussian random field to prevalence point-surveys and then uses predictions from the random field as a covariate in the disaggregation regression model.
 The second is a more complex, multi-likelihood model that jointly fits a model using prevalence point-surveys and  polygon incidence data.
@@ -136,9 +136,9 @@ Advantageously, the routine surveillance data can be more sensitive than prevale
 
 Disaggregation regression methods have been proposed as a way to model malaria burden using polygon-level, routine surveillance records of incidence \citep{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
 The intent of this research is to assess the utility of extending disaggregation regression approaches to model mapping malaria incidence using both point- and polygon-level response data. 
-In particular focuses on two noteworthy aspects where improvements in  the disaggregation regression may be possible:
+In particular it focuses on two noteworthy aspects where improvements in  the disaggregation regression may be possible:
 (1) for modelling in low-burden areas with better coverage of prevalence surveys than polygon incidence data; and
-(2) for building the statistical relationships between the response and geospatial predictor data in heterogeneous landscapes. An ancillary benefit of a hybridized approach is that it will simultaneously produce estimates of both prevalence and incidence metrics, which may both be useful for policy makers \emph{cohen2017mapping}.
+(2) for building the statistical relationships between the response and geospatial predictor data in heterogeneous landscapes. An ancillary benefit of a hybridized approach is that it will simultaneously produce estimates of both prevalence and incidence metrics, which may both be useful for policy makers \citep{cohen2017mapping}.
 Typically models are fitted to observations of one metric and then a secondary model is used to convert between prevalence and incidence \emph{post hoc} \citep{battle2019mapping, bhatt2015effect}, thus missing an opportunity to learn the relationship between prevalence and incidence at the same time as fitting the geographic model. 
 
 There are two broad ways that spatial information from prevalence surveys could be included in a dissaggregation regression model of incidence.
