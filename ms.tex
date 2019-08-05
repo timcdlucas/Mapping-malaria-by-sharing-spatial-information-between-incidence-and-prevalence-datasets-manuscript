@@ -254,7 +254,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 Values at the aggregated, polygon level are given the subscript $a$ while pixel or point level variables are indexed with $b$.
 The polygon incidence case count data, $y_a$ is given a Poisson likelihood
 
-$$y_a \sim \operatorname{Pois}(i_a\mathrm{pop_a})$$
+$$y_a \sim \operatorname{Poisson}(i_a\mathrm{pop_a})$$
 
 where $i_a$ is the estimated polygon incidence rate and $\mathrm{pop_a}$ is the (assumed to be) known polygon population-at-risk.
 
@@ -275,14 +275,14 @@ The linear predictor is composed of an intercept, $b_0$, covariates, $X$, and a 
 We also include a spatial, Gaussian random field, $u(s, \rho, \sigma_u)$ and a polygon-level iid random effect, $ v_a(\sigma_v)$.
 $$\eta_b = \beta_0 + \beta X  + u(s, \rho, \sigma_u) + v_a(\sigma_v) $$
 The Gaussian spatial effect $u(s, \rho, \sigma_u)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range (beyond which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
-The iid random effect, $v_a \sim \operatorname{Norm}(0, \sigma_v)$,  was grouped by polygon, with all pixels within polygon $j$ being grouped together.
+The iid random effect, $v_a \sim \operatorname{Normal}(0, \sigma_v)$,  was grouped by polygon, with all pixels within polygon $j$ being grouped together.
 Internally, this effect is parameterised as the log of the precision, $\omega_v = \log(\tau_v) = \log(\frac{1}{{\sigma_v}^2})$ to improve numeric stability.
 This random effect modelled both missing covariates and extra-Poisson sampling error.
 
 
 Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \rho, \sigma_u$ and $\sigma_v$.
-The intercept was given a wide prior, $b_0 \sim \operatorname{Norm}(-2, 4)$ with a mean less than zero as we know \emph{a priori} that these countries have low or medium levels of malaria transmission.
-We set independant, regularising priors on the regression coefficients $\beta_i \sim \operatorname{Norm}(0, 0.04)$. 
+The intercept was given a wide prior, $b_0 \sim \operatorname{Normal}(-2, 4)$ with a mean less than zero as we know \emph{a priori} that these countries have low or medium levels of malaria transmission.
+We set independant, regularising priors on the regression coefficients $\beta_i \sim \operatorname{Normal}(0, 0.04)$. 
 Given the standardised covariates, an intercept of -3 and a regression coefficient from the 95\% interquartile range of this distribution, each covariate would be able to predict prevalences between 0.004 and 0.27. 
 This prior encodes our belief that the full range of malaria transmission can not be explained by a single covariate and our desire to regularise the model.
 This regularisation is particularly important given the small number of observations in Senegal (n = 46) and Madagascar (n = 110).
@@ -336,7 +336,7 @@ The final model is a joint-likelihood model with separate likelihoods for preval
 The polygon data are assigned a Poisson likelihood as before.
 Additionally, the point-survey data, with positive cases $z_b$, are given a binomial likelihood
 
-$$z_b \sim \operatorname{Binom}(p_b, n_b) $$
+$$z_b \sim \operatorname{Binomial}(p_b, n_b) $$
 where $p_b$ is the estimated prevalence and $n_b$ is the observed survey sample size. 
 As this model has both prevalence and incidence data we add a parameter $\alpha$ that modifies the relationship between the two.
 $$i_b = \exp(\alpha)\mathrm{PrevInc}(p_b).$$
@@ -346,7 +346,7 @@ The only further additions to the baseline model are in the linear predictor whi
 $$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \beta X  + u(s, \rho, \sigma_u) + v_a(\sigma_v) + w_b(\sigma_w).$$
 As well as the global intercept, $\beta_0$, this model has a prevalence survey only intercept $b_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point survey is being considered.
 The iid random effect, $v_a \sim \operatorname{Norm}(0, \sigma_v)$, was again grouped by polygon, with all pixels and point surveys within polygon $a$ being in the same group as polygon $a$.
-The second iid random effect, $w_b \sim \operatorname{Norm}(0, \sigma_w)$, was applied to each point survey.
+The second iid random effect, $w_b \sim \operatorname{Normal}(0, \sigma_w)$, was applied to each point survey.
 To improve numeric stability this effect is also parameterised internally as the log of the precision, $\omega_w = \log(\tau_w) = \log(\frac{1}{{\sigma_w}^2})$.
 This effect modelled extra-binomial sampling noise.
 As such, this random effect is not included in the predicted uncertainty in the incidence or prevalence layers.
@@ -362,7 +362,7 @@ Therefore we set $\phi = 0.3$.
 
 Given that the PrevInc relationship is fitted to the best available data, we have fairly strong \emph{a priori} confidence in it.
 Therefore, our prior belief is that $\exp(\alpha)$ is close to one (i.e.\thinspace the relationship remains unchanged) and therefore that $\alpha$ is close to zero.
-We set our prior as $\alpha \sim \operatorname{Norm}(0, 0.001)$.
+We set our prior as $\alpha \sim \operatorname{Normal}(0, 0.001)$.
 
 
 \subsection*{Experiments}
