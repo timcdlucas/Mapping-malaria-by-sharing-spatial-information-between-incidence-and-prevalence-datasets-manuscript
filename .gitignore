@@ -10,3 +10,5 @@ ms.bbl
 ms.blg
 .*
 *.odt
+responses/*
+*.zip
