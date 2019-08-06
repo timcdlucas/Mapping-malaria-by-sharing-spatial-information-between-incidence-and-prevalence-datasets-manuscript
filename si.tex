@@ -219,7 +219,7 @@ $\beta_0$ & -5.83 & 0.65 & -5.59 & 0.80 & -6.31 & 0.56 \\
 \begin{figure}[h!]
 % to be removed before submission
 \makebox{\includegraphics[width = 0.7\textwidth]{figures/idn_both_cv12_random_preds.png}}
-\caption{\label{predobsmapsen}
+\caption{\label{predobsmapsen1}
 Incidence data and predicted incidence maps.
 The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for random cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
 }
@@ -230,7 +230,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \begin{figure}[h!]
 % to be removed before submission
 \makebox{\includegraphics[width = 0.9\textwidth]{figures/mdg_both_cv12_random_preds.png}}
-\caption{\label{predobsmapsen}
+\caption{\label{predobsmapsen2}
 Incidence data and predicted incidence maps.
 The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for random cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
 }
@@ -241,25 +241,13 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \begin{figure}[h!]
 % to be removed before submission
 \makebox{\includegraphics[width = 1\textwidth]{figures/sen_both_cv12_random_preds.png}}
-\caption{\label{predobsmapsen}
+\caption{\label{predobsmapsen3}
 Incidence data and predicted incidence maps.
 The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for random cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
 }
 \end{figure}
 
 
-\clearpage
-\subsection{Spatial CV predictions}
-
-
-\begin{figure}[h!]
-% to be removed before submission
-\makebox{\includegraphics[width = 0.8\textwidth]{figures/idn_both_cv12_preds.png}}
-\caption{\label{predobsmapsen}
-Incidence data and predicted incidence maps.
-The incidence (log10) data (top), predicted log10 incidence from the prevalence GP model for spatially cross-validated out-of-sample polygons (middle) and predicted log10 incidence from the joint model for spatially cross-validated out-of-sample polygons (bottom) for Senegal.
-}
-\end{figure}
 
 \clearpage
 \subsection{Full model predictions}
@@ -271,6 +259,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.3\textheight]{figures/mdg_baseline_api.png}
 
 \caption{Predictions from the baseline model fitted to all data in Madagascar.}
+\label{baselinemdg}
 \end{figure}
 \begin{figure}[h!]
 \centering
@@ -278,6 +267,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.3\textheight]{figures/mdg_prgp_api.png}
 
 \caption{Predictions from the prevalence GP model fitted to all data in Madagascar.}
+\label{gpmdg}
 \end{figure}
 
 \begin{figure}[h!]
@@ -286,6 +276,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.3\textheight]{figures/mdg_joint_api.png}
 
 \caption{Predictions from the joint model fitted to all data in Madagascar.}
+\label{jointmdg}
 \end{figure}
 
 
@@ -300,6 +291,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.3\textheight]{figures/sen_baseline_api.png}
 
 \caption{Predictions from the baseline model fitted to all data in Senegal.}
+\label{baselinesen}
 \end{figure}
 \begin{figure}[h!]
 \centering
@@ -307,6 +299,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.3\textheight]{figures/sen_prgp_api.png}
 
 \caption{Predictions from the prevalence GP model fitted to all data in Senegal.}
+\label{gpsen}
 \end{figure}
 
 \begin{figure}[h!]
@@ -315,6 +308,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.3\textheight]{figures/sen_joint_api.png}
 
 \caption{Predictions from the joint model fitted to all data in Senegal.}
+\label{jointsen}
 \end{figure}
 
 
@@ -328,6 +322,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.5\textheight]{figures/idn_baseline_api.png}
 
 \caption{Predictions from the baseline model fitted to all data in Indonesia.}
+\label{baselineidn}
 \end{figure}
 \begin{figure}[h!]
 \centering
@@ -335,6 +330,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.5\textheight]{figures/idn_prgp_api.png}
 
 \caption{Predictions from the prevalence GP model fitted to all data in Indonesia.}
+\label{gpidn}
 \end{figure}
 
 \begin{figure}[h!]
@@ -343,6 +339,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.5\textheight]{figures/idn_joint_api.png}
 
 \caption{Predictions from the joint model fitted to all data in Indonesia.}
+\label{jointidn}
 \end{figure}
 
 
@@ -363,6 +360,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.3\textheight]{figures/sen_prevgp.png}
 
 \caption{The prevalence GP model that is used as a covariate.}
+\label{gpsencov}
 \end{figure}
 
 
@@ -373,6 +371,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width =  0.3\textheight]{figures/sen_baseline_field.png}
 
 \caption{The random field as fitted to all the data in the baseline model.}
+\label{baselinefieldsen}
 \end{figure}
 \begin{figure}[h!]
 \centering
@@ -380,6 +379,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.3\textheight]{figures/sen_prgp_field.png}
 
 \caption{The random field as fitted to all the data in the prevalence GP model.}
+\label{gpfieldsen}
 \end{figure}
 
 \begin{figure}[h!]
@@ -388,6 +388,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width =  0.3\textheight]{figures/sen_joint_field.png}
 
 \caption{The random field as fitted to all the data in the joint model.}
+\label{jointfieldsen}
 \end{figure}
 
 
@@ -401,6 +402,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.6\textheight]{figures/idn_prevgp.png}
 
 \caption{The prevalence GP model that is used as a covariate.}
+\label{gpidncov}
 \end{figure}
 
 
@@ -411,6 +413,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width =  0.6\textheight]{figures/idn_baseline_field.png}
 
 \caption{The random field as fitted to all the data in the joint model.}
+\label{baselinefieldidn}
 \end{figure}
 
 
@@ -421,6 +424,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width =  0.6\textheight]{figures/idn_prgp_field.png}
 
 \caption{The random field as fitted to all the data in the joint model.}
+\label{gpfieldidn}
 \end{figure}
 
 
@@ -431,6 +435,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width =  0.6\textheight]{figures/idn_joint_field.png}
 
 \caption{The random field as fitted to all the data in the joint model.}
+\label{jointfieldidn}
 \end{figure}
 
 
@@ -443,6 +448,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width =  0.3\textheight]{figures/mdg_prevgp.png}
 
 \caption{The prevalence GP model that is used as a covariate.}
+\label{gpmdgcov}
 \end{figure}
 
 \begin{figure}[h!]
@@ -451,6 +457,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width =  0.3\textheight]{figures/mdg_baseline_field.png}
 
 \caption{The random field as fitted to all the data in the baseline model.}
+\label{baselinefieldmdg}
 \end{figure}
 \begin{figure}[h!]
 \centering
@@ -458,6 +465,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width = 0.3\textheight]{figures/mdg_prgp_field.png}
 
 \caption{The random field as fitted to all the data in the prevalence GP model.}
+\label{gpfieldmdg}
 \end{figure}
 
 \begin{figure}[h!]
@@ -466,6 +474,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \includegraphics[width =  0.3\textheight]{figures/mdg_joint_field.png}
 
 \caption{The random field as fitted to all the data in the joint model.}
+\label{jointfieldidn}
 \end{figure}
 
 
