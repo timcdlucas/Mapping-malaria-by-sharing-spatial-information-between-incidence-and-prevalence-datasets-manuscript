@@ -109,11 +109,11 @@ Typically models are fitted to observations of one metric and then a secondary m
 
 There are two broad ways that spatial information from prevalence surveys could be included in a dissaggregation regression model of incidence.
 Firstly, the information from prevalence surveys could be summarised using a separate model and then included as a covariate in the disaggregation model.
-If the model used to summarise the prevalence surveys is explicitly spatial, this approach would make the spatial information in the prevalence data available to be used by the disaggregation model, thereby enhancing the model’s ability to spatially disaggregate polygon-level cases within administrative units.
+If the model used to summarise the prevalence surveys is explicitly spatial, this approach would make the spatial information in the prevalence data available to be used by the disaggregation model, thereby enhancing the ability to spatially disaggregate polygon-level cases within administrative units.
 However, this approach does not provide additional degrees of freedom in order to more accurately learn relationships between malaria risk and the environment, nor does it allow joint predictions of incidence and prevalence from a single model.
 This broad approach of summarising the information in a different data set using a separate model has previously been used in a number of contexts, including information on animal hosts \citep{shearer2016estimating} or summarising temperature suitability of malaria parasites \citep{weiss2014air}, which subsequently were used as inputs for modeling malaria prevalence \citep{bhatt2015effect, weiss2019mapping}.
 
-Fully combining observations of incidence and prevalence in a joint model, with multiple likelihoods, addresses the limitations of a simple model wherein we use a prevelance map as a covariate.
+Fully combining observations of incidence and prevalence in a joint model, with multiple likelihoods, addresses the limitations of a simple model using a prevelance map as a covariate.
 Advantageously, as the additional response data are being used as response data, they provide more degrees of freedom with which to learn relationships between malaria risk and the environment.
 Such a model can also learn the relationship between different types of malaria response metrics at the same time as making spatial estimates, thereby producing statistically consistent outputs for both incidence and prevalence.
 While a joint model provides the opportunity to learn the relationship between prevalence and incidence, this is technically challenging as these two data types measure disease intensity on different scales.
