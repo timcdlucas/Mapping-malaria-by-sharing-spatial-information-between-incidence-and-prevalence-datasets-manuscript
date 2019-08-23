@@ -63,7 +63,7 @@ For low burden areas, disaggregation regression models have been developed to es
 However, in areas with both routine surveillance data and prevalence surveys, models that make use of the spatial information from prevalence point surveys have great potential.
 Using case studies in Indonesia, Senegal and Madagascar, we compare two methods for incorporating point-level, spatial information into disaggregation regression models.
 The first simply fits a Gaussian random field to prevalence point-surveys to create a new covariate.
-The second is a multi-likelihood model that jointly fits a model using prevalence point-surveys and polygon incidence data.
+The second is a multi-likelihood model that is fitted jointly to prevalence point-surveys and polygon incidence data.
 We find that the simple model generally performs better than a baseline disaggregation model while the joint model performance was mixed.
 More generally, our results demonstrate that combining these types of data improves estimates of malaria incidence.
 \end{abstract}
@@ -151,7 +151,7 @@ All models are fitted to data from Indonesia, Senegal and Madagascar to provide 
 
 \subsection*{Malaria data}
 
-We used two data sources that reflect malaria burden; prevalence point-surveys and polygon incidence data.
+We used two data sources that reflect malaria burden: prevalence point-surveys and polygon incidence data.
 Prevalence point surveys consist of geo-located household survey clusters wherein all sampled individuals are tested for malaria and the positive cases as well as the total number of children tested is recorded. 
 Polygon incidence data is aggregated by administrative-level, typically by governmental organizations tasked with collating and summarizing data reported from hospitals and health facilities. 
 Unlike the point data, polygon-level incidence only includes the number of cases and not the number of people relying on that unit’s healthcare facilities.  
@@ -168,7 +168,7 @@ The polygon incidence data can be seen in Figures~\ref{predobsmapsen}--\ref{pred
 
 We selected Indonesia, Senegal and Madagascar as case examples as they all have abundant subnational surveillance data and country wide surveys from approximately the same period.
 To minimise temporal effects we selected one year of polygon incidence data and the surrounding five years of prevalence point-survey data for each country.
-For Indonesia we selected polygon incidence data from 2012 that covers 379 regions, and prevalence data from 2010 to 2014 that consists of 1,233 surveys, representing 230,747 individuals.
+For Indonesia we selected polygon incidence data from 2012 that covers 379 regions, and prevalence data from 2010 to 2014 that consists of 1,233 survey clusters (i.e. unique locations), representing 230,747 individuals.
 For Senegal we selected 2015 for polygon incidence data (41 regions) and 2013 to 2017 for prevalence data (804 surveys, 17,037 individuals).
 Finally, for Madagascar we selected 2013 for polygon incidence (110 regions) and 2011 to 2015 for prevalence data (1,049 surveys, 36,411 individuals).
 
@@ -228,7 +228,7 @@ The polygon incidence case count data, $y_a$ is given a Poisson likelihood
 
 $$y_a \sim \operatorname{Poisson}(i_a\mathrm{pop_a})$$
 
-where $i_a$ is the estimated polygon incidence rate and $\mathrm{pop_a}$ is the (assumed to be) known polygon population-at-risk.
+where $i_a$ is the estimated polygon incidence rate and $\mathrm{pop_a}$ is the population-at-risk within that admin unit polygon (as apposed to the true health centre catchment area).
 
 
 Incidence rate is linked to latent pixel-level incidence ($i_b$), prevalence ($p_b$) and predictor variables by the following system of equations.
@@ -425,7 +425,7 @@ The one-one line is shown with a black line and a simple linear regression throu
 }
 
 \end{figure}
-
+% todo add country names to plots.
 
 
 % Coverage results
