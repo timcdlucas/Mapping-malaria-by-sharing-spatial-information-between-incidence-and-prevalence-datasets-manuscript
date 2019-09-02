@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage[textwidth=8em,textsize=small]{todonotes}
 \usepackage{amsmath}
+\usepackage{bm}
 
 %\usepackage[authoryear]{natbib}
 
@@ -183,7 +184,7 @@ For each year, national population estimates from the UN were raked over the int
 \subsection*{Covariate data}
 
 We considered an initial suite of environmental and anthropological covariates, at a resolution of approximately $5 \times 5$ kilometres at the equator that included land surface temperature annual mean and standard deviation, enhanced vegetation index (EVI), \emph{P. falciparum} temperature suitability index \citep{weiss2014air}, elevation \citep{SRTMElev}, tassel cap brightness, tassel cap wetness, accessibility to cities \citep{weiss2018global}, night lights \citep{elvidge2017viirs} and proportion of urban land cover \citep{GUF}. % change to table
-The land surface temperature, EVI, and tasseled cap indices were derived from satellite imagery and gap-filled to remove missing data caused by factors like cloud-cover \citep{weiss2014effective} and rescaled to a spatial resolution of approximately 5x5km \citep{weiss2015re} that defined the output of the final prevalence and incidence maps.
+The land surface temperature, EVI, and tasseled cap indices were derived from satellite imagery and gap-filled to remove missing data caused by factors like cloud-cover \citep{weiss2014effective} and rescaled to a spatial resolution of approximately $5\times 5$km \citep{weiss2015re} that defined the output of the final prevalence and incidence maps.
 Some covariates were log-transformed to remove skewness or removed due to multicollinearity with other predictor variables using the threshold of 0.8. % think we decided this on indonesia data only. Sen is currently 0.81... just a bit messy.
 The covariates were standardised to have a mean of zero and a standard deviation of one.
 
@@ -243,16 +244,16 @@ The linear predictor of the model, $\eta_b$, is related to the latent prevalence
 $$p_b = \operatorname{logit}^{-1}(\eta_b)$$
 The form of this set of link functions means we get predictions of prevalence and incidence simultaneously whether we used both data types or just one.
 
-The linear predictor is composed of an intercept, $b_0$, covariates, $X$, and a vector of regression coefficients $\beta$.
+The linear predictor is composed of an intercept, $b_0$, covariates, $X$, and a vector of regression coefficients $\boldsymbol\beta$.
 We also include a spatial, Gaussian random field, $u(s, \rho, \sigma_u)$ and a polygon-level iid random effect, $ v_a(\sigma_v)$.
-$$\eta_b = \beta_0 + \beta X  + u(s, \rho, \sigma_u) + v_a(\sigma_v) $$
+$$\eta_b = \beta_0 + \boldsymbol\beta X  + u(s, \rho, \sigma_u) + v_a(\sigma_v) $$
 The Gaussian spatial effect $u(s, \rho, \sigma_u)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range (beyond which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
 The iid random effect, $v_a \sim \operatorname{Normal}(0, \sigma_v)$,  was grouped by polygon, with all pixels within polygon $j$ being grouped together.
 Internally, this effect is parameterised as the log of the precision, $\omega_v = \log(\tau_v) = \log(\frac{1}{{\sigma_v}^2})$ to improve numeric stability.
 This random effect modelled both missing covariates and extra-Poisson sampling error.
 
 
-Finally, we complete the model by setting priors on the parameters $\beta_0, \beta, \rho, \sigma_u$ and $\sigma_v$.
+Finally, we complete the model by setting priors on the parameters $\beta_0, \boldsymbol\beta, \rho, \sigma_u$ and $\sigma_v$.
 The intercept was given a wide prior, $b_0 \sim \operatorname{Normal}(-2, 4)$ with a mean less than zero as we know \emph{a priori} that these countries have low or medium levels of malaria transmission.
 We set independant, regularising priors on the regression coefficients $\beta_i \sim \operatorname{Normal}(0, 0.04)$. 
 Given the standardised covariates, an intercept of -3 and a regression coefficient from the 95\% interquartile range of this distribution, each covariate would be able to predict prevalences between 0.004 and 0.27. 
@@ -315,7 +316,7 @@ $$i_b = \exp(\alpha)\mathrm{PrevInc}(p_b).$$
 
 The only further additions to the baseline model are in the linear predictor which becomes 
 
-$$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \beta X  + u(s, \rho, \sigma_u) + v_a(\sigma_v) + w_b(\sigma_w).$$
+$$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \boldsymbol\beta X  + u(s, \rho, \sigma_u) + v_a(\sigma_v) + w_b(\sigma_w).$$
 As well as the global intercept, $\beta_0$, this model has a prevalence survey only intercept $b_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point survey is being considered.
 The iid random effect, $v_a \sim \operatorname{Norm}(0, \sigma_v)$, was again grouped by polygon, with all pixels and point surveys within polygon $a$ being in the same group as polygon $a$.
 The second iid random effect, $w_b \sim \operatorname{Normal}(0, \sigma_w)$, was applied to each point survey.
