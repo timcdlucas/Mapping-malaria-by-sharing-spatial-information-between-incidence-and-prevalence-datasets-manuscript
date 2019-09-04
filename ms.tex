@@ -100,7 +100,7 @@ Mapping malaria in low burden countries presents new challenges as traditional m
 In low burden areas, very large sample sizes are needed before a prevalence survey is informative because so few individuals have detectable parasitaemia that most sample points will have no cases.
 In most cases, these large sample sizes are neither logistically nor financially feasible.
 However, the availability and quality of routine surveillance data of malaria case counts, typically aggregated by administrative unit polygons, is improving, thus providing an alternative data source for mapping malaria burden \citep{sturrock2016mapping, ohrt2015information, cibulskis2011worldwide}.
-Advantageously, the routine surveillance data can be more sensitive than prevalence point-surveys in low transmission areas because the entire public health system is being used to passively monitor disease occurrence \citep{cibulskis2011worldwide}.
+Advantageously, the routine surveillance data can be more sensitive than prevalence point-surveys in low transmission areas because the entire public health system is being used to passively monitor disease occurrence continually over a period of time\citep{cibulskis2011worldwide}.
 
 Disaggregation regression methods have been proposed as a way to model malaria burden using polygon-level, routine surveillance records of incidence \citep{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
 The intent of this research is to assess the utility of extending disaggregation regression modelling approaches to map malaria incidence using both point- and polygon-level response data. 
@@ -108,7 +108,7 @@ In particular it focuses on two aspects where improvements in the disaggregation
 (1) for modelling low-burden areas which have better coverage of prevalence surveys than polygon incidence data; and
 (2) for building the statistical relationships between the response (i.e. malaria incidence) and geospatial predictor data in heterogeneous landscapes. 
 An ancillary benefit of a hybridized approach is that it will simultaneously produce estimates of both prevalence and incidence metrics, which may both be useful for policy makers \citep{cohen2017mapping}.
-Mdels are typically fitted to observations of one metric and then a secondary model is used to convert between prevalence and incidence \emph{post hoc} \citep{battle2019mapping, bhatt2015effect}, thus missing an opportunity to learn the relationship between prevalence and incidence at the same time as fitting the geographic model. 
+Models are typically fitted to observations of one metric and then a secondary model is used to convert between prevalence and incidence \emph{post hoc} \citep{battle2019mapping, bhatt2015effect}, thus missing an opportunity to learn the relationship between prevalence and incidence at the same time as fitting the geographic model. 
 
 There are two broad ways that spatial information from prevalence surveys could be included in a dissaggregation regression model of incidence.
 Firstly, the information from prevalence surveys could be summarised using a separate model and then included as a covariate in the disaggregation model.
@@ -163,7 +163,7 @@ As the prevalence point-surveys cover different age ranges they were standardise
 As described, the age standardisation model gives the surveys with zero positive cases a small positive prevalence. 
 The polygon incidence data were collated from various government reports and adjusted for incompleteness using methods defined by Cibulskis and colleagues \citep{cibulskis2011worldwide, weiss2019mapping}. 
 These adjustments account for underreporting of clinical cases due to lack of treatment seeking, missing case reports (from a health facility that reported for 11 months in a year for example), and cases that sought medical attention outside the public health systems \citep{battle2016treatment}. 
-Where species specific reports were given, these were used, and in reports that did not distinguish between species of \emph{Plasmodium} the national estimate of the ratio between \emph{P. falciparum} and \emph{P. vivax} cases was used to estimate numbers of \emph{P. falciparum} cases specifically. 
+Where species specific reports were given, these were used, and in reports that did not distinguish between species of \emph{Plasmodium} the national estimate of the ratio between \emph{P. falciparum} and \emph{Plasmodium vivax} cases was used to estimate numbers of \emph{P. falciparum} cases specifically. 
 These adjustments were uniform across each country. 
 The polygon incidence data can be seen in Panel A of Figures~\ref{predobsmapsen}--\ref{predobsmapidn}.
 
@@ -172,8 +172,8 @@ We selected Indonesia, Senegal and Madagascar as case examples as they all have 
 To minimise temporal effects we selected one year of polygon incidence data and the surrounding five years of prevalence point-survey data for each country.
 Within this five year period, we considered malaria unchanging and did not model time explicitely.
 For Indonesia we selected polygon incidence data from 2012 that covers 379 administrative units, and prevalence data from 2010 to 2014 that consists of 1,233 survey clusters (i.e. unique locations), representing 230,747 individuals.
-For Senegal we selected 2015 for polygon incidence data (41 administrative units) and 2013 to 2017 for prevalence data (804 surveys, 17,037 individuals).
-Finally, for Madagascar we selected 2013 for polygon incidence (110 administrative units) and 2011 to 2015 for prevalence data (1,049 surveys, 36,411 individuals).
+For Senegal we selected 2015 for polygon incidence data (41 administrative units) and 2013 to 2017 for prevalence data (804 clusters, 17,037 individuals).
+Finally, for Madagascar we selected 2013 for polygon incidence (110 administrative units) and 2011 to 2015 for prevalence data (1,049 clusters, 36,411 individuals).
 
 
 \subsection*{Population data}
@@ -268,7 +268,7 @@ We used different $\zeta$  and $\xi$ values for each country: Indonesia $\zeta =
 We believe that a large proportion of the variance of malaria prevalence and incidence cannot be explained by a linear combination of the covariates selected at the scale of individual countries \citep{bhatt2017improved}, so we set this prior such that the random field could explain most of the range of the data.
 As Senegal has a lower range of incidences in the data we set $\xi$ to a smaller value for this country.
 
-We assigned $\sigma_v$ a penalised complexity prior \citep{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$
+We assigned $\sigma_v$ a penalised complexity prior \citep{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$.
 This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for the case counts using the approach defined by Cibulskis and colleagues \citep{cibulskis2011worldwide}.
 We found that an iid effect with a standard deviation of 0.05 was able to account for the discrepancy between the assumed Poisson error and the independently derived error.
 
@@ -532,7 +532,7 @@ Furthermore the true relationship between prevalence and incidence is likely to 
 In using a joint model we are accepting these limitations in the hope that the benefits of including additional data outweigh the costs of using mismatched data.
 
 
-Future models could potentially be improved by using a more flexible approach for addressing the shortcomings in the prevalence-incidence relationship \citep{cameron2015defining}.
+Future models could potentially be improved by using a more flexible approach for addressing the shortcomings of the prevalence-incidence relationship \citep{cameron2015defining} being used in this context.
 This could be by estimating the parameters of the polynomial jointly with the rest of the model.
 Informative priors based on the original model could be used to regularise this joint fit both to prevent improbable inferences but also because if the relationship were too flexible, the information from the prevalence data might not contribute to informing the regression parameters and spatial random field.
 This is particularly true for model forms such as a spline or a Gaussian process on the relationship between prevalence and incidence.
@@ -549,7 +549,7 @@ Finally, Gaussian process regression, with smoothly varying effects in environme
 Unfortunately, each of these options is computationally expensive without variational Bayes or other approximations \citep{law2018variational, ton2018spatial}, which can be difficult to derive.
 Additionally these models require a large volume of response data and careful regularisation for good predictive performance.
 
-We used three case studies, limited by the number of coutnries with good aggregated incidence data as well as good prevalence survey data.
+We used three case studies, limited by the number of countries with good aggregated incidence data as well as good prevalence survey data.
 Given the small number of case studies it is hard to determine when these methods are likely to be most effective.
 However, the greatest benefits here were seen in Madagascar, a country with more intermediate transmission intensities.
 In the future, two groups of countries might particularly benefit from the methods presented here.
