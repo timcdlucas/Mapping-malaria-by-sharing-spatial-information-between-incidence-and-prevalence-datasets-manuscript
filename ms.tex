@@ -248,8 +248,8 @@ $$p_b = \operatorname{logit}^{-1}(\eta_b)$$
 The form of this set of link functions means we calculated predictions of prevalence and incidence simultaneously whether both data types or just one were used.
 
 The linear predictor is composed of an intercept, $b_0$, covariates, $X$, and a vector of regression coefficients $\boldsymbol\beta$.
-We also include a spatial, Gaussian random field, $u(s, \rho, \sigma_u)$ and a polygon-level iid random effect, $ v_a(\sigma_v)$.
-$$\eta_b = \beta_0 + \boldsymbol\beta X  + u(s, \rho, \sigma_u) + v_a(\sigma_v) $$
+We also include a spatial, Gaussian random field, $u_s(\rho, \sigma_u)$ and a polygon-level iid random effect, $ v_a(\sigma_v)$.
+$$\eta_b = \beta_0 + \boldsymbol\beta X  + u_s(\rho, \sigma_u) + v_a(\sigma_v) $$
 The Gaussian spatial effect $u(s, \rho, \sigma_u)$ has a Mat\'ern covariance function and two hyper parameters: $\rho$, the nominal range on the longitude-latitude scale (beyond which correlation is $< 0.1$) and $\sigma_u$, the marginal standard deviation.
 The iid random effect, $v_a \sim \operatorname{Normal}(0, \sigma_v)$,  was grouped by polygon, with all pixels within polygon $j$ being grouped together.
 Internally, this effect is parameterised as the log of the precision, $\omega_v = \log(\tau_v) = \log(\frac{1}{{\sigma_v}^2})$ to improve numeric stability.
@@ -269,8 +269,8 @@ We believe that a large proportion of the variance of malaria prevalence and inc
 As Senegal has a lower range of incidences in the data we set $\xi$ to a smaller value for this country.
 
 We assigned $\sigma_v$ a penalised complexity prior \citep{simpson2017penalising} such that $P(\sigma_v > 0.05) = 0.0000001$.
-This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an independently derived upper and lower bound for the case counts using the approach defined by Cibulskis and colleagues \citep{cibulskis2011worldwide}.
-We found that an iid effect with a standard deviation of 0.05 was able to account for the discrepancy between the assumed Poisson error and the independently derived error.
+This was based on a comparison of the variance of Poisson random variables, with rates given by the number of cases observed, and an separately derived upper and lower bound for the case counts using the approach defined by Cibulskis and colleagues \citep{cibulskis2011worldwide}.
+We found that an iid effect with a standard deviation of 0.05 was able to account for the discrepancy between the assumed Poisson error and the separately derived measurement error.
 
 The models were implemented and fitted in R \citep{R} using Template Model Builder \citep{TMB} which allows a Laplace approximation of the posterior to be calculated.
 The hyperparameters are fitted using empirical Bayes whereby the hyperparameters are learned from the data but are treated as point estimates rather than using the full posterior of the hyperparameters.
@@ -318,7 +318,7 @@ $$i_b = \exp(\alpha)\mathrm{PrevInc}(p_b).$$
 
 The only further additions to the baseline model are in the linear predictor which becomes 
 
-$$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \boldsymbol\beta X  + u(s, \rho, \sigma_u) + v_a(\sigma_v) + w_b(\sigma_w).$$
+$$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \boldsymbol\beta X  + u_s(\rho, \sigma_u) + v_a(\sigma_v) + w_b(\sigma_w).$$
 As well as the global intercept, $\beta_0$, this model has a prevalence survey specific intercept $b_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point-survey is being considered.
 The iid random effect, $v_a \sim \operatorname{Norm}(0, \sigma_v)$, was again grouped by polygon, with all pixels and point-surveys within polygon $a$ being in the same group as polygon $a$.
 The second iid random effect, $w_b \sim \operatorname{Normal}(0, \sigma_w)$, was applied to each point-survey.
@@ -351,24 +351,14 @@ This scheme tests specifically whether the joint model can improve predictions b
 %This situation is particularly common in continental scale models where some countries will have large DHS style surveys but little incidence data.
 
 
-We considered the ability of the model to predict polygon incidence to be our main objective and our performance metric for this was mean absolute error (MAE).
-As the models were fitted on data on different scales we found that observations and predictions were sometimes correlated but shifted from the one-one line (i.e. were biased) and therefore correlation metrics were misleading.
-% Why not correlation
-To assess how well the models were calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
-%Finally, we fitted each model to the full data set and examine the parameter estimates for these models.
-
-
-
 \begin{table}
-\caption{\label{table1}
-Summary of out-of-sample accuracy for all cross-validation experiments. 
+\caption{\label{table1}Summary of out-of-sample accuracy for all cross-validation experiments. 
 Mean absolute error of predicted incidence rate against out-of-sample observed data for three countries.}
 \centering
 \fbox{%
-\begin{tabular}{lllll}
-\hline
+\begin{tabular}{*{5}{l}}
 {\bf Cross-validation} & {\bf Country}  & {\bf Baseline} & {\bf Prev GP} & {\bf Joint} \\
-\hline 
+\hline
 Random & Indonesia  & 13.95 &  14.09 &  {\bf 13.79}\\
 & Senegal  & 12.41 &  {\bf 12.37} &  13.07\\
 & Madagascar  & 39.06 &  {\bf 35.82} &  36.36\vspace{3mm}\\
@@ -377,6 +367,13 @@ Spatial & Indonesia & {\bf 14.77} &  {\bf 14.77} &  16.46\\
 & Madagascar & 67.73 &  50.38 &  {\bf 44.05}\\
 \end{tabular}}
 \end{table}
+
+
+We considered the ability of the model to predict polygon incidence to be our main objective and our performance metric for this was mean absolute error (MAE).
+As the models were fitted on data on different scales we found that observations and predictions were sometimes correlated but shifted from the one-one line (i.e. were biased) and therefore correlation metrics were misleading.
+% Why not correlation
+To assess how well the models were calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
+%Finally, we fitted each model to the full data set and examine the parameter estimates for these models.
 
 
 
