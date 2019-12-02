@@ -37,6 +37,8 @@
 % multirow for multiple row tables. 
 \usepackage{multirow}
 
+\usepackage{subfig}
+
 
 
 % Bold the 'Figure #' in the caption and separate it from the title/caption with a period
@@ -351,20 +353,13 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 
 
 
-
 \clearpage
+
 \subsection{Full model fields}
 
 
 \subsubsection{Senegal}
-\begin{figure}[h!]
-\centering
 
-\includegraphics[width = 0.3\textheight]{figures/sen_prevgp.png}
-
-\caption{The prevalence GP model that is used as a covariate.}
-\label{gpsencov}
-\end{figure}
 
 
 
@@ -376,14 +371,16 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \caption{The random field as fitted to all the data in the baseline model.}
 \label{baselinefieldsen}
 \end{figure}
+
+
 \begin{figure}[h!]
-\centering
-
-\includegraphics[width = 0.3\textheight]{figures/sen_prgp_field.png}
-
-\caption{The random field as fitted to all the data in the prevalence GP model.}
-\label{gpfieldsen}
+     \centering
+     \subfloat[][The prevalence GP model that is used as a covariate.]{\includegraphics[width = 0.3\textheight]{figures/sen_prevgp.png}}
+     \subfloat[][The random field as fitted to all the data in the prevalence GP model.]{\includegraphics[width = 0.3\textheight]{figures/sen_prgp_field.png}}
+     \label{gpsencov}
 \end{figure}
+%remaining part
+
 
 \begin{figure}[h!]
 \centering
@@ -399,14 +396,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 
 \clearpage
 \subsubsection{Indonesia}
-\begin{figure}[h!]
-\centering
 
-\includegraphics[width = 0.6\textheight]{figures/idn_prevgp.png}
-
-\caption{The prevalence GP model that is used as a covariate.}
-\label{gpidncov}
-\end{figure}
 
 
 
@@ -415,22 +405,19 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 
 \includegraphics[width =  0.6\textheight]{figures/idn_baseline_field.png}
 
-\caption{The random field as fitted to all the data in the joint model.}
+\caption{The random field as fitted to all the data in the baseline model.}
 \label{baselinefieldidn}
 \end{figure}
 
 
 
 \begin{figure}[h!]
-\centering
-
-\includegraphics[width =  0.6\textheight]{figures/idn_prgp_field.png}
-
-\caption{The random field as fitted to all the data in the joint model.}
-\label{gpfieldidn}
+     \centering
+     \subfloat[][The prevalence GP model that is used as a covariate.]{\includegraphics[width =0.5\textwidth ]{figures/idn_prevgp.png}}
+     \subfloat[][The random field as fitted to all the data in the prevalence GP model.]{\includegraphics[width = 0.5\textwidth]{figures/idn_prgp_field.png}}
+     \label{gpsencov}
 \end{figure}
-
-
+%remaining part
 
 \begin{figure}[h!]
 \centering
@@ -445,14 +432,10 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 
 \clearpage
 \subsubsection{Madagascar}
-\begin{figure}[h!]
-\centering
 
-\includegraphics[width =  0.3\textheight]{figures/mdg_prevgp.png}
 
-\caption{The prevalence GP model that is used as a covariate.}
-\label{gpmdgcov}
-\end{figure}
+
+
 
 \begin{figure}[h!]
 \centering
@@ -462,14 +445,20 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 \caption{The random field as fitted to all the data in the baseline model.}
 \label{baselinefieldmdg}
 \end{figure}
+
+
+
+
 \begin{figure}[h!]
-\centering
-
-\includegraphics[width = 0.3\textheight]{figures/mdg_prgp_field.png}
-
-\caption{The random field as fitted to all the data in the prevalence GP model.}
-\label{gpfieldmdg}
+     \centering
+     \subfloat[][The prevalence GP model that is used as a covariate.]{\includegraphics[width =0.5\textwidth ]{figures/mdg_prevgp.png}}
+     \subfloat[][The random field as fitted to all the data in the prevalence GP model.]{\includegraphics[width = 0.5\textwidth]{figures/mdg_prgp_field.png}}
+     \label{gpsencov}
 \end{figure}
+%remaining part
+
+
+
 
 \begin{figure}[h!]
 \centering

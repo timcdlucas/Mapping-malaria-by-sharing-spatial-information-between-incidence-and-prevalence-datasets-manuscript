@@ -27,7 +27,7 @@ UK.}
 \author{Katherine A. Twohig\textsuperscript{1}}
 \author{Suzanne H. Keddie\textsuperscript{1}}
 \author{Emma L. Collins\textsuperscript{1}}
-\author{Rosalind E. Howes}
+\author{Rosalind E. Howes\textsuperscript{1}}
 \author{Michele Nguyen\textsuperscript{1}}
 \author{Susan F. Rumisha\textsuperscript{1}}
 \author{Andre Python\textsuperscript{1}}
@@ -195,6 +195,7 @@ The covariates were standardised to have a mean of zero and a standard deviation
 \makebox{\includegraphics[width = 1.1\textwidth]{figures/sen_both_cv12_preds.png}}
 \caption{\label{predobsmapsen}
 Reported incidence data and modelled incidence maps for Senegal. 
+The national boundary of Senegal is shown in grey and missing data is left white.
 The adjusted input aggregated data is plotted in Panel A, while Panel B maps the predictions of the prevalence Gaussian Process model for for spatially cross-validated out-of-sample polygons and Panel C maps the predicted incidence from the joint model.
 }
 
@@ -219,6 +220,7 @@ The adjusted input aggregated data is plotted in Panel A, while Panel B maps the
 \makebox{\includegraphics[width = 0.8\textwidth]{figures/idn_both_cv12_preds.png}}
 \caption{\label{predobsmapidn}
 Reported incidence data and modelled incidence maps for Indonesia. 
+The national boundary of Indonesia is shown in grey and missing data is left white.
 The adjusted input aggregated data is plotted in Panel A, while Panel B maps the predictions of the prevalence Gaussian Process model for for spatially cross-validated out-of-sample polygons and Panel C maps the predicted incidence from the joint model.
 }
 \end{figure}
@@ -319,7 +321,7 @@ $$i_b = \exp(\alpha)\mathrm{PrevInc}(p_b).$$
 The only further additions to the baseline model are in the linear predictor which becomes 
 
 $$\eta_b = \beta_0 + \mathbf{1}_p\beta_p +  \boldsymbol\beta X  + u_s(\rho, \sigma_u) + v_a(\sigma_v) + w_b(\sigma_w).$$
-As well as the global intercept, $\beta_0$, this model has a prevalence survey specific intercept $b_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point-survey is being considered.
+As well as the global intercept, $\beta_0$, this model has a prevalence survey specific intercept $\beta_p$ where the indicator function, $\mathbf{1}_p$ denotes that this term is zero except when a prevalence point-survey is being considered.
 The iid random effect, $v_a \sim \operatorname{Norm}(0, \sigma_v)$, was again grouped by polygon, with all pixels and point-surveys within polygon $a$ being in the same group as polygon $a$.
 The second iid random effect, $w_b \sim \operatorname{Normal}(0, \sigma_w)$, was applied to each point-survey.
 To improve numeric stability this effect is also parameterised internally as the log of the precision, $\omega_w = \log(\tau_w) = \log(\frac{1}{{\sigma_w}^2})$.
