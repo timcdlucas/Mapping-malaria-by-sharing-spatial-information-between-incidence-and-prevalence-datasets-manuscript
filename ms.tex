@@ -32,19 +32,20 @@ UK.}
 \author{Susan F. Rumisha\textsuperscript{1}}
 \author{Andre Python\textsuperscript{1}}
 \author{Rohan Arambepola\textsuperscript{1}}
-\author{Amelia Bertozzi-Villa\textsuperscript{1}}
+\author{Amelia Bertozzi-Villa\textsuperscript{1,2}}
 \author{Penelope Hancock\textsuperscript{1}}
 \author{Punam Amratia\textsuperscript{1}}
 \author{Katherine E. Battle\textsuperscript{1}}
 \author{Ewan Cameron\textsuperscript{1}}
-\author{Peter W. Gething\textsuperscript{1, 2, 3}}
+\author{Peter W. Gething\textsuperscript{1, 3, 4}}
 \author{Daniel J. Weiss\textsuperscript{1}}
 \address{1. Big Data Institute,
 University of Oxford,
 Oxford,
 UK.}
-\address{2. Telethon Kids Institute, Perth Children’s Hospital, Perth, Australia}
-\address{3. Curtin University, Perth, Australia}
+\address{2. Institute for Disease Modeling, Bellevue, WA, USA}
+\address{3. Telethon Kids Institute, Perth Children’s Hospital, Perth, Australia}
+\address{4. Curtin University, Perth, Australia}
 
 % Title must be 250 characters or less.
 
@@ -102,7 +103,14 @@ In most cases, these large sample sizes are neither logistically nor financially
 However, the availability and quality of routine surveillance data of malaria case counts, typically aggregated by administrative unit polygons, is improving, thus providing an alternative data source for mapping malaria burden \citep{sturrock2016mapping, ohrt2015information, cibulskis2011worldwide}.
 Advantageously, the routine surveillance data can be more sensitive than prevalence point-surveys in low transmission areas because the entire public health system is being used to passively monitor disease occurrence continually over a period of time\citep{cibulskis2011worldwide}.
 
-Disaggregation regression methods have been proposed as a way to model malaria burden using polygon-level, routine surveillance records of incidence \citep{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log}.
+Disaggregation regression methods have been proposed as a way to model malaria burden using polygon-level, routine surveillance records of incidence \citep{sturrock2014fine, wilson2017pointless, law2018variational, taylor2017continuous, li2012log, johnson2019spatially}.
+Disaggregation regression requires an aggregation step in which the high-resolution estimates of disease incidence are summed to match the level of the administitive unit at which the incidence data are observed.
+An important consideration is whether the aggregation step occurs in link function space or in the response space.
+In the case of the identity link function, the two cases are the same \citep{moraga2017geostatistical, roksvaag2019knowledge, wilson2017pointless}.
+However, when using a non-linear link function, the two cases imply very different models.
+In the case of the Normal--Poisson pairing  with a log-link function, performing the aggregation step in the link space before transformation back to the response space produces  a `geometric sum' operation.
+This formulation has been used for computational convenience a number of times in the literature \citep{wang2018generalized, liu2011empirical} but lacks the natural epidemiological interpretation provided by arithmetic summation in the response space.
+
 The intent of this research is to assess the utility of extending disaggregation regression modelling approaches to map malaria incidence using both point- and polygon-level response data. 
 In particular it focuses on two aspects where improvements in the disaggregation regression may be possible:
 (1) for modelling low-burden areas which have better coverage of prevalence surveys than polygon incidence data; and
@@ -116,12 +124,17 @@ If the model used to summarise the prevalence surveys was explicitly spatial, th
 However, this approach does not provide additional degrees of freedom in order to more accurately learn relationships between malaria risk and the environment, nor does it allow joint predictions of incidence and prevalence from a single model.
 This broad approach of summarising the information in a different data set using a separate model has previously been used in a number of contexts, including information on animal hosts \citep{shearer2016estimating} or summarising temperature suitability for malaria parasites \citep{weiss2014air}, which were subsequently used as inputs for modeling malaria prevalence \citep{bhatt2015effect, weiss2019mapping}.
 
+
+
 Fully combining observations of incidence and prevalence in a joint model, with multiple likelihoods, addresses the limitations of a simple model using a prevelance map as a covariate.
 Advantageously, as the additional malariometric data are being used as response data, they provide more degrees of freedom with which to learn relationships between malaria risk and the environment.
 Such a model can also learn the relationship between different types of malaria response metrics at the same time as making spatial estimates, thereby producing statistically and epidemiologically consistent outputs for both incidence and prevalence.
 While a joint model provides the opportunity to learn the relationship between prevalence and incidence, this is technically challenging as these two data types measure disease intensity on different scales.
 Point-surveys are a measurement of prevalence in the range $\lbrack 0, 1\rbrack$ that quantify parasite rate at a specific point in time.
 In contrast, routine surveillance measures incidence in the range $\lbrack 0, \infty\rbrack$ over a longer period of time (e.g., a year) during which individuals can have multiple malaria infections.
+The case of using areal and point data together with different likelihoods and different link functions has been examined previously \citep{wang2018generalized} but has required that the aggregation step be performed in the link function space. 
+Disaggregation regression models in which the aggregation step is performed in the natural response space have been examined \citep{wilson2017pointless, taylor2017continuous}, but without combining point data with areal data or using dual likelihoods for multi-metric data.
+
 %One approach to combining these datasets is to use a separately estimated model that maps one scale to another such as \citep{cameron2015defining}.
 
 %Ideal situation is to combine data
@@ -132,13 +145,18 @@ In contrast, routine surveillance measures incidence in the range $\lbrack 0, \i
 %Firstly, the spatial information from prevalence surveys could be summarised using a separate model and then included as a covariate in the disaggregation model.
 % If the model used to summarise the prevalence surveys is explicitly spatial, this approach would make the spatial information in the prevalence data available to be used by the
 
+
+
 Here we compare two methods for using spatial information from prevalence surveys to inform a disaggregation model fitted to polygon incidence data of \emph{Plasmodium falciparum}  malaria.
 The first, simpler, model summarises the spatial information in the prevalence point-surveys by fitting a spatial Gaussian process model to the surveys.
 Predictions from this model are then used as a covariate in the disaggregation model.
 Secondly, we formulate a joint model that combines polygon incidence data and prevalence point-surveys using separate likelihoods for both data types.
 We relate the differing malariometric measures by using a previously estimated relationship within the model \citep{cameron2015defining} which is then adjusted as part of the model fitting process.
+Unlike previous studies, this model combines areal and point level data, with different likelihoods, without performing the aggregation step in the link function space.
 We then compare results from the two models with those made using a polygon-only, disaggregation model similar to previous models \citep{sturrock2014fine, wilson2017pointless}.
 All models are fitted to data from Indonesia, Senegal and Madagascar to provide a set of case studies from disparate geographic settings and with differing levels of malaria endemicity.
+
+
 
 %here we compared 3 models, point only, polygon only and joint models
 %we use Madagascar and Indonesia as case studies as they have good %surveillance data and good pr data.
