@@ -275,7 +275,9 @@ This was based on a comparison of the variance of Poisson random variables, with
 We found that an iid effect with a standard deviation of 0.05 was able to account for the discrepancy between the assumed Poisson error and the separately derived measurement error.
 
 The models were implemented and fitted in R \citep{R} using Template Model Builder \citep{TMB} which allows a Laplace approximation of the posterior to be calculated.
+We note that R-INLA \citep{INLA} can be used to fit disaggregation models but only when a linear link function is being used \cite{wilson2017pointless}.
 The hyperparameters are fitted using empirical Bayes whereby the hyperparameters are learned from the data but are treated as point estimates rather than using the full posterior of the hyperparameters.
+
 
 %\begin{figure}[t!]
 %% to be removed before submission
