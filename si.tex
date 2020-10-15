@@ -257,6 +257,35 @@ The one-one line is shown with a black line and a simple linear regression throu
 
 
 \clearpage
+\section{Priors}
+
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.8\textwidth]{figures/spatial_pc_density.png}
+
+\caption{Probability density of the penalised complexity prior for the range and marginal standard deviation for the spatial random field as used in Madagascar models..}
+\label{dens}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.8\textwidth]{figures/spatial_pc_logdensity.png}
+
+
+\caption{Log probability density of the penalised complexity prior for the range and marginal standard deviation for the spatial random field as used in Madagascar models..}
+\label{logdens}
+\end{figure}
+
+
+
+
+\clearpage
 \section{Cross-validation predictions}
 
 
@@ -363,6 +392,7 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 
 
 
+\clearpage
 
 \subsection{Senegal}
 
@@ -620,31 +650,29 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 
 
 
-\clearpage
-\section{Priors}
+\section{Robustness experiment}
 
 
-
-\begin{figure}[h!]
+\begin{table}
+\caption{\label{table1}Summary of out-of-sample accuracy for all cross-validation, robustness experiments.
+For each fold, one data point in the training set is changed to either 5 times or $\frac{1}{5}$ times its original value.
+All test data is kept the same. 
+Mean absolute error of predicted incidence rate against out-of-sample observed data for three countries. 
+Results that are significantly better or worse than the baseline (at the 95\% significance level) are indicated with a dagger.
+}
 \centering
-
-\includegraphics[width =  0.8\textwidth]{figures/spatial_pc_density.png}
-
-\caption{Probability density of the penalised complexity prior for the range and marginal standard deviation for the spatial random field as used in Madagascar models..}
-\label{dens}
-\end{figure}
-
-
-
-\begin{figure}[h!]
-\centering
-
-\includegraphics[width =  0.8\textwidth]{figures/spatial_pc_logdensity.png}
-
-
-\caption{Log probability density of the penalised complexity prior for the range and marginal standard deviation for the spatial random field as used in Madagascar models..}
-\label{logdens}
-\end{figure}
+\fbox{%
+\begin{tabular}{*{5}{l}}
+{\bf Cross-validation} & {\bf Country}  & {\bf Baseline} & {\bf Prev GP} & {\bf Joint} \\
+\hline
+Random & Indonesia  &  &   &  \\
+& Senegal 13.35 & 13.28 & 14.47  &  \\
+& Madagascar  &  & &  \vspace{3mm}\\
+Spatial & Indonesia &  &  &  \\
+& Senegal 11.70 & 11.53 & 13.97   &  \\
+& Madagascar &  &   &  \\
+\end{tabular}}
+\end{table}
 
 
 
