@@ -387,7 +387,7 @@ In each case we tested whether the differences between the new models and the ba
 \begin{table}
 \caption{\label{table1}Summary of out-of-sample accuracy for all cross-validation experiments. 
 Mean absolute error of predicted incidence rate against out-of-sample observed data for three countries. 
-Results that are significantly better or worse than the baseline (at the 95\% significance level) are indicated with a dagger.
+Results that are significantly better or worse than the baseline (at the 95\% significance level) are indicated with a dagger or asterisk respectively.
 }
 \centering
 \fbox{%
@@ -397,8 +397,8 @@ Results that are significantly better or worse than the baseline (at the 95\% si
 Random & Indonesia  & 13.95 &  14.09 &  13.79\\
 & Senegal  & 12.41 &  12.37 &  13.07\\
 & Madagascar  & 39.06 & 35.82 &  39.01\vspace{3mm}\\
-Spatial & Indonesia & 14.77 & 14.77 &  16.46\dag\\
-& Senegal  & 13.09 &   12.21 &  15.15\dag\\
+Spatial & Indonesia & 14.77 & 14.77 &  16.46$\ast$\\
+& Senegal  & 13.09 &   12.21 &  15.15$\ast$\\
 & Madagascar & 67.73 &  50.38\dag &  44.05\dag\\
 \end{tabular}}
 \end{table}
@@ -446,7 +446,7 @@ Out-of-sample predictions, under spatial cross validation, from the prevalence G
 % to be removed before submission
 \makebox{\includegraphics[width = 1.05\textwidth]{figures/spatialkeeppr_cv_poly_facet.pdf}}
 \caption{\label{spatial2predobspolyfacet} 
-Observed-predicted plots (square root scale) of modelled annual malaria incidence (cases per 1000) by country from the spatial cross-validation experiments for Indonesia (Panel A), Senegal (Panel B) and Madagascar (Panel C). 
+Observed-predicted plots of modelled annual malaria incidence (cases per 1000) by country from the spatial cross-validation experiments for Indonesia (Panel A), Senegal (Panel B) and Madagascar (Panel C). 
 Results from the baseline disaggregation model are shown in red, the prevalence GP model is shown in green while the joint model is shown in blue.
 The one-one line is shown with a black line and a simple linear regression through the points is shown by a coloured line.
 }
