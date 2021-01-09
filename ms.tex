@@ -408,6 +408,10 @@ We considered the ability of the model to predict polygon incidence to be our ma
 As the models were fitted on data on different scales we found that observations and predictions were sometimes correlated but shifted from the one-one line (i.e. were biased) and therefore correlation metrics were misleading.
 % Why not correlation
 To assess how well the models were calibrated we considered coverage of the 80\% predictive credible intervals on the hold-out data.
+Finally we compared the widths of the posterior distributions for the regression parameters (the $\beta_i$'s) and the hyperparameters for the random field ($\rho$ and $\sigma_u$).
+For these comparisons we report the average of the standard deviations of the posteriors for each group of parameters across all the random cross-validation model fits.
+The prevalence GP model has one more $\beta_i$ than the other two models that relates to the additional covariate created by fitting a Gaussian Process to prevalence data. 
+We did not include this parameter when comparing the widths of the $\beta_i$ parameters.
 %Finally, we fitted each model to the full data set and examine the parameter estimates for these models.
 
 
