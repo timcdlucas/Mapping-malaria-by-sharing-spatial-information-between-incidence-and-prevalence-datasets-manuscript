@@ -244,7 +244,7 @@ $\beta_0$ & -5.83 & 0.65 & -5.59 & 0.80 & -6.31 & 0.56 \\
 
 \begin{figure}
 % to be removed before submission
-\makebox{\includegraphics[width = 1.05\textwidth]{figures/random_cv_poly_facet.pdf}  }
+\makebox{\includegraphics[width = 1\textwidth]{figures/random_cv_poly_facet.pdf}  }
 \caption{\label{randompredobspolyfacet} 
 Observed-predicted plots of modelled annual malaria incidence (cases per 1000) by country from the random cross-validation experiments for Indonesia (Panel A), Senegal (Panel B) and Madagascar (Panel C). 
 Results from the baseline disaggregation model are shown in red, the prevalence GP model is shown in green while the joint model is shown in blue.
@@ -651,5 +651,169 @@ The incidence (log10) data (top), predicted log10 incidence from the prevalence 
 
 
 
+\clearpage
+\section{Model Errors}
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.8\textheight]{figures/random_cv_model_error.pdf}
+
+\caption{
+Density plots of the model errors on random CV hold out data.
+The x-axis on the Indonesia plot is artifically cut at -1 and 1.
+}
+\label{rnd_cv_error}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.8\textheight]{figures/spatial_cv_model_error.pdf}
+
+\caption{
+Density plots of the model errors on random CV hold out data.
+The x-axis on the Indonesia plot is artifically cut at -40.
+It can be seen that there is a bias towards overpredicting the small API values in Indonesia in the joint model. 
+Overall however this was the least biased model.
+The joint model in Senegal is not clearly biased but just has larger errors in general.
+}
+}
+\label{spat_cv_errors}
+\end{figure}
+
+
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.8\textheight]{figures/mdg_model_error_vs_observed.pdf}
+
+\caption{
+Plot of prediction error against observed API for Madagascar.
+In this case the joint model was significantly better than the baseline.
+We can see that the baseline model underpredicts high incidence areas and overpredicts low incidence areas.
+The underprediction of low incidence areas is reduced in the other two models.
+}
+
+\label{mdg_error_obs}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.8\textheight]{figures/idn_model_error_vs_observed.pdf}
+
+\caption{
+Plot of prediction error against observed API for Indonesia.
+In this case the joint model was significantly worse than the baseline.
+We can see that all models underpredict high incidence areas.
+While all models overpredict the low incidence areas this is particularly pronounced in the joint model.
+}
+
+\label{idn_error_obs}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.8\textheight]{figures/sen_model_error_vs_observed.pdf}
+
+\caption{
+Plot of prediction error against observed API for Senegal.
+In this case the joint model was significantly worse than the baseline.
+Compared to the baseline and prevalence GP models, the joint model makes better predictions for high incidence areas (API over 50).
+Some of the medium incidence areas (API of 12-50) are quite strongly overpredicted while the other two models show stronger bias in the region with all medium incidence areas being underpredicted. 
+Finally, the joint model has a stronger overprediction bias in low incidence areas.
+}
+
+\label{idn_error_obs}
+\end{figure}
+
+
+\clearpage
+\section{Additional performance metrics}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllrrr}
+  \hline
+ Country & Model & RMSE & MAE & Mean Error \\ 
+  \hline
+SEN & Joint & 20.53 & 13.07 & -5.84 \\ 
+  SEN & Base & 22.10 & 12.41 & -6.77 \\ 
+  SEN & PrevGP & 21.41 & 12.37 & -6.31 \\ 
+  IDN & Joint & 52.08 & 13.79 & -10.73 \\ 
+  IDN & Base & 51.73 & 13.95 & -10.65 \\ 
+  IDN & PrevGP & 51.59 & 14.09 & -9.74 \\ 
+  MDG & Joint & 60.44 & 36.36 & -10.55 \\ 
+  MDG & Base & 62.92 & 39.06 & -14.18 \\ 
+  MDG & PrevGP & 61.15 & 35.82 & -13.53 \\ 
+   \hline
+\end{tabular}
+\caption{The root mean square error, mean absolute error and mean error (i.e. bias) for the models under random crossvalidation.}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllrrr}
+  \hline
+  Country & Model & RMSE & MAE & Mean Error \\ 
+  \hline
+SEN & Joint & 22.24 & 15.15 & -2.15 \\ 
+  SEN & Base & 22.77 & 13.09 & -10.35 \\ 
+  SEN & PrevGP & 21.68 & 12.21 & -9.32 \\ 
+  IDN & Joint & 55.39 & 16.46 & -10.92 \\ 
+  IDN & Base & 55.07 & 14.77 & -12.78 \\ 
+  IDN & PrevGP & 54.99 & 14.77 & -12.78 \\ 
+  MDG & Joint & 70.49 & 44.05 & 12.52 \\ 
+  MDG & Base & 102.80 & 67.73 & 7.73 \\ 
+  MDG & PrevGP & 76.89 & 50.38 & -14.31 \\ 
+
+   \hline
+\end{tabular}
+\caption{The root mean square error, mean absolute error and mean error (i.e. bias) for the models under spatial crossvalidation.}
+\end{table}
+
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  0.8\textwidth]{figures/java_only.pdf}
+
+\caption{
+Focused map of data on the island of Java, Indonesia.
+Colour gives API (notice the log scale) for polygon incidence data and prevalence converted to estimated incidence for the point prevalence surveys.
+Areas with incidence of zero are grey.
+The area with many surveys and lots of areas with zero API, around (107, -6), is Jakarta, the current capital (as of 2021).
+The prevalence surveys mostly have sample sizes of about 100. 
+The surveys with API of close to 100 typically have prevalence of around 3\%.
+}
+\label{rnd_cv_error}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\centering
+
+\includegraphics[width =  1\textwidth, trim = ]{figures/sen_error_plot.pdf}
+
+\caption{
+Left) The observed API data.
+Middle) The error (predicted minus observed) for the spatial cross-validation scheme with the baseline model.
+Right) The error for the spatial cross-validation scheme with the joint model.
+Red is over prediction, blue is underprediction.
+}
+\label{rnd_cv_error}
+\end{figure}
 
 \end{document}
